@@ -10,7 +10,11 @@
     "deploy:bsc": "hardhat run scripts/deploy.js --network bsc",
     "frontend:dev": "npm --prefix frontend run dev",
     "frontend:build": "npm --prefix frontend run build",
-    "build": "npm run compile && npm run frontend:build"
+    "build": "npm run compile && npm run frontend:build",
+    "enable-mint:bsc": "hardhat run scripts/enable-mint.js --network bsc",
+    "enable-mint:bscTestnet": "hardhat run scripts/enable-mint.js --network bscTestnet",
+    "distribute:bsc": "hardhat run scripts/distribute.js --network bsc",
+    "distribute:bscTestnet": "hardhat run scripts/distribute.js --network bscTestnet"
   },
   "keywords": [],
   "author": "",
