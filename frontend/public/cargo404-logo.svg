@@ -1,0 +1,11 @@
+<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="128" height="128" rx="22" fill="#030402"/>
+<circle cx="64" cy="64" r="55" fill="#080B05" stroke="#8DDB3F" stroke-opacity="0.22"/>
+<path d="M31 52L64 40L97 52V79L64 91L31 79V52Z" stroke="#8DDB3F" stroke-width="5" stroke-linejoin="round"/>
+<path d="M64 40V91M31 52L64 64L97 52" stroke="#8DDB3F" stroke-width="4" stroke-linejoin="round"/>
+<path d="M76 61H93M77 72H93" stroke="#FFD11A" stroke-width="5" stroke-linecap="square"/>
+<path d="M40 65L47 72M47 65L40 72M51 78H60" stroke="#8DDB3F" stroke-width="4" stroke-linecap="square"/>
+<path d="M47 35L64 24L81 35" stroke="#8DDB3F" stroke-width="4" stroke-linecap="square" stroke-dasharray="4 5"/>
+<path d="M64 15V25" stroke="#8DDB3F" stroke-width="5" stroke-linecap="square" stroke-dasharray="4 6"/>
+<text x="64" y="116" text-anchor="middle" font-family="monospace" font-weight="900" font-size="18" fill="#8DDB3F">CARGO<tspan fill="#FFD11A">404</tspan></text>
+</svg>
