@@ -7,7 +7,7 @@ ERROR 404: CARGO NOT FOUND
 Route missing. Cargo loaded. Convoy deployed.
 ```
 
-- **Live app:** https://frontend-caro-404.vercel.app
+- **Live app:** https://cargo404.vercel.app/
 - **Repository:** https://github.com/cargoterminal/cargo404
 - **Network:** BNB Smart Chain Mainnet
 - **Contract:** [`0x586A95703e0AeEE7fE801efB8B66243884Fde811`](https://bscscan.com/address/0x586A95703e0AeEE7fE801efB8B66243884Fde811#code)
