@@ -1,4 +1,4 @@
-import { ArrowUpRight, Boxes, PackageSearch, ShieldCheck, TerminalSquare } from 'lucide-react'
+import { ArrowUpRight, Boxes, PackageSearch, ShieldCheck, TerminalSquare, Zap } from 'lucide-react'
 import { MintPanel } from './components/MintPanel'
 import { cargo404Address } from './contract'
 import './App.css'
@@ -14,52 +14,77 @@ const stats = [
 const steps = [
   {
     icon: <TerminalSquare />,
-    title: 'step 1 — connect wallet',
-    copy: 'Connect a BNB Smart Chain wallet. No seed phrase, no hidden approval, no weird signature flow.',
+    title: 'connect wallet',
+    copy: 'Open the BNB Smart Chain cargo link via Reown AppKit. No seed phrase. No stealth approval.',
   },
   {
     icon: <PackageSearch />,
-    title: 'step 2 — select cargo',
-    copy: 'Choose how many cargo units to load. Each unit mints 100,000 C404 for 0.0025 BNB.',
+    title: 'load cargo units',
+    copy: 'Pick 1–10 cargo units. Each unit mints 100,000 C404 for exactly 0.0025 BNB.',
   },
   {
     icon: <Boxes />,
-    title: 'step 3 — receive c404',
-    copy: 'Confirm the transaction and your C404 cargo lands directly in your wallet.',
+    title: 'receive C404',
+    copy: 'Confirm in wallet. Cargo lands directly onchain after the BSC transaction confirms.',
   },
 ]
 
 function App() {
   return (
-    <main className="minimal-shell">
-      <header className="minimal-nav">
-        <a className="minimal-brand" href="#top" aria-label="Cargo404 home">
+    <main className="cargo-shell">
+      <div className="ambient ambient-a" />
+      <div className="ambient ambient-b" />
+
+      <header className="cargo-nav">
+        <a className="cargo-brand" href="#top" aria-label="Cargo404 home">
           <img src="/cargo404.png" alt="Cargo404" />
           <span>cargo404</span>
         </a>
         <nav aria-label="Primary navigation">
-          <a href="#top">home</a>
           <a href="#mint">mint</a>
           <a href="#how">how</a>
           <a href={bscscanUrl} target="_blank" rel="noreferrer">contract ↗</a>
         </nav>
       </header>
 
-      <section className="minimal-hero" id="top">
-        <p className="kicker">BNB Smart Chain · verified mint terminal</p>
-        <div className="hero-lockup" aria-label="Cargo404 BNB mint terminal">
-          <h1>Cargo404</h1>
-          <span>BNB mint terminal</span>
+      <section className="hero-grid" id="top">
+        <div className="hero-copy">
+          <p className="kicker"><Zap size={13} /> BNB MAINNET · VERIFIED C404 TERMINAL</p>
+          <h1>
+            ERROR 404:<br />
+            <span>CARGO FOUND.</span>
+          </h1>
+          <p className="hero-note">
+            Black/neon mint interface for Cargo404 — fixed-supply C404 token on BNB Smart Chain.
+            Clean wallet flow, no hidden approvals, and contract-first launch proof.
+          </p>
+          <div className="hero-actions">
+            <a className="hero-primary" href="#mint">◆ open mint terminal</a>
+            <a className="hero-secondary" href={bscscanUrl} target="_blank" rel="noreferrer">view bscscan <ArrowUpRight size={15} /></a>
+          </div>
+          <div className="hero-chips" aria-label="Cargo404 mint quick facts">
+            <span>0.0025 BNB</span>
+            <span>100,000 C404 / cargo</span>
+            <span>10 cargo wallet cap</span>
+          </div>
         </div>
-        <p className="hero-note">
-          A verified mint flow for C404 cargo units. Fixed price, clear wallet cap,
-          and direct onchain settlement on BNB Smart Chain.
-        </p>
-        <div className="hero-chips" aria-label="Cargo404 mint quick facts">
-          <span>0.0025 BNB</span>
-          <span>100,000 C404 / cargo</span>
-          <span>10 cargo cap</span>
-        </div>
+
+        <aside className="ascii-card" aria-label="Cargo404 terminal visual">
+          <div className="terminal-dots"><i /><i /><i /></div>
+          <pre>{String.raw`> boot cargo404.exe
+> route: BNB_MAINNET
+> contract: 0x586A...811
+
+      ██████╗ █████╗ ██████╗  ██████╗  ██████╗
+     ██╔════╝██╔══██╗██╔══██╗██╔════╝ ██╔═══██╗
+     ██║     ███████║██████╔╝██║  ███╗██║   ██║
+     ██║     ██╔══██║██╔══██╗██║   ██║██║   ██║
+     ╚██████╗██║  ██║██║  ██║╚██████╔╝╚██████╔╝
+      ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝  ╚═════╝
+
+[status] convoy deployed
+[mode] public mint terminal`}</pre>
+        </aside>
       </section>
 
       <section className="progress-card" aria-label="Cargo404 mint overview">
@@ -90,8 +115,9 @@ function App() {
 
       <section className="mint-section" id="mint">
         <div className="section-heading">
+          <p>LIVE MODULE</p>
           <h2>Mint terminal</h2>
-          <p>Connect wallet, switch to BNB Smart Chain, select cargo amount, then load cargo.</p>
+          <span>React + Vite + Wagmi + Viem + Reown AppKit wallet flow.</span>
         </div>
         <MintPanel />
       </section>
@@ -107,12 +133,14 @@ function App() {
 
       <section className="how-section" id="how">
         <div className="section-heading">
+          <p>FLOW</p>
           <h2>How it works</h2>
-          <p>A simple mint flow with clear wallet and contract states.</p>
+          <span>Fast mint path with visible state, readable limits, and BSC contract link.</span>
         </div>
         <div className="step-list">
-          {steps.map((step) => (
+          {steps.map((step, index) => (
             <article key={step.title}>
+              <b>0{index + 1}</b>
               {step.icon}
               <div>
                 <h3>{step.title}</h3>
@@ -127,14 +155,12 @@ function App() {
         <ShieldCheck />
         <div>
           <h2>Mint rules</h2>
-          <p>
-            Verified contract, fixed mint price, max 10 cargo per wallet. Always DYOR and only mint what you can afford to lose.
-          </p>
+          <p>Fixed mint price, max 10 cargo per wallet, verified contract. Always confirm the contract before signing.</p>
         </div>
         <a href={bscscanUrl} target="_blank" rel="noreferrer">view contract <ArrowUpRight size={15} /></a>
       </section>
 
-      <footer className="minimal-footer">
+      <footer className="cargo-footer">
         <span>cargo404 · c404 · bnb smart chain</span>
         <div>
           <a href={bscscanUrl} target="_blank" rel="noreferrer">source</a>
