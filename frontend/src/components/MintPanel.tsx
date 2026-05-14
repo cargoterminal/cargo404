@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react'
+import type { Connector } from 'wagmi'
 import { parseEther, formatEther } from 'viem'
 import { bsc } from 'wagmi/chains'
 import {
@@ -22,10 +23,11 @@ const placeholderAddress = '0x0000000000000000000000000000000000000000'
 export function MintPanel() {
   const [units, setUnits] = useState(1)
   const { address, isConnected, chainId } = useAccount()
-  const { connect, connectors, isPending: isConnecting } = useConnect()
+  const { connect, connectors, isPending: isConnecting, error: connectError } = useConnect()
   const { disconnect } = useDisconnect()
   const { switchChain } = useSwitchChain()
   const { writeContract, data: hash, isPending: isWriting, error } = useWriteContract()
+  const [connectorMenuOpen, setConnectorMenuOpen] = useState(!isConnected)
 
   const contractReady = cargo404Address !== placeholderAddress
   const wrongChain = isConnected && chainId !== bsc.id
@@ -70,7 +72,19 @@ export function MintPanel() {
     })
   }
 
-  const connectWallet = () => connect({ connector: connectors[0] })
+  const connectWallet = (connector: Connector) => {
+    connect({ connector })
+    setConnectorMenuOpen(false)
+  }
+
+  const openConnectorMenu = () => {
+    setConnectorMenuOpen((open) => !open)
+  }
+
+  const hasInjectedWallet = typeof window !== 'undefined' && 'ethereum' in window
+  const visibleConnectors = connectors.filter((connector) => hasInjectedWallet || connector.id !== 'injected')
+  const currentUrl = typeof window !== 'undefined' ? window.location.href : 'https://frontend-caro-404.vercel.app'
+  const currentDappPath = currentUrl.replace(/^https?:\/\//, '')
   const displayedAddress = isConnected ? shortAddress(address) : 'not connected'
   const statusLabel = !contractReady ? 'offline' : mintActive ? 'live' : 'gate closed'
   const copyContract = () => {
@@ -115,13 +129,48 @@ export function MintPanel() {
         <div className="terminal-field">
           <span>wallet address</span>
           {!isConnected ? (
-            <button type="button" onClick={connectWallet} disabled={isConnecting}>connect cargo wallet →</button>
+            <button type="button" onClick={openConnectorMenu} disabled={isConnecting}>
+              {isConnecting ? 'opening wallet...' : 'connect cargo wallet →'}
+            </button>
           ) : (
             <button type="button" onClick={() => disconnect()}>{displayedAddress} · disconnect</button>
           )}
         </div>
         {!isConnected ? (
-          <button className="primary-btn" disabled={isConnecting} onClick={connectWallet}>◆ CONNECT WALLET FIRST</button>
+          <>
+            <button className="primary-btn" disabled={isConnecting} onClick={openConnectorMenu}>
+              {isConnecting ? '◆ OPENING WALLET...' : '◆ CONNECT WALLET FIRST'}
+            </button>
+            {connectorMenuOpen && (
+              <div className="connector-menu" aria-label="Wallet connectors">
+                {visibleConnectors.length > 0 ? (
+                  visibleConnectors.map((connector) => (
+                    <button
+                      key={connector.uid}
+                      type="button"
+                      disabled={isConnecting}
+                      onClick={() => connectWallet(connector)}
+                    >
+                      {connector.name}
+                    </button>
+                  ))
+                ) : (
+                  <>
+                    <a href={`https://metamask.app.link/dapp/${currentDappPath}`}>Open in MetaMask</a>
+                    <a href={`https://link.trustwallet.com/open_url?coin_id=20000714&url=${encodeURIComponent(currentUrl)}`}>
+                      Open in Trust Wallet
+                    </a>
+                  </>
+                )}
+              </div>
+            )}
+            {!hasInjectedWallet && (
+              <p className="wallet-help">
+                No browser wallet detected. Open this page in MetaMask/Trust Wallet mobile browser,
+                or install MetaMask/Rabby on desktop, then connect again.
+              </p>
+            )}
+          </>
         ) : wrongChain ? (
           <button className="primary-btn" onClick={() => switchChain({ chainId: bsc.id })}>◆ SWITCH TO BSC</button>
         ) : null}
@@ -147,6 +196,7 @@ export function MintPanel() {
 
       {!contractReady && <p className="warning">Contract address pending deployment. Mint unlocks after launch.</p>}
       {walletRemaining === 0 && <p className="warning">Wallet limit reached: 10/10 cargo loaded.</p>}
+      {connectError && <p className="warning">Wallet connection failed: {connectError.message.split('\n')[0]}</p>}
       {isSuccess && receipt && <p className="success">Cargo loaded. TX confirmed.</p>}
       {error && <p className="warning">{error.message.split('\n')[0]}</p>}
     </section>

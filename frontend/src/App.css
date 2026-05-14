@@ -311,6 +311,8 @@
 .stepper button,
 .bottom-actions button,
 .terminal-field button,
+.connector-menu button,
+.connector-menu a,
 .safety-note a {
   min-height: 42px;
   border: 1px solid var(--line-strong);
@@ -334,6 +336,8 @@
 .stepper button:hover,
 .bottom-actions button:hover,
 .terminal-field button:hover,
+.connector-menu button:hover:not(:disabled),
+.connector-menu a:hover,
 .safety-note a:hover {
   transform: translate(-2px, -2px);
   box-shadow: 4px 4px 0 var(--line-strong);
@@ -342,7 +346,8 @@
 }
 
 .copy-contract:disabled,
-.primary-btn:disabled {
+.primary-btn:disabled,
+.connector-menu button:disabled {
   color: #71805c;
   border-color: rgba(143,215,55,.24);
   background: rgba(255,255,255,.035);
@@ -385,6 +390,29 @@
 .terminal-field button:hover {
   transform: none;
   box-shadow: none;
+}
+
+.connector-menu {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.connector-menu button,
+.connector-menu a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  text-decoration: none;
+}
+
+.wallet-help {
+  border: 1px solid rgba(240, 205, 93, .24);
+  background: rgba(240, 205, 93, .06);
+  padding: 11px 12px;
+  color: var(--yellow) !important;
 }
 
 .stepper {
