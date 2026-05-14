@@ -27,11 +27,11 @@ Cargo404 is a fixed-supply ERC20 token contract. The `404` identity is terminal/
 
 ## Project status
 
-Cargo404 is being updated to the 40.4M fixed-supply Option A tokenomics before public mint. The previous 1B-supply contract should not be used for launch:
+Cargo404 is deployed with the 40.4M fixed-supply Option A tokenomics on BNB Chain:
 
-- New 40.4M contract redeploy is pending.
-- New BscScan source verification is pending after redeploy.
-- Web mint terminal is live and must be pointed at the new contract address after redeploy.
+- Official verified contract is live at `0xEe563fe51d8903F7Bfc38489C60e4e797365b7FF`.
+- BscScan source verification is complete.
+- Web mint terminal points at the official contract address.
 - Public repo is cleaned and documented.
 - Mint is controlled by an owner switch and should only be enabled when the launch post, wallet QA, contract transparency checks, and liquidity plan are ready.
 - Liquidity creation and LP lock/burn proof happen after the mint phase.

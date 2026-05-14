@@ -12,7 +12,7 @@ Last RPC check: `2026-05-14T16:08:52.424Z`
 
 ## RPC verification result
 
-The previous 1B-supply contract is obsolete for launch. This proof file tracks the new 40.4M Option A contract deployed and verified on BNB Chain.
+The official launch contract is the 40.4M Option A contract deployed and verified on BNB Chain.
 
 ```json
 {
