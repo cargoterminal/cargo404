@@ -23,22 +23,17 @@ Cargo404 is being built as a fixed-supply BNB Chain mint terminal with a transpa
   - `20%` treasury.
   - `10%` buyback wallet.
 - Publish contract source and BscScan link.
-- Prepare Hardhat tests and launch scripts.
+- Prepare contract tests and owner launch scripts.
 
 ## Phase 1 — Mint Terminal Launch
 
 **Status:** Completed
 
-- Build Cargo404 web mint terminal.
-- Connect wallet through React + Vite + Wagmi + Viem.
-- Configure Reown AppKit as a dark fallback for WalletConnect/mobile flows.
-- Support BNB Smart Chain wallet connection.
-- Display contract address, network status, mint status, wallet cap, and progress.
-- Add cargo unit selector.
-- Add mint transaction flow through Wagmi + Viem.
-- Deploy frontend to the live Cargo404 domain.
-- Connect GitHub auto-deployment pipeline.
-- Preserve the black/neon terminal UI identity.
+- Launch the Cargo404 web mint terminal.
+- Keep the black/neon terminal identity consistent with the Cargo404 brand.
+- Show official contract, mint status, wallet limit, and public progress clearly.
+- Let users connect a wallet, choose cargo units, and mint directly from the site.
+- Deploy the site to the official Cargo404 domain.
 - Publish official website, verified contract address, and BscScan link.
 - Keep public mint activation behind the owner-controlled contract switch.
 

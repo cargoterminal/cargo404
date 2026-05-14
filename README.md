@@ -1,6 +1,6 @@
 # Cargo404 ($C404)
 
-Cargo404 is a fixed-supply ERC-20 mint terminal on **BNB Smart Chain Mainnet**. The project ships a verified Solidity contract, Hardhat admin scripts, and a Vite + React + Wagmi frontend for a simple public mint flow.
+Cargo404 is a BNB Chain mint terminal for `$C404`: fixed supply, simple wallet mint, transparent limits, and a public post-mint liquidity/proof workflow.
 
 ```text
 ERROR 404: CARGO NOT FOUND
@@ -10,30 +10,41 @@ Route missing. Cargo loaded. Convoy deployed.
 - **Live app:** https://www.cargo404.app/
 - **Repository:** https://github.com/cargoterminal/cargo404
 - **Network:** BNB Smart Chain Mainnet
-- **Contract:** [`0x586A95703e0AeEE7fE801efB8B66243884Fde811`](https://bscscan.com/address/0x586A95703e0AeEE7fE801efB8B66243884Fde811#code)
+- **Verified contract:** [`0x586A95703e0AeEE7fE801efB8B66243884Fde811`](https://bscscan.com/address/0x586A95703e0AeEE7fE801efB8B66243884Fde811#code)
 - **Token:** Cargo404 (`C404`)
 
 > Cargo404 is experimental meme-token software. It is not financial advice. Always verify the contract address and confirm every wallet transaction manually.
 
-## Token economics
+## Project status
+
+Cargo404 is already deployed and prepared for public mint operations. The remaining steps are operational, not core development:
+
+- Contract deployed on BNB Smart Chain Mainnet.
+- Contract source published on BscScan.
+- Web mint terminal is live.
+- Public repo is cleaned and documented.
+- Mint is controlled by an owner switch and should only be enabled when the launch post, wallet QA, and liquidity plan are ready.
+- Liquidity creation and LP lock/burn proof happen after the mint phase.
+
+## Mint details
 
 - **Total supply:** `1,000,000,000 C404`
 - **Public mint allocation:** `700,000,000 C404`
 - **Reserve allocation:** `300,000,000 C404`
 - **Mint price:** `0.0025 BNB`
-- **Tokens per mint unit:** `100,000 C404`
-- **Max mint units:** `7,000`
-- **Max per wallet:** `10 mint units`
+- **Tokens per cargo unit:** `100,000 C404`
+- **Max cargo units:** `7,000`
+- **Max per wallet:** `10 cargo units`
 
 If the public mint sells out:
 
 ```text
-7,000 mint units × 0.0025 BNB = 17.5 BNB raised
+7,000 cargo units × 0.0025 BNB = 17.5 BNB raised
 ```
 
-## Raised BNB distribution
+## Raised BNB plan
 
-`distributeRaisedBnb()` is owner-only and can be called once after the mint phase. The split is hardcoded in the contract:
+Raised BNB stays in the contract until the owner calls the one-time distribution function after the mint phase:
 
 ```text
 70% -> Liquidity bucket / owner deployer
@@ -41,118 +52,65 @@ If the public mint sells out:
 10% -> Buyback wallet
 ```
 
-Liquidity creation is manual. After distribution, pair reserve C404 with the liquidity BNB on PancakeSwap, then publicly lock or burn LP and post proof.
+Liquidity creation is manual. After distribution, reserve C404 should be paired with the liquidity BNB on PancakeSwap, then LP should be locked or burned and proof should be posted publicly.
 
-## Repository structure
+## How Cargo404 works
+
+1. User opens the official Cargo404 site.
+2. User connects a wallet on BNB Smart Chain.
+3. User chooses how many cargo units to mint.
+4. Wallet confirms the mint transaction.
+5. C404 lands directly in the user's wallet.
+6. Public mint progress and wallet limits are read from the contract.
+
+The frontend never asks for seed phrases or private keys.
+
+## Repository contents
 
 ```text
-contracts/Cargo404.sol        ERC-20 mint contract
-scripts/deploy.js             Deploy contract to BSC testnet/mainnet
-scripts/enable-mint.js        Toggle public mint on/off
-scripts/distribute.js         Split raised BNB after mint phase
-test/Cargo404.test.js         Hardhat contract tests
-frontend/                     Vite + React + Wagmi mint UI
-docs/MAINNET_LAUNCH.md        Mainnet launch runbook
-docs/ROADMAP.md               Public roadmap
-.github/workflows/ci.yml      GitHub Actions checks
+contracts/                    C404 contract source
+scripts/                      owner operation scripts
+frontend/                     live mint terminal
+frontend/public/              Cargo404 logo and favicon assets
+frontend/src/                 mint UI and wallet logic
+docs/MAINNET_LAUNCH.md        operator launch checklist
+docs/ROADMAP.md               public roadmap
+.github/workflows/ci.yml      automated contract/frontend checks
+SECURITY.md                   security reporting notes
 ```
 
-## Tech stack
+## For operators
 
-- **Contracts:** Solidity `0.8.28`, OpenZeppelin, Hardhat
-- **Frontend:** Vite, React, TypeScript, Wagmi, Viem, Reown AppKit fallback
-- **Network:** BNB Smart Chain Mainnet + BSC Testnet config
-- **CI:** GitHub Actions with Node.js 20
+Use the launch runbook for owner-side actions:
 
-## Quick start
+- [`docs/MAINNET_LAUNCH.md`](docs/MAINNET_LAUNCH.md)
+
+Minimum launch flow:
+
+1. Confirm the live site shows the correct contract address.
+2. Confirm the wallet connect and mint panel work in-browser.
+3. Prepare the official website + contract announcement post.
+4. Enable mint from the owner wallet.
+5. Test one mint from a non-owner wallet.
+6. Monitor mint progress and failed transactions.
+7. After the mint phase, distribute raised BNB.
+8. Create PancakeSwap liquidity, then lock or burn LP and publish proof.
+
+## Local verification
+
+For maintainers who want to verify the repo locally:
 
 ```bash
 git clone https://github.com/cargoterminal/cargo404.git
 cd cargo404
 npm install
 npm --prefix frontend install
-cp .env.example .env
-cp frontend/.env.example frontend/.env
+npm run check
 ```
 
-Fill local environment files. Never commit `.env`, private keys, seed phrases, or deployer wallets.
+Local environment files are intentionally ignored. Never commit `.env`, private keys, seed phrases, or deployer wallets.
 
-Root `.env`:
-
-```env
-PRIVATE_KEY=your_deployer_private_key_without_0x
-BSC_RPC_URL=https://bsc-dataseed.binance.org
-BSC_TESTNET_RPC_URL=https://data-seed-prebsc-1-s1.bnbchain.org:8545
-TREASURY_ADDRESS=0x...
-BUYBACK_WALLET=0x...
-ETHERSCAN_API_KEY=optional
-BSCSCAN_API_KEY=optional_legacy_fallback
-```
-
-Frontend `.env`:
-
-```env
-VITE_CARGO404_ADDRESS=0x586A95703e0AeEE7fE801efB8B66243884Fde811
-VITE_BSC_RPC_URL=https://bsc-dataseed.binance.org
-VITE_REOWN_PROJECT_ID=your_reown_project_id
-```
-
-The UI keeps the black/neon Cargo404 terminal concept. The primary wallet button tries the injected browser wallet first through Wagmi, then opens a dark Reown AppKit fallback only when no injected wallet is available.
-
-## Development commands
-
-```bash
-npm test                 # run Hardhat tests
-npm run compile          # compile contracts
-npm run frontend:dev     # run Vite dev server
-npm run frontend:lint    # lint frontend
-npm run frontend:build   # build frontend
-npm run check            # full local check
-```
-
-## Contract operations
-
-### Deploy to BSC Testnet
-
-```bash
-npm run deploy:bscTestnet
-```
-
-### Deploy to BNB Smart Chain Mainnet
-
-```bash
-npm run deploy:bsc
-```
-
-The deploy script prints the deployed contract address. Copy it into `frontend/.env` as `VITE_CARGO404_ADDRESS` before building or deploying the frontend.
-
-### Enable or disable mint
-
-Mint is disabled by default after deploy.
-
-Enable mint:
-
-```bash
-CONTRACT_ADDRESS=0xDeployedContract npm run enable-mint:bsc
-```
-
-Disable mint:
-
-```bash
-CONTRACT_ADDRESS=0xDeployedContract MINT_ACTIVE=false npm run enable-mint:bsc
-```
-
-### Distribute raised BNB
-
-```bash
-CONTRACT_ADDRESS=0xDeployedContract npm run distribute:bsc
-```
-
-Only run this after the mint phase and after confirming the liquidity plan.
-
-## Frontend deployment
-
-For Vercel or Netlify:
+Frontend deployment uses the `frontend/` folder:
 
 ```text
 Root directory: frontend
@@ -161,7 +119,7 @@ Publish directory: dist
 Node version: 20.x
 ```
 
-Environment variables:
+Required public frontend variables:
 
 ```env
 VITE_CARGO404_ADDRESS=0x586A95703e0AeEE7fE801efB8B66243884Fde811
@@ -169,31 +127,16 @@ VITE_BSC_RPC_URL=https://bsc-dataseed.binance.org
 VITE_REOWN_PROJECT_ID=your_reown_project_id
 ```
 
-## Mainnet launch checklist
-
-See [`docs/MAINNET_LAUNCH.md`](docs/MAINNET_LAUNCH.md) for the full runbook.
-
-Minimum launch flow:
-
-1. Run `npm run check`.
-2. Confirm frontend shows the correct contract address.
-3. Verify contract source on BscScan.
-4. Enable mint with `enable-mint:bsc`.
-5. Test one mint from a non-owner wallet.
-6. Post official website, contract, and BscScan links.
-7. After mint phase, distribute raised BNB.
-8. Create PancakeSwap LP, then lock or burn LP and publish proof.
-
 ## Roadmap
 
-See [`docs/ROADMAP.md`](docs/ROADMAP.md) for the public Cargo404 roadmap covering contract foundation, terminal launch, liquidity proof, transparency, and post-mint experiments.
+See [`docs/ROADMAP.md`](docs/ROADMAP.md) for the public Cargo404 roadmap covering completed foundation/terminal work, liquidity proof, transparency, and post-mint experiments.
 
 ## Security notes
 
-- The frontend never asks for seed phrases or private keys.
+- The site never asks for seed phrases or private keys.
 - All mint actions require wallet confirmation.
-- `.env` files are ignored and must stay local.
-- Mint price, supply, wallet cap, and BNB split are hardcoded in the contract.
+- Verify the official contract address before minting.
+- Mint price, supply, wallet cap, and BNB split are fixed in the contract.
 - Liquidity creation and LP lock/burn are manual operational steps.
 
 For reporting security issues, see [`SECURITY.md`](SECURITY.md).

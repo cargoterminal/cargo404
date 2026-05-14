@@ -66,11 +66,11 @@ NODE
 
 ## Wallet UI rule
 
-Cargo404 uses React + Vite + Wagmi + Viem, with Reown AppKit configured as a fallback wallet layer. The visible page should stay black/neon terminal-native:
+Cargo404's public page should stay black/neon and terminal-native:
 
-- primary CTA tries the injected browser wallet first;
-- AppKit is dark-themed and only used as a fallback for WalletConnect/mobile;
-- do not replace the terminal shell with a white/SaaS wallet landing without explicit approval.
+- the main connect button should try the browser wallet first;
+- the fallback wallet modal should stay dark and only appear when needed for mobile/WalletConnect-style flows;
+- do not replace the Cargo404 terminal shell with a white/SaaS wallet landing without explicit approval.
 
 ## 3. Enable mint
 
