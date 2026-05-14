@@ -4,6 +4,9 @@
   "description": "Cargo404 ($C404) fixed-supply BNB Chain mint contract and Wagmi/Vite mint terminal.",
   "private": true,
   "license": "MIT",
+  "engines": {
+    "node": "20.x"
+  },
   "scripts": {
     "test": "hardhat test",
     "compile": "hardhat compile",

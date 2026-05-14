@@ -3,6 +3,9 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
+  "engines": {
+    "node": "20.x"
+  },
   "description": "Cargo404 mint terminal built with Vite, React, Wagmi, and Viem.",
   "scripts": {
     "dev": "vite",
