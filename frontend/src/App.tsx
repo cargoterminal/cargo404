@@ -46,11 +46,11 @@ function App() {
       </header>
 
       <section className="minimal-hero" id="top">
-        <p className="kicker">bnb smart chain · verified mint terminal</p>
-        <h1>mint cargo404.</h1>
+        <p className="kicker">BNB Smart Chain · verified mint terminal</p>
+        <h1>Cargo404 mint terminal</h1>
         <p className="hero-note">
-          lost cargo packets, routed onchain. mint c404 through a clean bnb terminal — simple,
-          readable, and built for one thing: loading cargo.
+          A prepared public mint interface for C404 cargo units on BNB Smart Chain. Clear terms,
+          verified contract, fixed wallet cap, and a simple onchain loading flow.
         </p>
       </section>
 
@@ -82,8 +82,8 @@ function App() {
 
       <section className="mint-section" id="mint">
         <div className="section-heading">
-          <h2>mint terminal.</h2>
-          <p>connect wallet, switch to bnb smart chain, select cargo amount, then load cargo.</p>
+          <h2>Mint terminal</h2>
+          <p>Connect wallet, switch to BNB Smart Chain, select cargo amount, then load cargo.</p>
         </div>
         <MintPanel />
       </section>
@@ -99,8 +99,8 @@ function App() {
 
       <section className="how-section" id="how">
         <div className="section-heading">
-          <h2>how it works.</h2>
-          <p>a simple mint flow, without over-designed noise.</p>
+          <h2>How it works</h2>
+          <p>A simple mint flow with clear wallet and contract states.</p>
         </div>
         <div className="step-list">
           {steps.map((step) => (
@@ -118,9 +118,9 @@ function App() {
       <section className="safety-note">
         <ShieldCheck />
         <div>
-          <h2>clean mint rules.</h2>
+          <h2>Mint rules</h2>
           <p>
-            verified contract, fixed mint price, max 10 cargo per wallet. always dyor and only mint what you can afford to lose.
+            Verified contract, fixed mint price, max 10 cargo per wallet. Always DYOR and only mint what you can afford to lose.
           </p>
         </div>
         <a href={bscscanUrl} target="_blank" rel="noreferrer">view contract <ArrowUpRight size={15} /></a>
