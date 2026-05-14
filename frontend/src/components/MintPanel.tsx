@@ -74,9 +74,11 @@ export function MintPanel() {
     })
   }
 
-  const injectedConnector = connectors.find((connector) => connector.type === 'injected')
+  const injectedConnectors = connectors.filter((connector) => connector.type === 'injected')
+  const injectedConnector = injectedConnectors[0]
+  const browserWalletConnector = injectedConnectors.find((connector) => connector.id === 'injected') || injectedConnector
   const hasInjectedWallet = typeof window !== 'undefined' && Boolean(window.ethereum)
-  const detectedWallet = hasInjectedWallet ? injectedConnector?.name || 'browser wallet' : 'no injected wallet detected'
+  const detectedWallet = hasInjectedWallet ? browserWalletConnector?.name || 'browser wallet' : 'no injected wallet detected'
   const displayedAddress = isConnected ? shortAddress(address) : detectedWallet
   const statusLabel = !contractReady ? 'offline' : mintActive ? 'live' : 'gate closed'
   const copyContract = () => {
@@ -86,8 +88,8 @@ export function MintPanel() {
     window.setTimeout(() => setCopyLabel('copy verified contract address'), 1600)
   }
   const connectMainWallet = () => {
-    if (injectedConnector && hasInjectedWallet) {
-      connect({ connector: injectedConnector, chainId: bsc.id })
+    if (browserWalletConnector && hasInjectedWallet) {
+      connect({ connector: browserWalletConnector })
       return
     }
 
@@ -126,8 +128,8 @@ export function MintPanel() {
       <div className="terminal-section">
         <div className="section-head"><span>▌ ACTIVATE CARGO LINK</span><b>{isConnected ? '○ ACTIVE' : '○ INACTIVE'}</b></div>
         <p>
-          Connect the injected wallet already installed in your browser first. If no browser wallet is detected,
-          Cargo404 opens a dark Reown AppKit fallback for WalletConnect/mobile wallets without changing the terminal UI.
+          Connect with the wallet already installed in your browser first. Cargo404 will ask you to switch to BNB
+          Smart Chain after the wallet stays connected. Mobile users can use the Reown AppKit fallback when configured.
         </p>
         <div className="terminal-field wallet-address-row">
           <span>wallet address</span>
@@ -153,6 +155,20 @@ export function MintPanel() {
                     ? '◆ CONNECT VIA APPKIT'
                     : '◆ WALLETCONNECT CONFIG NEEDED'}
             </button>
+            {hasInjectedWallet && injectedConnectors.length > 1 && (
+              <div className="connector-menu compact-wallets" aria-label="Detected wallet connectors">
+                {injectedConnectors.slice(0, 4).map((connector) => (
+                  <button
+                    key={connector.uid}
+                    type="button"
+                    disabled={isConnecting}
+                    onClick={() => connect({ connector })}
+                  >
+                    connect {connector.name}
+                  </button>
+                ))}
+              </div>
+            )}
             {!hasInjectedWallet && hasConfiguredReownProjectId && (
               <p className="wallet-help">No injected EVM wallet found. AppKit opens as a dark Cargo404 fallback for WalletConnect/mobile wallets.</p>
             )}

@@ -16,8 +16,8 @@ const wagmiAdapter = new WagmiAdapter({
   projectId: reownProjectId,
   connectors: [
     injected({
-      shimDisconnect: true,
-      unstable_shimAsyncInject: true,
+      shimDisconnect: false,
+      unstable_shimAsyncInject: false,
     }),
   ],
   transports: {
@@ -45,7 +45,7 @@ createAppKit({
   },
   allWallets: 'HIDE',
   enableCoinbase: false,
-  enableEIP6963: false,
+  enableEIP6963: true,
   enableWalletGuide: false,
   features: {
     analytics: false,

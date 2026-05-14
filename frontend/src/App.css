@@ -433,6 +433,17 @@
   text-decoration: none;
 }
 
+.compact-wallets {
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  margin-top: 12px;
+}
+
+.compact-wallets button {
+  min-height: 40px;
+  font-size: 10px;
+  color: var(--yellow);
+}
+
 .wallet-help {
   border: 1px solid rgba(240, 205, 93, .24);
   background: rgba(240, 205, 93, .06);
