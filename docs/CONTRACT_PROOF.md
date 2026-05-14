@@ -1,6 +1,6 @@
 # Cargo404 Contract Proof & Safety Notes
 
-Last RPC check: `2026-05-14T16:08:52.424Z`
+Last RPC check: `2026-05-14T18:09:08.323Z`
 
 ## Official contract
 

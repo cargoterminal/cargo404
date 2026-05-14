@@ -5,7 +5,7 @@ Use this checklist before turning on BNB Smart Chain Mainnet mint for Cargo404.
 ## Target mainnet deployment
 
 - Verified contract: `0xEe563fe51d8903F7Bfc38489C60e4e797365b7FF`
-- BscScan: `pending new contract verification`
+- BscScan: https://bscscan.com/address/0xEe563fe51d8903F7Bfc38489C60e4e797365b7FF#code
 - Frontend: https://www.cargo404.app
 - Roadmap: [`docs/ROADMAP.md`](ROADMAP.md)
 - Mint price: `0.0025 BNB`
@@ -14,13 +14,13 @@ Use this checklist before turning on BNB Smart Chain Mainnet mint for Cargo404.
 
 ## 1. Pre-launch checks
 
-- [ ] Deployer wallet has enough BNB for gas only.
-- [ ] Treasury address is correct.
-- [ ] Buyback wallet is correct.
+- [ ] Deployer wallet has enough BNB for gas only. Public owner/deployer: `0xA826c93dE43c231ef8f22AafdD5c7b6b70b42c30`.
+- [x] Treasury address is correct: `0xDf73175Dc72023a16FC9cEef30168d1A6EfC311E`.
+- [x] Buyback wallet is correct: `0x71F52812c4e283ca76dC1CBAEEA4061cE1902516`.
 - [ ] `.env` exists locally and is not committed.
-- [ ] `frontend/.env` points to the mainnet contract.
-- [ ] New 40.4M contract source is verified on BscScan.
-- [ ] Website links to the correct new BscScan contract page.
+- [x] `frontend/.env` points to the mainnet contract.
+- [x] New 40.4M contract source is verified on BscScan.
+- [x] Website links to the correct new BscScan contract page.
 - [x] Website copy explains Cargo404 as a BNB Chain ERC20 cargo mint, not ERC404/NFT.
 - [x] Website still uses the black/neon Cargo404 terminal UI; no white/default wallet modal unless AppKit fallback is opened manually.
 - [x] Wallet connect smoke-tested with the safe Cargo404 modal.
