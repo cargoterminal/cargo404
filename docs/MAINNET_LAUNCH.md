@@ -4,7 +4,7 @@ Use this checklist before turning on BNB Smart Chain Mainnet mint for Cargo404.
 
 ## Target mainnet deployment
 
-- Contract: `pending redeploy for 40.4M Option A`
+- Verified contract: `0xEe563fe51d8903F7Bfc38489C60e4e797365b7FF`
 - BscScan: `pending new contract verification`
 - Frontend: https://www.cargo404.app
 - Roadmap: [`docs/ROADMAP.md`](ROADMAP.md)
@@ -36,13 +36,13 @@ git diff --check
 Deploy and verify the new 40.4M contract:
 
 ```bash
-TREASURY_ADDRESS=0x8fDe5EaD3fb051D254885bc5b47012bCDdA341b9 \
-BUYBACK_WALLET=0x8F513F52f89d25B2F919427cb23E3C1aaf9d4B2e \
+TREASURY_ADDRESS=0xDf73175Dc72023a16FC9cEef30168d1A6EfC311E \
+BUYBACK_WALLET=0x71F52812c4e283ca76dC1CBAEEA4061cE1902516 \
 npm run deploy:bsc
 
-npm run verify:bsc -- <NEW_CARGO404_ADDRESS> \
-  0x8fDe5EaD3fb051D254885bc5b47012bCDdA341b9 \
-  0x8F513F52f89d25B2F919427cb23E3C1aaf9d4B2e
+npm run verify:bsc -- 0xEe563fe51d8903F7Bfc38489C60e4e797365b7FF \
+  0xDf73175Dc72023a16FC9cEef30168d1A6EfC311E \
+  0x71F52812c4e283ca76dC1CBAEEA4061cE1902516
 ```
 
 ## 2. Optional on-chain status check
@@ -50,7 +50,7 @@ npm run verify:bsc -- <NEW_CARGO404_ADDRESS> \
 ```bash
 node - <<'NODE'
 const { JsonRpcProvider, Contract, formatEther } = require('ethers')
-const address = process.env.CONTRACT_ADDRESS || '<NEW_CARGO404_ADDRESS>'
+const address = process.env.CONTRACT_ADDRESS || '0xEe563fe51d8903F7Bfc38489C60e4e797365b7FF'
 const abi = [
   'function mintActive() view returns (bool)',
   'function MINT_PRICE() view returns (uint256)',
@@ -92,13 +92,13 @@ Cargo404's public page should stay black/neon and terminal-native:
 Mint is disabled by default. Turn it on only after the frontend, contract, and launch post are ready.
 
 ```bash
-CONTRACT_ADDRESS=<NEW_CARGO404_ADDRESS> npm run enable-mint:bsc
+CONTRACT_ADDRESS=0xEe563fe51d8903F7Bfc38489C60e4e797365b7FF npm run enable-mint:bsc
 ```
 
 To pause public mint again:
 
 ```bash
-CONTRACT_ADDRESS=<NEW_CARGO404_ADDRESS> MINT_ACTIVE=false npm run enable-mint:bsc
+CONTRACT_ADDRESS=0xEe563fe51d8903F7Bfc38489C60e4e797365b7FF MINT_ACTIVE=false npm run enable-mint:bsc
 ```
 
 ## 4. Smoke test
@@ -127,7 +127,7 @@ Post these together to reduce fake-link risk:
 Distribute raised BNB once:
 
 ```bash
-CONTRACT_ADDRESS=<NEW_CARGO404_ADDRESS> npm run distribute:bsc
+CONTRACT_ADDRESS=0xEe563fe51d8903F7Bfc38489C60e4e797365b7FF npm run distribute:bsc
 ```
 
 Then manually:

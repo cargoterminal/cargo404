@@ -14,7 +14,7 @@ Route missing. Cargo loaded. Convoy deployed.
 - **Live app:** https://www.cargo404.app/
 - **Repository:** https://github.com/cargoterminal/cargo404
 - **Network:** BNB Smart Chain Mainnet
-- **Contract:** pending redeploy for 40.4M supply Option A
+- **Verified contract:** [`0xEe563fe51d8903F7Bfc38489C60e4e797365b7FF`](https://bscscan.com/address/0xEe563fe51d8903F7Bfc38489C60e4e797365b7FF#code)
 - **Token:** Cargo404 (`C404`)
 
 > Cargo404 is experimental meme-token software. It is not financial advice. Always verify the official contract address and confirm every wallet transaction manually.
@@ -151,7 +151,7 @@ Node version: 20.x
 Required public frontend variables:
 
 ```env
-VITE_CARGO404_ADDRESS=<NEW_CARGO404_ADDRESS>
+VITE_CARGO404_ADDRESS=0xEe563fe51d8903F7Bfc38489C60e4e797365b7FF
 VITE_BSC_RPC_URL=https://bsc-dataseed.binance.org
 VITE_REOWN_PROJECT_ID=your_reown_project_id # optional, enables WalletConnect/mobile fallback
 ```

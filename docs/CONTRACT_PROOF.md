@@ -1,25 +1,25 @@
 # Cargo404 Contract Proof & Safety Notes
 
-Last repo tokenomics update: pending redeploy for 40.4M Option A
+Last RPC check: `2026-05-14T16:08:52.424Z`
 
 ## Official contract
 
 - Network: BNB Smart Chain Mainnet
 - Chain ID: `56`
-- Verified contract: `pending redeploy`
-- BscScan: `pending new contract verification`
-- BscScan source status: pending redeploy/verification
+- Verified contract: `0xEe563fe51d8903F7Bfc38489C60e4e797365b7FF`
+- BscScan: https://bscscan.com/address/0xEe563fe51d8903F7Bfc38489C60e4e797365b7FF#code
+- BscScan source status: verified
 
 ## RPC verification result
 
-The previous 1B-supply contract is obsolete for launch. This proof file now tracks the target 40.4M Option A redeploy until a new BNB Chain address is deployed and verified.
+The previous 1B-supply contract is obsolete for launch. This proof file tracks the new 40.4M Option A contract deployed and verified on BNB Chain.
 
 ```json
 {
   "validAddress": true,
   "chainId": "56",
   "hasCode": true,
-  "codeLength": 9936,
+  "codeLength": 9928,
   "contractBnbBalance": "0.0"
 }
 ```
@@ -52,9 +52,9 @@ Public explanation:
 
 ```json
 {
-  "owner": "0x497C2DF2075e1f917987F6e50b9B16292C00c789",
-  "treasury": "0x8fDe5EaD3fb051D254885bc5b47012bCDdA341b9",
-  "buyback": "0x8F513F52f89d25B2F919427cb23E3C1aaf9d4B2e"
+  "owner": "0xA826c93dE43c231ef8f22AafdD5c7b6b70b42c30",
+  "treasury": "0xDf73175Dc72023a16FC9cEef30168d1A6EfC311E",
+  "buyback": "0x71F52812c4e283ca76dC1CBAEEA4061cE1902516"
 }
 ```
 
@@ -113,8 +113,8 @@ Public explanation:
 
 Interpretation:
 
-- The contract will hold `28,280,000 C404` for public mint after redeploy.
-- The owner will hold `12,120,000 C404` reserve allocation after redeploy.
+- The contract holds `28,280,000 C404` for public mint.
+- The owner holds `12,120,000 C404` reserve allocation.
 
 Public explanation must clearly say the reserve allocation exists and may be used for liquidity/project operations.
 
@@ -188,7 +188,7 @@ Do not call `setMintActive(true)` until all are true:
 Run from repo root:
 
 ```bash
-CONTRACT_ADDRESS=<NEW_CARGO404_ADDRESS> node scripts/check-contract-state.js
+CONTRACT_ADDRESS=0xEe563fe51d8903F7Bfc38489C60e4e797365b7FF node scripts/check-contract-state.js
 ```
 
 If that helper script does not exist, use the RPC snippet in `docs/MAINNET_LAUNCH.md`.

@@ -1,9 +1,9 @@
 import { ArrowUpRight, Boxes, PackageSearch, ShieldCheck, TerminalSquare } from 'lucide-react'
 import { MintPanel } from './components/MintPanel'
-import { cargo404Address, hasCargo404Address } from './contract'
+import { cargo404Address } from './contract'
 import './App.css'
 
-const bscscanUrl = hasCargo404Address ? `https://bscscan.com/address/${cargo404Address}#code` : '#'
+const bscscanUrl = `https://bscscan.com/address/${cargo404Address}#code`
 
 const stats = [
   ['mint price', '0.0025 BNB'],
@@ -41,11 +41,7 @@ function App() {
           <a href="#top">home</a>
           <a href="#mint">mint</a>
           <a href="#how">how</a>
-          {hasCargo404Address ? (
-            <a href={bscscanUrl} target="_blank" rel="noreferrer">contract ↗</a>
-          ) : (
-            <span>contract pending</span>
-          )}
+          <a href={bscscanUrl} target="_blank" rel="noreferrer">contract ↗</a>
         </nav>
       </header>
 
@@ -85,13 +81,9 @@ function App() {
           </div>
           <div>
             <span>contract</span>
-            {hasCargo404Address ? (
-              <a href={bscscanUrl} target="_blank" rel="noreferrer">
-                {cargo404Address.slice(0, 6)}...{cargo404Address.slice(-4)} ↗
-              </a>
-            ) : (
-              <b>pending redeploy</b>
-            )}
+            <a href={bscscanUrl} target="_blank" rel="noreferrer">
+              {cargo404Address.slice(0, 6)}...{cargo404Address.slice(-4)} ↗
+            </a>
           </div>
         </div>
       </section>
@@ -139,17 +131,13 @@ function App() {
             Fixed-supply ERC20 cargo mint. Not ERC404, not NFT, and not auto-liquidity. Always verify the official contract and only mint what you can afford to lose.
           </p>
         </div>
-        {hasCargo404Address ? (
-          <a href={bscscanUrl} target="_blank" rel="noreferrer">view contract <ArrowUpRight size={15} /></a>
-        ) : (
-          <span>contract pending redeploy</span>
-        )}
+        <a href={bscscanUrl} target="_blank" rel="noreferrer">view contract <ArrowUpRight size={15} /></a>
       </section>
 
       <footer className="minimal-footer">
         <span>cargo404 · c404 · bnb smart chain</span>
         <div>
-          {hasCargo404Address && <a href={bscscanUrl} target="_blank" rel="noreferrer">source</a>}
+          <a href={bscscanUrl} target="_blank" rel="noreferrer">source</a>
           <a href="#mint">mint</a>
           <a href="#top">top</a>
         </div>
