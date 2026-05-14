@@ -30,8 +30,8 @@ createAppKit({
   metadata: {
     name: 'Cargo404',
     description: 'Cargo404 BNB mint terminal',
-    url: 'https://cargo404.vercel.app',
-    icons: ['https://cargo404.vercel.app/cargo404.png'],
+    url: 'https://www.cargo404.app',
+    icons: ['https://www.cargo404.app/cargo404.png'],
   },
   themeMode: 'dark',
   themeVariables: {

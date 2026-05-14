@@ -6,8 +6,8 @@ Use this checklist before turning on BNB Smart Chain Mainnet mint for Cargo404.
 
 - Contract: `0x586A95703e0AeEE7fE801efB8B66243884Fde811`
 - BscScan: https://bscscan.com/address/0x586A95703e0AeEE7fE801efB8B66243884Fde811#code
-- Frontend: https://cargo404.vercel.app
-- Alternate Vercel URL: https://frontend-caro-404.vercel.app
+- Frontend: https://www.cargo404.app
+- Roadmap: [`docs/ROADMAP.md`](ROADMAP.md)
 - Mint price: `0.0025 BNB`
 - Wallet cap: `10 mint units`
 - Public mint cap: `7,000 mint units`

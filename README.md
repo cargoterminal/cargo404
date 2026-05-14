@@ -7,7 +7,7 @@ ERROR 404: CARGO NOT FOUND
 Route missing. Cargo loaded. Convoy deployed.
 ```
 
-- **Live app:** https://cargo404.vercel.app/
+- **Live app:** https://www.cargo404.app/
 - **Repository:** https://github.com/cargoterminal/cargo404
 - **Network:** BNB Smart Chain Mainnet
 - **Contract:** [`0x586A95703e0AeEE7fE801efB8B66243884Fde811`](https://bscscan.com/address/0x586A95703e0AeEE7fE801efB8B66243884Fde811#code)
@@ -52,7 +52,8 @@ scripts/enable-mint.js        Toggle public mint on/off
 scripts/distribute.js         Split raised BNB after mint phase
 test/Cargo404.test.js         Hardhat contract tests
 frontend/                     Vite + React + Wagmi mint UI
-docs/MAINNET_LAUNCH.md        Launch runbook
+docs/MAINNET_LAUNCH.md        Mainnet launch runbook
+docs/ROADMAP.md               Public roadmap
 .github/workflows/ci.yml      GitHub Actions checks
 ```
 
@@ -182,6 +183,10 @@ Minimum launch flow:
 6. Post official website, contract, and BscScan links.
 7. After mint phase, distribute raised BNB.
 8. Create PancakeSwap LP, then lock or burn LP and publish proof.
+
+## Roadmap
+
+See [`docs/ROADMAP.md`](docs/ROADMAP.md) for the public Cargo404 roadmap covering contract foundation, mint launch, liquidity proof, transparency, and post-mint experiments.
 
 ## Security notes
 
