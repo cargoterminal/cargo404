@@ -70,8 +70,8 @@ function App() {
             <em>CARGO FOUND.</em>
           </h1>
           <p>
-            Black/neon mint interface for Cargo404 — fixed-supply C404 token on BNB Smart Chain.
-            Clean wallet flow, no hidden approvals, and contract-first launch proof. Tactical asset distribution protocol initiated.
+            Lost shipment. Found bags. Cargo404 is a fixed-supply C404 cargo mint on BNB Chain.
+            Load cargo with BNB, confirm in your wallet, receive C404. No seed phrase. No private key. No mystery approvals.
           </p>
           <div className="hero-buttons">
             <button type="button" className="primary-hero" onClick={scrollToMintTerminal}>OPEN_MINT_TERMINAL</button>
