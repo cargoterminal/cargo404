@@ -396,39 +396,187 @@
   box-shadow: none;
 }
 
-.wallet-selector {
-  width: 100%;
-}
-
 .wallet-select-btn {
   display: grid;
   place-items: center;
-  list-style: none;
   user-select: none;
 }
 
-.wallet-select-btn::-webkit-details-marker {
-  display: none;
-}
-
-.connector-menu {
+.wallet-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 10px;
-  margin-top: 10px;
+  place-items: center;
+  padding: 18px;
+  background: rgba(7, 8, 6, .58);
+  backdrop-filter: blur(10px);
 }
 
-.connector-menu button,
-.connector-menu a {
+.wallet-modal {
+  width: min(450px, 100%);
+  max-height: min(680px, 88vh);
+  overflow: hidden;
+  border-radius: 28px;
+  background: #f5f5f7;
+  color: #15151a;
+  box-shadow: 0 26px 80px rgba(0,0,0,.42);
+  padding: 24px 28px 28px;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.wallet-modal-head {
+  position: relative;
+  display: grid;
+  place-items: center;
+  margin-bottom: 26px;
+}
+
+.wallet-modal-head h3 {
+  margin: 0;
+  color: #17171c;
+  font: 500 24px/1.2 Inter, ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: -.02em;
+  text-transform: none;
+}
+
+.wallet-modal-head button {
+  position: absolute;
+  right: -4px;
+  top: -6px;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  background: transparent;
+  color: #8e8e95;
+  cursor: pointer;
+  font: 300 36px/1 Inter, ui-sans-serif, system-ui, sans-serif;
+}
+
+.wallet-search {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 52px;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,.03), 0 1px 7px rgba(0,0,0,.03);
+  padding: 0 16px;
+  margin-bottom: 14px;
+}
+
+.wallet-search span {
+  color: #a6a6ad;
+  font-size: 25px;
+  line-height: 1;
+}
+
+.wallet-search input {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #1b1b21;
+  font: 500 15px/1.2 Inter, ui-sans-serif, system-ui, sans-serif;
+}
+
+.wallet-search input::placeholder {
+  color: #b4b4bb;
+}
+
+.wallet-list {
+  display: grid;
+  gap: 10px;
+  max-height: 430px;
+  overflow-y: auto;
+  padding-right: 2px;
+}
+
+.wallet-row {
+  min-height: 64px;
+  border: 0;
+  border-radius: 15px;
+  background: #fff;
+  color: #17171c;
+  display: grid;
+  grid-template-columns: 40px 1fr auto;
+  align-items: center;
+  gap: 12px;
+  padding: 0 15px;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 1px 9px rgba(0,0,0,.045);
+  font: 500 20px/1 Inter, ui-sans-serif, system-ui, sans-serif;
+  text-align: left;
+  text-transform: none;
+  letter-spacing: -.02em;
+}
+
+.wallet-row:hover:not(:disabled) {
+  transform: translateY(-1px);
+  background: #fff;
+  box-shadow: 0 10px 24px rgba(0,0,0,.08);
+}
+
+.wallet-row:disabled {
+  cursor: not-allowed;
+  opacity: .72;
+}
+
+.wallet-row strong {
+  color: #17171c;
+  font-weight: 600;
+}
+
+.wallet-row em {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  width: 100%;
-  min-height: 50px;
-  padding: 0 14px;
-  position: relative;
-  z-index: 2;
-  text-decoration: none;
+  gap: 6px;
+  border-radius: 999px;
+  background: #f0f0f1;
+  color: #26262c;
+  padding: 7px 10px;
+  font: 500 14px/1 Inter, ui-sans-serif, system-ui, sans-serif;
+  font-style: normal;
+}
+
+.wallet-row em i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #5b2fe8;
+  display: inline-block;
+}
+
+.wallet-row b {
+  color: #a3a3a8;
+  font: 300 32px/1 Inter, ui-sans-serif, system-ui, sans-serif;
+}
+
+.wallet-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, #7f5cff, #4bcffa);
+  color: white;
+  font: 800 16px/1 Inter, ui-sans-serif, system-ui, sans-serif;
+}
+
+.wallet-icon.meta {
+  background: linear-gradient(135deg, #ff8a00, #ff3d3d);
+}
+
+.wallet-icon.trust {
+  background: linear-gradient(135deg, #227dff, #12d6a7);
+}
+
+.wallet-empty {
+  color: #77777f !important;
+  margin: 10px 0 0;
+  text-align: center;
+  font: 500 15px/1.4 Inter, ui-sans-serif, system-ui, sans-serif;
 }
 
 .wallet-help {

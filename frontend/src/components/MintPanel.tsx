@@ -22,6 +22,8 @@ const placeholderAddress = '0x0000000000000000000000000000000000000000'
 
 export function MintPanel() {
   const [units, setUnits] = useState(1)
+  const [walletModalOpen, setWalletModalOpen] = useState(false)
+  const [walletSearch, setWalletSearch] = useState('')
   const { address, isConnected, chainId } = useAccount()
   const { connect, connectors, isPending: isConnecting, error: connectError } = useConnect()
   const { disconnect } = useDisconnect()
@@ -73,10 +75,16 @@ export function MintPanel() {
 
   const connectWallet = (connector: Connector) => {
     connect({ connector })
+    setWalletModalOpen(false)
+    setWalletSearch('')
   }
 
   const hasInjectedWallet = typeof window !== 'undefined' && 'ethereum' in window
   const visibleConnectors = connectors.filter((connector) => hasInjectedWallet || connector.id !== 'injected')
+  const filteredConnectors = visibleConnectors.filter((connector) =>
+    connector.name.toLowerCase().includes(walletSearch.trim().toLowerCase()),
+  )
+  const walletOptionCount = hasInjectedWallet ? visibleConnectors.length : visibleConnectors.length + 2
   const currentUrl = typeof window !== 'undefined' ? window.location.href : 'https://frontend-caro-404.vercel.app'
   const currentDappPath = currentUrl.replace(/^https?:\/\//, '')
   const displayedAddress = isConnected ? shortAddress(address) : 'not connected'
@@ -130,35 +138,76 @@ export function MintPanel() {
         </div>
         {!isConnected ? (
           <div className="wallet-connect-stack">
-            <details className="wallet-selector">
-              <summary className="primary-btn wallet-select-btn">◆ CONNECT WALLET</summary>
-              <div id="wallet-connectors" className="connector-menu" aria-label="Wallet connectors">
-                {visibleConnectors.length > 0 ? (
-                  visibleConnectors.map((connector) => (
-                    <button
-                      key={connector.uid}
-                      type="button"
-                      disabled={isConnecting}
-                      onClick={() => connectWallet(connector)}
-                    >
-                      {isConnecting ? 'opening...' : connector.name}
-                    </button>
-                  ))
-                ) : (
-                  <>
-                    <a href={`https://metamask.app.link/dapp/${currentDappPath}`}>Open in MetaMask</a>
-                    <a href={`https://link.trustwallet.com/open_url?coin_id=20000714&url=${encodeURIComponent(currentUrl)}`}>
-                      Open in Trust Wallet
-                    </a>
-                  </>
-                )}
-              </div>
-            </details>
+            <button
+              type="button"
+              className="primary-btn wallet-select-btn"
+              onClick={() => setWalletModalOpen(true)}
+              disabled={isConnecting}
+            >
+              {isConnecting ? '◆ OPENING WALLET...' : '◆ CONNECT WALLET'}
+            </button>
             {!hasInjectedWallet && (
               <p className="wallet-help">
                 No browser wallet detected. Open this page in MetaMask/Trust Wallet mobile browser,
                 or install MetaMask/Rabby on desktop, then connect again.
               </p>
+            )}
+            {walletModalOpen && (
+              <div className="wallet-modal-backdrop" role="presentation" onClick={() => setWalletModalOpen(false)}>
+                <div
+                  className="wallet-modal"
+                  role="dialog"
+                  aria-modal="true"
+                  aria-labelledby="wallet-modal-title"
+                  onClick={(event) => event.stopPropagation()}
+                >
+                  <div className="wallet-modal-head">
+                    <h3 id="wallet-modal-title">Log in or sign up</h3>
+                    <button type="button" aria-label="Close wallet picker" onClick={() => setWalletModalOpen(false)}>×</button>
+                  </div>
+                  <label className="wallet-search">
+                    <span>⌕</span>
+                    <input
+                      value={walletSearch}
+                      onChange={(event) => setWalletSearch(event.target.value)}
+                      placeholder={`Search through ${walletOptionCount} wallets...`}
+                      autoFocus
+                    />
+                  </label>
+                  <div className="wallet-list">
+                    {filteredConnectors.map((connector) => (
+                      <button
+                        key={connector.uid}
+                        type="button"
+                        className="wallet-row"
+                        disabled={isConnecting}
+                        onClick={() => connectWallet(connector)}
+                      >
+                        <span className="wallet-icon">{connector.name.slice(0, 1)}</span>
+                        <strong>{connector.name}</strong>
+                        <em><i />{hasInjectedWallet ? 'Installed' : 'Available'}</em>
+                      </button>
+                    ))}
+                    {!hasInjectedWallet && walletSearch.trim() === '' && (
+                      <>
+                        <a className="wallet-row" href={`https://metamask.app.link/dapp/${currentDappPath}`}>
+                          <span className="wallet-icon meta">M</span>
+                          <strong>Open in MetaMask</strong>
+                          <b>›</b>
+                        </a>
+                        <a className="wallet-row" href={`https://link.trustwallet.com/open_url?coin_id=20000714&url=${encodeURIComponent(currentUrl)}`}>
+                          <span className="wallet-icon trust">T</span>
+                          <strong>Open in Trust Wallet</strong>
+                          <b>›</b>
+                        </a>
+                      </>
+                    )}
+                    {filteredConnectors.length === 0 && walletSearch.trim() !== '' && (
+                      <p className="wallet-empty">No matching wallet found.</p>
+                    )}
+                  </div>
+                </div>
+              </div>
             )}
           </div>
         ) : wrongChain ? (
