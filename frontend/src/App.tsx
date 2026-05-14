@@ -1,15 +1,151 @@
-import { ArrowUpRight, Boxes, CheckCircle2, CircleDollarSign, LockKeyhole, PackageSearch, ShieldCheck, Sparkles, TerminalSquare, Truck } from 'lucide-react'
+import {
+  ArrowUpRight,
+  Boxes,
+  CheckCircle2,
+  CircleDollarSign,
+  DatabaseZap,
+  LockKeyhole,
+  PackageCheck,
+  PackageSearch,
+  Radar,
+  Satellite,
+  ShieldCheck,
+  TerminalSquare,
+  Truck,
+} from 'lucide-react'
 import { MintPanel } from './components/MintPanel'
 import { cargo404Address } from './contract'
 import './App.css'
 
 const bscscanUrl = `https://bscscan.com/address/${cargo404Address}#code`
 
+const terminalLogs = [
+  'Initializing Cargo404 protocol...',
+  'Connecting to BNB network...',
+  'Scanning lost cargo packets...',
+  'Validating shipment hash...',
+  'Route corrupted...',
+  'Error 404: Cargo not found',
+  'Re-routing through decentralized cargo network...',
+]
+
+const features = [
+  {
+    icon: <PackageSearch />,
+    title: 'Lost Cargo Protocol',
+    copy: 'Every mint is framed as a corrupted shipment manifest routed through a decentralized cargo terminal.',
+  },
+  {
+    icon: <Radar />,
+    title: 'BNB Network Scan',
+    copy: 'Live mint state, wallet cap, and contract status are surfaced clearly instead of hidden behind noisy UI.',
+  },
+  {
+    icon: <Boxes />,
+    title: 'Cargo Packet Mint',
+    copy: 'Each cargo unit prints 100,000 C404 with a hard wallet cap, fixed public allocation, and verified source.',
+  },
+]
+
+const steps = [
+  {
+    icon: <Satellite />,
+    title: 'Connect to BNB routing',
+    copy: 'Attach a BNB Smart Chain wallet and let the interface verify your route before loading cargo.',
+  },
+  {
+    icon: <TerminalSquare />,
+    title: 'Load cargo packets',
+    copy: 'Choose 1–10 shipment units. The mint terminal calculates total BNB before you sign anything.',
+  },
+  {
+    icon: <PackageCheck />,
+    title: 'Receive C404 manifest',
+    copy: 'Once confirmed, your C404 cargo lands on-chain and the public manifest updates through BscScan.',
+  },
+]
+
+function CargoCoreVisual() {
+  return (
+    <div className="cargo-core" aria-label="Animated 3D Cargo404 cargo terminal visual">
+      <div className="orbit orbit-one" />
+      <div className="orbit orbit-two" />
+      <div className="orbit orbit-three" />
+      <div className="particle-field" aria-hidden="true">
+        {Array.from({ length: 18 }).map((_, index) => (
+          <i key={index} style={{ '--i': index } as React.CSSProperties} />
+        ))}
+      </div>
+      <div className="cargo-cube-wrap">
+        <div className="cargo-cube">
+          <div className="cube-face cube-front">
+            <span>C404</span>
+            <small>LOST CARGO</small>
+          </div>
+          <div className="cube-face cube-back" />
+          <div className="cube-face cube-right" />
+          <div className="cube-face cube-left" />
+          <div className="cube-face cube-top" />
+          <div className="cube-face cube-bottom" />
+        </div>
+      </div>
+      <div className="scan-card scan-card-a">
+        <span>BNB ROUTE</span>
+        <b>CHAIN 56</b>
+      </div>
+      <div className="scan-card scan-card-b">
+        <span>SHIPMENT HASH</span>
+        <b>0xC404...LOST</b>
+      </div>
+      <div className="scan-card scan-card-c">
+        <span>STATUS</span>
+        <b>404 / RE-ROUTING</b>
+      </div>
+    </div>
+  )
+}
+
+function AnimatedTerminal() {
+  return (
+    <section className="protocol-terminal" id="terminal">
+      <div className="terminal-copy">
+        <div className="eyebrow"><span /> protocol diagnostics</div>
+        <h2>Elegant terminal logs that feel like the product.</h2>
+        <p>
+          Cargo404 is styled as a futuristic onchain logistics system: shipment manifests, corrupted routes,
+          hash validation, BNB routing, and a clean terminal layer built into the mint experience.
+        </p>
+      </div>
+      <div className="terminal-window">
+        <div className="terminal-toolbar">
+          <div><i /><i /><i /></div>
+          <span>CARGO404://BNB-SCAN/ROUTER</span>
+          <b>LIVE</b>
+        </div>
+        <div className="terminal-screen">
+          {terminalLogs.map((log, index) => (
+            <p key={log} style={{ '--delay': `${index * 0.55}s` } as React.CSSProperties}>
+              <span>{String(index + 1).padStart(2, '0')}</span>
+              <b>{log}</b>
+            </p>
+          ))}
+        </div>
+        <div className="terminal-footerline">
+          <span>routing confidence</span>
+          <div><i /></div>
+          <b>87.04%</b>
+        </div>
+      </div>
+    </section>
+  )
+}
+
 function App() {
   return (
     <main className="site-shell">
       <div className="ambient-orb orb-a" aria-hidden="true" />
       <div className="ambient-orb orb-b" aria-hidden="true" />
+      <div className="ambient-orb orb-c" aria-hidden="true" />
       <div className="cargo-grid" aria-hidden="true" />
 
       <header className="nav-bar">
@@ -17,14 +153,14 @@ function App() {
           <img src="/cargo404.png" alt="Cargo404" />
           <span>
             <b>Cargo404</b>
-            <small>BNB mainnet mint</small>
+            <small>Cyber logistics protocol</small>
           </span>
         </a>
         <nav className="nav-links" aria-label="Primary navigation">
+          <a href="#terminal">Terminal</a>
           <a href="#mint">Mint</a>
-          <a href="#mechanism">Mechanism</a>
-          <a href="#manifest">Manifest</a>
-          <a href="#faq">FAQ</a>
+          <a href="#features">Features</a>
+          <a href="#works">How it works</a>
         </nav>
         <a className="nav-cta" href={bscscanUrl} target="_blank" rel="noreferrer">
           Verified contract <ArrowUpRight size={15} />
@@ -33,48 +169,30 @@ function App() {
 
       <section className="hero-section" id="top">
         <div className="hero-copy">
-          <div className="eyebrow"><span /> verified on BNB Smart Chain</div>
+          <div className="eyebrow"><span /> BNB Smart Chain cargo terminal</div>
           <h1>
             Lost cargo.<br />
-            Found alpha.
+            Decentralized routing.
           </h1>
           <p className="hero-lede">
-            Cargo404 is a polished meme-token mint terminal for degens who found the wrong warehouse,
-            but the right ticker. Public mint, hard wallet cap, verified contract, clean launch flow.
+            Cargo404 is a premium Web3 mint experience built like a futuristic onchain cargo terminal —
+            scanning lost shipment packets, validating hashes, and re-routing corrupted manifests through BNB.
           </p>
           <div className="hero-actions">
             <a className="primary-link" href="#mint">Open mint terminal</a>
             <a className="secondary-link" href={bscscanUrl} target="_blank" rel="noreferrer">
-              View BscScan <ArrowUpRight size={16} />
+              View verified contract <ArrowUpRight size={16} />
             </a>
           </div>
           <div className="trust-row" aria-label="Launch trust signals">
-            <span><CheckCircle2 size={16} /> Contract verified</span>
-            <span><ShieldCheck size={16} /> 10 max / wallet</span>
-            <span><LockKeyhole size={16} /> Mint gate controlled</span>
+            <span><CheckCircle2 size={16} /> Verified source</span>
+            <span><ShieldCheck size={16} /> 10 cargo / wallet</span>
+            <span><LockKeyhole size={16} /> Controlled mint gate</span>
           </div>
         </div>
 
-        <aside className="hero-visual" aria-label="Cargo404 launch card">
-          <div className="shipment-card">
-            <div className="shipment-topline">
-              <span>C404 / MANIFEST</span>
-              <b>CHAIN 56</b>
-            </div>
-            <div className="crate-stage">
-              <div className="crate-glow" />
-              <img src="/cargo404.png" alt="Cargo404 cargo badge" />
-            </div>
-            <div className="scan-line">
-              <span>route</span>
-              <strong>BNB MAINNET → LOST TERMINAL</strong>
-            </div>
-            <div className="shipment-stats">
-              <div><small>Mint price</small><b>0.0025 BNB</b></div>
-              <div><small>Per cargo</small><b>100K C404</b></div>
-              <div><small>Supply</small><b>1B C404</b></div>
-            </div>
-          </div>
+        <aside className="hero-visual">
+          <CargoCoreVisual />
         </aside>
       </section>
 
@@ -83,72 +201,72 @@ function App() {
         <span>•</span>
         <span>700M C404 PUBLIC ALLOCATION</span>
         <span>•</span>
-        <span>300M C404 RESERVE</span>
+        <span>BNB NETWORK SCAN ENABLED</span>
         <span>•</span>
         <span>MAX 10 CARGO / WALLET</span>
       </section>
 
+      <AnimatedTerminal />
+
       <section className="mint-layout" id="mint">
         <div className="section-intro">
-          <div className="eyebrow"><span /> live mint interface</div>
-          <h2>Professional mint flow, not a random terminal toy.</h2>
+          <div className="eyebrow"><span /> mint control room</div>
+          <h2>Load cargo through a clean onchain interface.</h2>
           <p>
-            The UI is built to feel like a premium crypto launch page: strong hero, clear tokenomics,
-            visible trust signals, and the mint panel always focused on the action.
+            The mint module keeps the important stuff readable: price, wallet cap, network, verified contract,
+            cargo progress, and the exact BNB cost before signing.
           </p>
+          <div className="mini-specs">
+            <div><CircleDollarSign /><span>Mint price</span><b>0.0025 BNB</b></div>
+            <div><Truck /><span>Per cargo</span><b>100K C404</b></div>
+            <div><DatabaseZap /><span>Total supply</span><b>1B C404</b></div>
+          </div>
         </div>
         <MintPanel />
       </section>
 
-      <section className="feature-grid" id="mechanism">
-        <article>
-          <CircleDollarSign />
-          <h3>Fair public mint</h3>
-          <p>Each cargo unit costs 0.0025 BNB and prints 100,000 C404. Simple numbers, easy to verify.</p>
-        </article>
-        <article>
-          <ShieldCheck />
-          <h3>Wallet cap</h3>
-          <p>Hard cap of 10 cargo units per wallet keeps early distribution cleaner and reduces whale pressure.</p>
-        </article>
-        <article>
-          <Boxes />
-          <h3>Fixed allocation</h3>
-          <p>700M C404 for public mint and 300M C404 reserve allocation for launch operations/liquidity.</p>
-        </article>
+      <section className="feature-section" id="features">
+        <div className="section-intro centered">
+          <div className="eyebrow"><span /> cargo system modules</div>
+          <h2>Not a hacker template. A cyber logistics interface.</h2>
+        </div>
+        <div className="feature-grid">
+          {features.map((feature) => (
+            <article key={feature.title}>
+              {feature.icon}
+              <h3>{feature.title}</h3>
+              <p>{feature.copy}</p>
+            </article>
+          ))}
+        </div>
       </section>
 
-      <section className="manifest-section" id="manifest">
+      <section className="manifest-section" id="works">
         <div className="section-intro centered">
-          <div className="eyebrow"><span /> launch manifest</div>
-          <h2>Three-step cargo loading.</h2>
+          <div className="eyebrow"><span /> how cargo404 works</div>
+          <h2>Three-step shipment recovery.</h2>
         </div>
         <div className="timeline">
-          <div><b>01</b><Truck /><h3>Connect wallet</h3><p>Use a BNB Smart Chain wallet and open the verified mint panel.</p></div>
-          <div><b>02</b><TerminalSquare /><h3>Load cargo</h3><p>Choose 1–10 cargo units. The UI calculates BNB cost before you sign.</p></div>
-          <div><b>03</b><PackageSearch /><h3>Claim signal</h3><p>After confirmation, C404 lands in your wallet and progress updates on-chain.</p></div>
+          {steps.map((step, index) => (
+            <div key={step.title}>
+              <b>{String(index + 1).padStart(2, '0')}</b>
+              {step.icon}
+              <h3>{step.title}</h3>
+              <p>{step.copy}</p>
+            </div>
+          ))}
         </div>
       </section>
 
-      <section className="faq-section" id="faq">
-        <div className="faq-card">
-          <Sparkles />
-          <h2>What is Cargo404?</h2>
-          <p>A BNB Chain meme mint with cargo-terminal lore, cleaner launch UX, verified source code, and public mint mechanics.</p>
+      <section className="final-cta">
+        <div>
+          <div className="eyebrow"><span /> final manifest</div>
+          <h2>Ready to recover the lost cargo?</h2>
+          <p>Open the mint terminal, connect on BNB Smart Chain, and load your C404 cargo packet when the gate is active.</p>
         </div>
-        <div className="faq-list">
-          <details open>
-            <summary>Is the contract verified?</summary>
-            <p>Yes. The Cargo404 contract is verified on BscScan at {cargo404Address}.</p>
-          </details>
-          <details>
-            <summary>How much can one wallet mint?</summary>
-            <p>Maximum 10 cargo units per wallet. Each cargo unit receives 100,000 C404.</p>
-          </details>
-          <details>
-            <summary>Is this financial advice?</summary>
-            <p>No. Cargo404 is a meme-token experiment. DYOR, manage risk, and only mint what you can afford to lose.</p>
-          </details>
+        <div className="final-actions">
+          <a className="primary-link" href="#mint">Launch mint terminal</a>
+          <a className="secondary-link" href={bscscanUrl} target="_blank" rel="noreferrer">Inspect contract <ArrowUpRight size={16} /></a>
         </div>
       </section>
 
