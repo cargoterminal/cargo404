@@ -369,6 +369,8 @@
 }
 
 .terminal-field {
+  display: grid;
+  gap: 8px;
   border: 1px solid var(--line);
   padding: 13px 14px;
   margin: 14px 0;
@@ -457,6 +459,7 @@
 }
 
 .supply-track {
+  margin-top: 8px;
   margin-bottom: 16px;
 }
 

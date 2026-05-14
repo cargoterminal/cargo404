@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react'
+import { useAppKit } from '@reown/appkit/react'
 import { parseEther, formatEther } from 'viem'
 import { bsc } from 'wagmi/chains'
 import {
@@ -23,6 +24,7 @@ export function MintPanel() {
   const [units, setUnits] = useState(1)
   const { address, isConnected, chainId } = useAccount()
   const { connectors, connect, isPending: isConnecting, error: connectError } = useConnect()
+  const { open } = useAppKit()
   const { disconnect } = useDisconnect()
   const { switchChain } = useSwitchChain()
   const { writeContract, data: hash, isPending: isWriting, error } = useWriteContract()
@@ -79,8 +81,12 @@ export function MintPanel() {
     if (contractReady && navigator.clipboard) navigator.clipboard.writeText(cargo404Address)
   }
   const connectMainWallet = () => {
-    if (!injectedConnector) return
-    connect({ connector: injectedConnector, chainId: bsc.id })
+    if (injectedConnector && hasInjectedWallet) {
+      connect({ connector: injectedConnector, chainId: bsc.id })
+      return
+    }
+
+    open({ view: 'Connect' })
   }
 
   return (
@@ -115,8 +121,8 @@ export function MintPanel() {
       <div className="terminal-section">
         <div className="section-head"><span>▌ ACTIVATE CARGO LINK</span><b>{isConnected ? '○ ACTIVE' : '○ INACTIVE'}</b></div>
         <p>
-          Connect the injected wallet already installed in your browser. Cargo404 auto-detects MetaMask,
-          Rabby, Brave Wallet, OKX, Trust, and other EVM browser wallets — no wallet picker popup.
+          Connect the injected wallet already installed in your browser first. If no browser wallet is detected,
+          Cargo404 opens a dark Reown AppKit fallback for WalletConnect/mobile wallets without changing the terminal UI.
         </p>
         <div className="terminal-field wallet-address-row">
           <span>wallet address</span>
@@ -132,12 +138,12 @@ export function MintPanel() {
               type="button"
               className="primary-btn wallet-select-btn"
               onClick={connectMainWallet}
-              disabled={isConnecting || !injectedConnector}
+              disabled={isConnecting}
             >
-              {isConnecting ? '◆ CONNECTING...' : hasInjectedWallet ? '◆ CONNECT WALLET' : '◆ INSTALL WALLET'}
+              {isConnecting ? '◆ CONNECTING...' : hasInjectedWallet ? '◆ CONNECT WALLET' : '◆ CONNECT VIA APPKIT'}
             </button>
             {!hasInjectedWallet && (
-              <p className="wallet-help">No injected EVM wallet found. Install/open MetaMask, Rabby, Brave Wallet, OKX, or Trust Wallet browser extension.</p>
+              <p className="wallet-help">No injected EVM wallet found. AppKit opens as a dark Cargo404 fallback for WalletConnect/mobile wallets.</p>
             )}
             {connectError && <p className="warning">{connectError.message.split('\n')[0]}</p>}
           </>

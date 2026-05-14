@@ -59,7 +59,7 @@ docs/MAINNET_LAUNCH.md        Launch runbook
 ## Tech stack
 
 - **Contracts:** Solidity `0.8.28`, OpenZeppelin, Hardhat
-- **Frontend:** Vite, React, TypeScript, Wagmi, Viem
+- **Frontend:** Vite, React, TypeScript, Wagmi, Viem, Reown AppKit fallback
 - **Network:** BNB Smart Chain Mainnet + BSC Testnet config
 - **CI:** GitHub Actions with Node.js 20
 
@@ -93,7 +93,10 @@ Frontend `.env`:
 ```env
 VITE_CARGO404_ADDRESS=0x586A95703e0AeEE7fE801efB8B66243884Fde811
 VITE_BSC_RPC_URL=https://bsc-dataseed.binance.org
+VITE_REOWN_PROJECT_ID=your_reown_project_id
 ```
+
+The UI keeps the black/neon Cargo404 terminal concept. The primary wallet button tries the injected browser wallet first through Wagmi, then opens a dark Reown AppKit fallback only when no injected wallet is available.
 
 ## Development commands
 
@@ -162,6 +165,7 @@ Environment variables:
 ```env
 VITE_CARGO404_ADDRESS=0x586A95703e0AeEE7fE801efB8B66243884Fde811
 VITE_BSC_RPC_URL=https://bsc-dataseed.binance.org
+VITE_REOWN_PROJECT_ID=your_reown_project_id
 ```
 
 ## Mainnet launch checklist

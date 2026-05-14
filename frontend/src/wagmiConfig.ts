@@ -1,11 +1,15 @@
-import { createConfig, http } from 'wagmi'
-import { bsc } from 'wagmi/chains'
+import { createAppKit } from '@reown/appkit/react'
+import { WagmiAdapter } from '@reown/appkit-adapter-wagmi'
+import { bsc } from '@reown/appkit/networks'
+import { http } from 'wagmi'
 import { injected } from 'wagmi/connectors'
 
 const bscRpcUrl = import.meta.env.VITE_BSC_RPC_URL || 'https://bsc-dataseed.binance.org'
+const reownProjectId = import.meta.env.VITE_REOWN_PROJECT_ID || 'cargo404-local-dev'
 
-export const wagmiConfig = createConfig({
-  chains: [bsc],
+const wagmiAdapter = new WagmiAdapter({
+  networks: [bsc],
+  projectId: reownProjectId,
   connectors: [
     injected({
       shimDisconnect: true,
@@ -17,3 +21,37 @@ export const wagmiConfig = createConfig({
   },
   ssr: false,
 })
+
+createAppKit({
+  adapters: [wagmiAdapter],
+  networks: [bsc],
+  defaultNetwork: bsc,
+  projectId: reownProjectId,
+  metadata: {
+    name: 'Cargo404',
+    description: 'Cargo404 BNB mint terminal',
+    url: 'https://cargo404.vercel.app',
+    icons: ['https://cargo404.vercel.app/cargo404.png'],
+  },
+  themeMode: 'dark',
+  themeVariables: {
+    '--w3m-accent': '#8fd737',
+    '--w3m-border-radius-master': '2px',
+    '--w3m-font-family': 'JetBrains Mono, monospace',
+  },
+  allWallets: 'HIDE',
+  enableCoinbase: false,
+  enableEIP6963: false,
+  enableWalletGuide: false,
+  features: {
+    analytics: false,
+    email: false,
+    socials: false,
+    swaps: false,
+    onramp: false,
+    history: false,
+    allWallets: false,
+  },
+})
+
+export const wagmiConfig = wagmiAdapter.wagmiConfig

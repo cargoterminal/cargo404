@@ -6,7 +6,8 @@ Use this checklist before turning on BNB Smart Chain Mainnet mint for Cargo404.
 
 - Contract: `0x586A95703e0AeEE7fE801efB8B66243884Fde811`
 - BscScan: https://bscscan.com/address/0x586A95703e0AeEE7fE801efB8B66243884Fde811#code
-- Frontend: https://frontend-caro-404.vercel.app
+- Frontend: https://cargo404.vercel.app
+- Alternate Vercel URL: https://frontend-caro-404.vercel.app
 - Mint price: `0.0025 BNB`
 - Wallet cap: `10 mint units`
 - Public mint cap: `7,000 mint units`
@@ -20,6 +21,7 @@ Use this checklist before turning on BNB Smart Chain Mainnet mint for Cargo404.
 - [ ] `frontend/.env` points to the mainnet contract.
 - [ ] Contract source is verified on BscScan.
 - [ ] Website links to the correct BscScan contract page.
+- [ ] Website still uses the black/neon Cargo404 terminal UI; no white/default wallet modal unless AppKit fallback is opened manually.
 - [ ] Team has the official website + contract address ready to post.
 
 Run local checks:
@@ -61,6 +63,14 @@ const abi = [
 })
 NODE
 ```
+
+## Wallet UI rule
+
+Cargo404 uses React + Vite + Wagmi + Viem, with Reown AppKit configured as a fallback wallet layer. The visible page should stay black/neon terminal-native:
+
+- primary CTA tries the injected browser wallet first;
+- AppKit is dark-themed and only used as a fallback for WalletConnect/mobile;
+- do not replace the terminal shell with a white/SaaS wallet landing without explicit approval.
 
 ## 3. Enable mint
 
