@@ -3,6 +3,12 @@
   "outputDirectory": "frontend/dist",
   "installCommand": "npm install && npm --prefix frontend install",
   "framework": "vite",
+  "rewrites": [
+    {
+      "source": "/((?!assets/.*|favicon.ico|robots.txt|sitemap.xml).*)",
+      "destination": "/index.html"
+    }
+  ],
   "env": {
     "VITE_BSC_RPC_URL": "https://bsc-dataseed.binance.org"
   },

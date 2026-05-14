@@ -1,10 +1,27 @@
 import { ArrowUpRight, Boxes, FileText, PackageSearch, ShieldCheck, TerminalSquare } from 'lucide-react'
+import { useMemo } from 'react'
 import { MintPanel } from './components/MintPanel'
 import { cargo404Address } from './contract'
 import './App.css'
 
 const bscscanUrl = `https://bscscan.com/address/${cargo404Address}#code`
 const shortContract = `${cargo404Address.slice(0, 6)}...${cargo404Address.slice(-4)}`
+
+type PageKey = 'terminal' | 'mint' | 'docs' | 'how'
+
+const routes: Record<PageKey, string> = {
+  terminal: '/',
+  mint: '/mint',
+  docs: '/docs',
+  how: '/how-it-works',
+}
+
+const navItems: Array<[PageKey, string]> = [
+  ['terminal', 'TERMINAL'],
+  ['mint', 'MINT'],
+  ['docs', 'DOCS'],
+  ['how', 'HOW IT WORKS'],
+]
 
 const docs = [
   ['chain', 'BNB Chain'],
@@ -35,29 +52,48 @@ const steps = [
   },
 ]
 
-function scrollToMintTerminal() {
-  const mintTerminal = document.getElementById('cargo-wallet-connect') || document.getElementById('mint')
-  mintTerminal?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+function getPageFromPath(pathname: string): PageKey {
+  if (pathname.startsWith('/mint')) return 'mint'
+  if (pathname.startsWith('/docs')) return 'docs'
+  if (pathname.startsWith('/how-it-works')) return 'how'
+  return 'terminal'
 }
 
 function App() {
+  const activePage = useMemo(() => getPageFromPath(window.location.pathname), [])
+
   return (
     <main className="cargo-page" id="terminal">
-      <header className="topbar">
-        <a className="brand-prompt" href="#terminal" aria-label="Cargo404 terminal home">
-          <span>&gt;_</span>
-          <b>CARGO_404</b>
-        </a>
-        <nav aria-label="Primary navigation">
-          <a className="active" href="#terminal">TERMINAL</a>
-          <a href="#mint">MINT</a>
-          <a href="#docs">DOCS</a>
-          <a href="#how">HOW IT WORKS</a>
-        </nav>
-        <button type="button" className="wallet-top" onClick={scrollToMintTerminal}>[ CONNECT_WALLET ]</button>
-      </header>
+      <Header activePage={activePage} />
+      {activePage === 'terminal' && <TerminalPage />}
+      {activePage === 'mint' && <MintPage />}
+      {activePage === 'docs' && <DocsPage />}
+      {activePage === 'how' && <HowPage />}
+    </main>
+  )
+}
 
-      <section className="reference-hero">
+function Header({ activePage }: { activePage: PageKey }) {
+  return (
+    <header className="topbar">
+      <a className="brand-prompt" href={routes.terminal} aria-label="Cargo404 terminal home">
+        <span>&gt;_</span>
+        <b>CARGO_404</b>
+      </a>
+      <nav aria-label="Primary navigation">
+        {navItems.map(([page, label]) => (
+          <a key={page} className={activePage === page ? 'active' : undefined} href={routes[page]}>{label}</a>
+        ))}
+      </nav>
+      <a className="wallet-top" href={routes.mint}>[ CONNECT_WALLET ]</a>
+    </header>
+  )
+}
+
+function TerminalPage() {
+  return (
+    <>
+      <section className="reference-hero page-hero">
         <div className="hero-left">
           <div className="status-pill"><i /> BNB_MAINNET • VERIFIED_CONTRACT</div>
           <h1>
@@ -69,7 +105,7 @@ function App() {
             Load cargo with BNB, confirm in your wallet, receive C404. No seed phrase. No private key. No mystery approvals.
           </p>
           <div className="hero-buttons">
-            <button type="button" className="primary-hero" onClick={scrollToMintTerminal}>OPEN_CARGO_TERMINAL</button>
+            <a className="primary-hero" href={routes.mint}>OPEN_CARGO_TERMINAL</a>
             <a className="secondary-hero" href={bscscanUrl} target="_blank" rel="noreferrer">VIEW_CONTRACT ↗</a>
           </div>
           <div className="terminal-chips">
@@ -107,28 +143,29 @@ function App() {
         </aside>
       </section>
 
-      <footer className="terminal-footer compact-footer">
-        <span>CARGO404_TERMINAL</span>
-        <small>FIXED_SUPPLY • BNB_CHAIN</small>
-        <nav>
-          <a href="#docs">MANIFEST</a>
-          <a href={bscscanUrl} target="_blank" rel="noreferrer">CONTRACT</a>
-          <a href="#mint">GATE</a>
-          <a href="#security">SAFETY</a>
-        </nav>
-      </footer>
+      <PageFooter />
+    </>
+  )
+}
 
-      <section className="content-block mint-block" id="mint">
-        <div className="block-heading">
-          <span>// CARGO_GATE</span>
-          <h2>Public cargo terminal</h2>
-          <p>Mint gate is closed for now. When it opens, load cargo with BNB and receive C404 straight from the verified contract.</p>
-        </div>
-        <MintPanel />
-      </section>
+function MintPage() {
+  return (
+    <section className="content-block mint-block route-page" id="mint">
+      <div className="block-heading route-heading">
+        <span>// CARGO_GATE</span>
+        <h2>Public cargo terminal</h2>
+        <p>Mint gate is closed for now. When it opens, load cargo with BNB and receive C404 straight from the verified contract.</p>
+      </div>
+      <MintPanel />
+    </section>
+  )
+}
 
-      <section className="content-block docs-block" id="docs">
-        <div className="block-heading">
+function DocsPage() {
+  return (
+    <>
+      <section className="content-block docs-block route-page" id="docs">
+        <div className="block-heading route-heading">
           <span>// MANIFEST</span>
           <h2>Cargo manifest</h2>
           <p>The short version: fixed supply, fixed mint price, fixed wallet cap. The contract is verified on BscScan.</p>
@@ -147,24 +184,7 @@ function App() {
         </div>
       </section>
 
-      <section className="content-block how-block" id="how">
-        <div className="block-heading">
-          <span>// ROUTE</span>
-          <h2>How cargo moves</h2>
-          <p>Connect wallet. Load cargo. Receive C404.</p>
-        </div>
-        <div className="steps-grid">
-          {steps.map((step) => (
-            <article key={step.title}>
-              {step.icon}
-              <h3>{step.title}</h3>
-              <p>{step.copy}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="content-block security-block" id="security">
+      <section className="content-block security-block route-section" id="security">
         <ShieldCheck />
         <div>
           <span>// SAFETY</span>
@@ -176,7 +196,47 @@ function App() {
         </div>
         <a href={bscscanUrl} target="_blank" rel="noreferrer">VIEW_CONTRACT <ArrowUpRight size={15} /></a>
       </section>
-    </main>
+    </>
+  )
+}
+
+function HowPage() {
+  return (
+    <section className="content-block how-block route-page" id="how">
+      <div className="block-heading route-heading">
+        <span>// ROUTE</span>
+        <h2>How cargo moves</h2>
+        <p>Connect wallet. Load cargo. Receive C404.</p>
+      </div>
+      <div className="steps-grid">
+        {steps.map((step) => (
+          <article key={step.title}>
+            {step.icon}
+            <h3>{step.title}</h3>
+            <p>{step.copy}</p>
+          </article>
+        ))}
+      </div>
+      <div className="route-actions">
+        <a className="primary-hero" href={routes.mint}>OPEN_CARGO_TERMINAL</a>
+        <a className="secondary-hero" href={routes.docs}>READ_MANIFEST</a>
+      </div>
+    </section>
+  )
+}
+
+function PageFooter() {
+  return (
+    <footer className="terminal-footer compact-footer">
+      <span>CARGO404_TERMINAL</span>
+      <small>FIXED_SUPPLY • BNB_CHAIN</small>
+      <nav>
+        <a href={routes.docs}>MANIFEST</a>
+        <a href={bscscanUrl} target="_blank" rel="noreferrer">CONTRACT</a>
+        <a href={routes.mint}>GATE</a>
+        <a href={`${routes.docs}#security`}>SAFETY</a>
+      </nav>
+    </footer>
   )
 }
 
