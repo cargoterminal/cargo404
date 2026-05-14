@@ -109,7 +109,7 @@ export function MintPanel() {
       </div>
 
       <button type="button" className="copy-contract" onClick={copyContract} disabled={!contractReady}>
-        copy verified contract address
+        copy contract address
       </button>
 
       <div className="progress-line">

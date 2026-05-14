@@ -15,17 +15,17 @@ const steps = [
   {
     icon: <TerminalSquare />,
     title: 'step 1 — connect wallet',
-    copy: 'Click once to connect your browser wallet. No seed phrase, no hidden approval, no weird signature flow.',
+    copy: 'Connect your EVM browser wallet. No seed phrase, no hidden approval, only wallet-confirmed transactions.',
   },
   {
     icon: <PackageSearch />,
-    title: 'step 2 — select cargo',
-    copy: 'Choose how many cargo units to load. Each unit mints 100,000 C404 for 0.0025 BNB.',
+    title: 'step 2 — load cargo',
+    copy: 'Choose how many cargo units to load. Each cargo costs 0.0025 BNB and delivers 100,000 C404.',
   },
   {
     icon: <Boxes />,
     title: 'step 3 — receive c404',
-    copy: 'Confirm the transaction and your C404 cargo lands directly in your wallet.',
+    copy: 'Confirm the mint and your C404 cargo lands directly in your wallet from the contract.',
   },
 ]
 
@@ -46,14 +46,14 @@ function App() {
       </header>
 
       <section className="minimal-hero" id="top">
-        <p className="kicker">BNB Smart Chain · verified mint terminal</p>
-        <div className="hero-lockup" aria-label="Cargo404 BNB mint terminal">
+        <p className="kicker">BNB Smart Chain · ERC20 cargo mint terminal</p>
+        <div className="hero-lockup" aria-label="Cargo404 BNB cargo mint terminal">
           <h1>Cargo404</h1>
-          <span>BNB mint terminal</span>
+          <span>load cargo · trigger 404 · receive c404</span>
         </div>
         <p className="hero-note">
-          A verified mint flow for C404 cargo units. Fixed price, clear wallet cap,
-          and direct onchain settlement on BNB Smart Chain.
+          Cargo404 is a terminal-themed BNB Chain mint. Load cargo with BNB and receive
+          fixed C404 directly from the contract under clear onchain limits.
         </p>
         <div className="hero-chips" aria-label="Cargo404 mint quick facts">
           <span>0.0025 BNB</span>
@@ -108,7 +108,7 @@ function App() {
       <section className="how-section" id="how">
         <div className="section-heading">
           <h2>How it works</h2>
-          <p>A simple mint flow with clear wallet and contract states.</p>
+          <p>A simple cargo mint flow with clear wallet and contract states.</p>
         </div>
         <div className="step-list">
           {steps.map((step) => (
@@ -126,9 +126,9 @@ function App() {
       <section className="safety-note">
         <ShieldCheck />
         <div>
-          <h2>Mint rules</h2>
+          <h2>Clear mint rules</h2>
           <p>
-            Verified contract, fixed mint price, max 10 cargo per wallet. Always DYOR and only mint what you can afford to lose.
+            Fixed-supply ERC20 cargo mint. Not ERC404, not NFT, and not auto-liquidity. Always verify the official contract and only mint what you can afford to lose.
           </p>
         </div>
         <a href={bscscanUrl} target="_blank" rel="noreferrer">view contract <ArrowUpRight size={15} /></a>

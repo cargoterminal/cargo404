@@ -1,6 +1,10 @@
 # Cargo404 ($C404)
 
-Cargo404 is a BNB Chain mint terminal for `$C404`: fixed supply, simple wallet mint, transparent limits, and a public post-mint liquidity/proof workflow.
+Cargo404 is a BNB Chain terminal-themed ERC20 cargo mint.
+
+Load cargo with BNB. Trigger 404. Receive `$C404`.
+
+Users connect an EVM wallet, choose how many cargo units to load, pay BNB, and receive `$C404` directly from the contract under fixed on-chain mint limits.
 
 ```text
 ERROR 404: CARGO NOT FOUND
@@ -10,20 +14,25 @@ Route missing. Cargo loaded. Convoy deployed.
 - **Live app:** https://www.cargo404.app/
 - **Repository:** https://github.com/cargoterminal/cargo404
 - **Network:** BNB Smart Chain Mainnet
-- **Verified contract:** [`0x586A95703e0AeEE7fE801efB8B66243884Fde811`](https://bscscan.com/address/0x586A95703e0AeEE7fE801efB8B66243884Fde811#code)
+- **Contract:** [`0x586A95703e0AeEE7fE801efB8B66243884Fde811`](https://bscscan.com/address/0x586A95703e0AeEE7fE801efB8B66243884Fde811#code)
 - **Token:** Cargo404 (`C404`)
 
-> Cargo404 is experimental meme-token software. It is not financial advice. Always verify the contract address and confirm every wallet transaction manually.
+> Cargo404 is experimental meme-token software. It is not financial advice. Always verify the official contract address and confirm every wallet transaction manually.
+
+## What Cargo404 is
+
+Cargo404 turns a simple BNB Chain token mint into a terminal-style cargo loading event. Each cargo unit costs a fixed amount of BNB and delivers a fixed amount of `$C404` to the minter's wallet.
+
+Cargo404 is a fixed-supply ERC20 token contract. The `404` identity is terminal/error-cargo branding; Cargo404 is not an ERC404 or NFT contract.
 
 ## Project status
 
 Cargo404 is already deployed and prepared for public mint operations. The remaining steps are operational, not core development:
 
 - Contract deployed on BNB Smart Chain Mainnet.
-- Contract source published on BscScan.
 - Web mint terminal is live.
 - Public repo is cleaned and documented.
-- Mint is controlled by an owner switch and should only be enabled when the launch post, wallet QA, and liquidity plan are ready.
+- Mint is controlled by an owner switch and should only be enabled when the launch post, wallet QA, contract transparency checks, and liquidity plan are ready.
 - Liquidity creation and LP lock/burn proof happen after the mint phase.
 
 ## Mint details
@@ -58,12 +67,29 @@ Liquidity creation is manual. After distribution, reserve C404 should be paired 
 
 1. User opens the official Cargo404 site.
 2. User connects a wallet on BNB Smart Chain.
-3. User chooses how many cargo units to mint.
+3. User chooses how many cargo units to load.
 4. Wallet confirms the mint transaction.
 5. C404 lands directly in the user's wallet.
 6. Public mint progress and wallet limits are read from the contract.
 
 The frontend never asks for seed phrases or private keys.
+
+## Clear claims
+
+Cargo404 can accurately be described as:
+
+- a BNB Chain ERC20 cargo mint;
+- a fixed-supply token contract;
+- a terminal-themed meme-token mint;
+- a contract-based public mint with fixed price, fixed wallet cap, and fixed public mint cap;
+- a project with a hardcoded raised-BNB distribution split.
+
+Cargo404 should not be described as:
+
+- an ERC404 contract;
+- an NFT mint;
+- an auto-liquidity contract;
+- audited, renounced, LP-locked, or burned unless those steps have actually happened and public proof is posted.
 
 ## Repository contents
 
@@ -74,6 +100,7 @@ frontend/                     live mint terminal
 frontend/public/              Cargo404 logo and favicon assets
 frontend/src/                 mint UI and wallet logic
 docs/MAINNET_LAUNCH.md        operator launch checklist
+docs/CONTRACT_PROOF.md        on-chain proof and safety notes
 docs/ROADMAP.md               public roadmap
 .github/workflows/ci.yml      automated contract/frontend checks
 SECURITY.md                   security reporting notes
@@ -84,6 +111,7 @@ SECURITY.md                   security reporting notes
 Use the launch runbook for owner-side actions:
 
 - [`docs/MAINNET_LAUNCH.md`](docs/MAINNET_LAUNCH.md)
+- [`docs/CONTRACT_PROOF.md`](docs/CONTRACT_PROOF.md)
 
 Minimum launch flow:
 

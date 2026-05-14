@@ -17,6 +17,7 @@
     "frontend:lint": "npm --prefix frontend run lint",
     "build": "npm run compile && npm run frontend:build",
     "check": "npm test && npm run compile && npm run frontend:lint && npm run frontend:build",
+    "check:contract-state": "node scripts/check-contract-state.js",
     "enable-mint:bsc": "hardhat run scripts/enable-mint.js --network bsc",
     "enable-mint:bscTestnet": "hardhat run scripts/enable-mint.js --network bscTestnet",
     "distribute:bsc": "hardhat run scripts/distribute.js --network bsc",

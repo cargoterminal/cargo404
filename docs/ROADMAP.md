@@ -1,6 +1,8 @@
 # Cargo404 Roadmap
 
-Cargo404 is being built as a fixed-supply BNB Chain mint terminal with a transparent token flow, simple wallet UX, and public post-launch proof around liquidity, treasury, and buyback operations.
+Cargo404 is being built as a fixed-supply BNB Chain ERC20 cargo mint with a terminal-style wallet UX, transparent mint rules, and public post-launch proof around liquidity, treasury, and buyback operations.
+
+The project should stay honest about what is already live: Cargo404 is not an ERC404/NFT contract and does not create liquidity automatically. The `404` identity is terminal/error-cargo branding around a fixed-supply ERC20 mint.
 
 ## Phase 0 — Foundation & Contract Deployment
 
@@ -22,20 +24,21 @@ Cargo404 is being built as a fixed-supply BNB Chain mint terminal with a transpa
   - `70%` liquidity bucket.
   - `20%` treasury.
   - `10%` buyback wallet.
-- Publish contract source and BscScan link.
+- Publish contract address and BscScan link.
 - Prepare contract tests and owner launch scripts.
 
-## Phase 1 — Mint Terminal Launch
+## Phase 1 — Narrative & Mint Terminal Launch
 
-**Status:** Completed
+**Status:** In progress
 
-- Launch the Cargo404 web mint terminal.
+- Keep the core message consistent: load cargo with BNB, trigger 404, receive `$C404`.
 - Keep the black/neon terminal identity consistent with the Cargo404 brand.
 - Show official contract, mint status, wallet limit, and public progress clearly.
 - Let users connect a wallet, choose cargo units, and mint directly from the site.
 - Deploy the site to the official Cargo404 domain.
-- Publish official website, verified contract address, and BscScan link.
+- Publish official website, contract address, and BscScan link.
 - Keep public mint activation behind the owner-controlled contract switch.
+- Prepare official X bio, pinned post, and launch thread before enabling mint.
 
 ## Phase 2 — Liquidity & Proof of Operations
 
