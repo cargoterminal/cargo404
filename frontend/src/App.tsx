@@ -11,7 +11,7 @@ function App() {
             <img src="/cargo404.png" alt="Cargo404 logo" />
           </div>
           <div className="hero-copy">
-            <div className="eyebrow">LOST FREIGHT NETWORK / BNB TERMINAL</div>
+            <div className="eyebrow">LOST FREIGHT NETWORK / BNB CARGO TERMINAL</div>
             <h1>Cargo404</h1>
             <p><span>Your package is lost.</span><span>Your bags are not.</span></p>
           </div>
