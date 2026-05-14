@@ -225,7 +225,7 @@ export function MintPanel() {
               <p className="wallet-help">No injected EVM wallet found. AppKit opens as a dark Cargo404 fallback for WalletConnect/mobile wallets.</p>
             )}
             {!hasInjectedWallet && !hasConfiguredReownProjectId && (
-              <p className="warning">WalletConnect fallback is disabled until VITE_REOWN_PROJECT_ID is configured in the frontend deploy environment.</p>
+              <p className="warning">WalletConnect fallback unavailable. Use an injected browser wallet.</p>
             )}
             {connectError && <p className="warning">{connectError.message.split('\n')[0]}</p>}
           </>

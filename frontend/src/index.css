@@ -1,28 +1,23 @@
-@import url('https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@600;700;800&family=Geist:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;0,800;1,700;1,800&display=swap');
 
 :root {
-  --bg: #050805;
-  --surface: #11150a;
-  --surface-lowest: #0c0f06;
-  --surface-low: #191d11;
-  --surface-container: #1d2115;
-  --surface-high: #272b1f;
-  --surface-highest: #323629;
-  --ink: #e1e4d1;
-  --soft-ink: #c2caaf;
-  --muted-ink: #8c947c;
-  --line: rgba(156, 217, 28, .32);
-  --line-strong: #9edb1f;
-  --lime: #b9f840;
-  --lime-2: #9edb1f;
+  --bg: #030803;
+  --bar: #11170d;
+  --panel: #0b1208;
+  --panel-head: #293222;
+  --panel-soft: #10170d;
+  --lime: #b6ff35;
+  --lime-dim: rgba(182, 255, 53, .25);
+  --text: #e4ead8;
+  --body-text: #c4ceba;
+  --muted: #8d9782;
+  --line: rgba(182, 255, 53, .22);
+  --line-strong: #b6ff35;
   --yellow: #efc52a;
-  --red: #ff9f9f;
-  --shadow: rgba(158, 219, 31, .18);
-  --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  --display: 'Archivo Narrow', Impact, sans-serif;
-  --body: 'Geist', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  font-family: var(--body);
-  color: var(--ink);
+  --danger: #ff6955;
+  --mono: 'JetBrains Mono', 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-family: var(--mono);
+  color: var(--text);
   background: var(--bg);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -37,12 +32,7 @@ body {
   min-width: 320px;
   min-height: 100vh;
   overflow-x: hidden;
-  background:
-    linear-gradient(#11150a 1px, transparent 1px),
-    linear-gradient(90deg, #11150a 1px, transparent 1px),
-    radial-gradient(circle at 70% 28%, rgba(156, 217, 28, .1), transparent 26%),
-    linear-gradient(180deg, #050805 0%, #090d06 55%, #050805 100%);
-  background-size: 40px 40px, 40px 40px, auto, auto;
+  background: var(--bg);
 }
 
 body::before {
@@ -51,18 +41,17 @@ body::before {
   inset: 0;
   pointer-events: none;
   z-index: 0;
-  background:
-    linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, .24) 50%),
-    linear-gradient(90deg, rgba(255, 0, 0, .04), rgba(0, 255, 0, .015), rgba(0, 0, 255, .04));
-  background-size: 100% 4px, 3px 100%;
-  mix-blend-mode: screen;
-  opacity: .55;
+  opacity: .18;
+  background-image:
+    linear-gradient(rgba(182, 255, 53, .08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(182, 255, 53, .08) 1px, transparent 1px);
+  background-size: 40px 40px;
 }
 
 button, a { font: inherit; }
 a { color: inherit; text-decoration: none; }
 button { -webkit-tap-highlight-color: transparent; }
-::selection { background: var(--lime); color: #050805; }
+::selection { background: var(--lime); color: #030803; }
 
 w3m-modal,
 appkit-modal,
@@ -78,12 +67,6 @@ appkit-modal * {
   --apkt-color-mix-strength: 95;
   --apkt-border-radius-master: 0px;
   --apkt-font-family: var(--mono);
-}
-
-w3m-modal::part(wallet-button),
-appkit-modal::part(wallet-button) {
-  background: #071006;
-  color: var(--ink);
 }
 
 #root { position: relative; z-index: 1; }
