@@ -4,6 +4,27 @@ import './App.css'
 function App() {
   return (
     <main className="terminal-shell">
+      <div className="terminal-room" aria-hidden="true">
+        <div className="floor-grid" />
+        <div className="terminal-window terminal-window-a">
+          <b>CARGO_TRACE.EXE</b>
+          <span>route: bnb/mainnet</span>
+          <span>tracking: 404_missing</span>
+          <i />
+        </div>
+        <div className="terminal-window terminal-window-b">
+          <b>MANIFEST.LOG</b>
+          <span>mint: locked</span>
+          <span>cargo: 0/7000</span>
+          <i />
+        </div>
+        <div className="terminal-window terminal-window-c">
+          <b>SCAN_NODE</b>
+          <span>signal: online</span>
+          <span>bags: pending</span>
+          <i />
+        </div>
+      </div>
       <div className="crt-noise" />
       <section className="hero-terminal" id="status">
         <header className="brand-hero glitch-hero">
