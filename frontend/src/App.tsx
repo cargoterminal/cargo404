@@ -125,9 +125,9 @@ function App() {
 
       <section className="content-block mint-block" id="mint">
         <div className="block-heading">
-          <span>// MINT_INTERFACE</span>
-          <h2>Public mint terminal</h2>
-          <p>On-chain module stays locked until the official gate opens. Wallet flow remains Wagmi + Viem + Reown AppKit optional fallback.</p>
+          <span>// CARGO_GATE</span>
+          <h2>Public cargo terminal</h2>
+          <p>Mint gate is closed for now. When it opens, load cargo with BNB and receive C404 straight from the verified contract.</p>
         </div>
         <MintPanel />
       </section>
