@@ -12,9 +12,9 @@ import {
   useWriteContract,
 } from 'wagmi'
 import { cargo404Abi, cargo404Address } from '../contract'
+import { hasConfiguredReownProjectId } from '../wagmiConfig'
 
 const activeCargo404Address = cargo404Address as `0x${string}`
-import { hasConfiguredReownProjectId } from '../wagmiConfig'
 
 function shortAddress(address?: string) {
   if (!address) return ''
@@ -24,7 +24,7 @@ function shortAddress(address?: string) {
 
 export function MintPanel() {
   const [units, setUnits] = useState(1)
-  const [copyLabel, setCopyLabel] = useState('copy verified contract address')
+  const [copyLabel, setCopyLabel] = useState('copy contract')
   const [walletModalOpen, setWalletModalOpen] = useState(false)
   const [isBrowserWalletReady, setIsBrowserWalletReady] = useState(false)
   const { address, isConnected, chainId } = useAccount()
@@ -96,14 +96,14 @@ export function MintPanel() {
     }
   }, [])
   const hasInjectedWallet = isBrowserWalletReady || Boolean(browserWalletConnector)
-  const detectedWallet = hasInjectedWallet ? browserWalletConnector?.name || 'browser wallet' : 'no injected wallet detected'
+  const detectedWallet = hasInjectedWallet ? browserWalletConnector?.name || 'browser wallet ready' : 'no browser wallet found'
   const displayedAddress = isConnected ? shortAddress(address) : detectedWallet
   const statusLabel = !contractReady ? 'offline' : mintActive ? 'live' : 'gate closed'
   const copyContract = () => {
     if (!contractReady || !navigator.clipboard) return
     navigator.clipboard.writeText(cargo404Address)
-    setCopyLabel('verified contract copied')
-    window.setTimeout(() => setCopyLabel('copy verified contract address'), 1600)
+    setCopyLabel('contract copied')
+    window.setTimeout(() => setCopyLabel('copy contract'), 1600)
   }
   const connectWithConnector = (connector: typeof connectors[number]) => {
     connect({ connector }, { onSuccess: () => setWalletModalOpen(false) })
@@ -186,15 +186,15 @@ export function MintPanel() {
                 >
                   <div className="wallet-modal-head">
                     <div>
-                      <span>secure connection</span>
-                      <h3 id="wallet-modal-title">Connect wallet</h3>
+                      <span>connect wallet</span>
+                      <h3 id="wallet-modal-title">Choose wallet</h3>
                     </div>
                     <button type="button" onClick={() => setWalletModalOpen(false)} aria-label="Close wallet connector">×</button>
                   </div>
 
                   <div className="wallet-safety-strip">
-                    <strong>Safety check</strong>
-                    <span>No seed phrase. No private key. No token approval on connect.</span>
+                    <strong>Before you connect</strong>
+                    <span>No seed phrase. No private key. No approval just to connect.</span>
                   </div>
 
                   <div className="wallet-option-list">
@@ -202,7 +202,7 @@ export function MintPanel() {
                       <button type="button" disabled={isConnecting} onClick={() => connectWithConnector(browserWalletConnector)}>
                         <span className="wallet-icon">◆</span>
                         <span><b>Browser wallet</b><small>{browserWalletConnector.name}</small></span>
-                        <i>recommended</i>
+                        <i>best</i>
                       </button>
                     )}
 
@@ -212,36 +212,36 @@ export function MintPanel() {
                       .map((connector) => (
                         <button key={connector.uid} type="button" disabled={isConnecting} onClick={() => connectWithConnector(connector)}>
                           <span className="wallet-icon">◇</span>
-                          <span><b>{connector.name}</b><small>detected wallet</small></span>
-                          <i>available</i>
+                          <span><b>{connector.name}</b><small>wallet found</small></span>
+                          <i>use</i>
                         </button>
                       ))}
 
                     {hasConfiguredReownProjectId && (
                       <button type="button" disabled={isConnecting} onClick={openAppKitFallback}>
                         <span className="wallet-icon">◎</span>
-                        <span><b>WalletConnect / Mobile</b><small>open Reown AppKit</small></span>
-                        <i>fallback</i>
+                        <span><b>WalletConnect / Mobile</b><small>open mobile wallet</small></span>
+                        <i>mobile</i>
                       </button>
                     )}
                   </div>
 
                   {!hasInjectedWallet && !hasConfiguredReownProjectId && (
-                    <p className="warning">Install MetaMask/Rabby/OKX Wallet or configure Reown Project ID for mobile WalletConnect.</p>
+                    <p className="warning">No wallet found. Install MetaMask, Rabby, or OKX Wallet.</p>
                   )}
                   {connectError && <p className="warning">{connectError.message.split('\n')[0]}</p>}
 
                   <p className="wallet-modal-foot">
-                    After connection, Cargo404 may ask you to switch to BNB Smart Chain. Mint stays locked until the owner opens the gate.
+                    Connect first. If your wallet is on the wrong network, switch to BNB Chain. Mint opens only when the gate is live.
                   </p>
                 </div>
               </div>
             )}
             {!hasInjectedWallet && hasConfiguredReownProjectId && (
-              <p className="wallet-help">No injected EVM wallet found. AppKit opens as a dark Cargo404 fallback for WalletConnect/mobile wallets.</p>
+              <p className="wallet-help">No browser wallet found. Use WalletConnect for mobile.</p>
             )}
             {!hasInjectedWallet && !hasConfiguredReownProjectId && (
-              <p className="warning">WalletConnect fallback unavailable. Use an injected browser wallet.</p>
+              <p className="warning">No browser wallet found. Open this page in a wallet browser or install MetaMask/Rabby/OKX.</p>
             )}
             {connectError && <p className="warning">{connectError.message.split('\n')[0]}</p>}
           </>
@@ -268,7 +268,7 @@ export function MintPanel() {
         <button type="button" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>◆ OVERVIEW</button>
       </div>
 
-      {!contractReady && <p className="warning">Contract address pending deployment. Mint unlocks after launch.</p>}
+      {!contractReady && <p className="warning">Contract not ready yet.</p>}
       {walletRemaining === 0 && <p className="warning">Wallet limit reached: 10/10 cargo loaded.</p>}
       {isSuccess && receipt && <p className="success">Cargo loaded. TX confirmed.</p>}
       {error && <p className="warning">{error.message.split('\n')[0]}</p>}

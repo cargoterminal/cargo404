@@ -1,19 +1,19 @@
 import { ArrowUpRight, Boxes, FileText, PackageSearch, ShieldCheck, TerminalSquare } from 'lucide-react'
 import { MintPanel } from './components/MintPanel'
-import { cargo404Address, officialCargo404Address } from './contract'
+import { cargo404Address } from './contract'
 import './App.css'
 
 const bscscanUrl = `https://bscscan.com/address/${cargo404Address}#code`
 const shortContract = `${cargo404Address.slice(0, 6)}...${cargo404Address.slice(-4)}`
 
 const docs = [
-  ['chain', 'BNB Smart Chain'],
-  ['standard', 'ERC20 cargo mint'],
+  ['chain', 'BNB Chain'],
+  ['contract', shortContract],
+  ['type', 'ERC20 cargo mint'],
   ['total supply', '40,400,000 C404'],
-  ['public allocation', '28,280,000 C404'],
-  ['reserve allocation', '12,120,000 C404'],
+  ['public cargo', '7,000 units'],
   ['mint price', '0.0025 BNB'],
-  ['tokens per cargo', '4,040 C404'],
+  ['per cargo', '4,040 C404'],
   ['wallet cap', '10 cargo'],
 ]
 
@@ -21,17 +21,17 @@ const steps = [
   {
     icon: <TerminalSquare />,
     title: '01 / connect_wallet',
-    copy: 'Connect a browser EVM wallet. Cargo404 never asks for seed phrase, private key, or token approval on connect.',
+    copy: 'Connect your EVM wallet. Cargo404 will never ask for your seed phrase or private key.',
   },
   {
     icon: <PackageSearch />,
     title: '02 / load_cargo',
-    copy: 'When the gate opens, select cargo units. Each cargo costs 0.0025 BNB and routes 4,040 C404 to your wallet.',
+    copy: 'When the gate opens, choose how many cargo units to load. Each cargo costs 0.0025 BNB.',
   },
   {
     icon: <Boxes />,
     title: '03 / receive_c404',
-    copy: 'Confirm the wallet transaction. C404 is delivered from the verified contract, with a 10 cargo cap per wallet.',
+    copy: 'Confirm the transaction in your wallet. The verified contract sends C404 to the same address.',
   },
 ]
 
@@ -59,12 +59,7 @@ function App() {
 
       <section className="reference-hero">
         <div className="hero-left">
-          {cargo404Address.toLowerCase() !== officialCargo404Address.toLowerCase() && (
-            <div className="contract-warning">
-              ENV_CONTRACT_MISMATCH · official contract is {officialCargo404Address.slice(0, 6)}...{officialCargo404Address.slice(-4)}
-            </div>
-          )}
-          <div className="status-pill"><i /> BNB_MAINNET • VERIFIED_LINK</div>
+          <div className="status-pill"><i /> BNB_MAINNET • VERIFIED_CONTRACT</div>
           <h1>
             <span>ERROR 404:</span>
             <em>CARGO FOUND.</em>
@@ -74,52 +69,52 @@ function App() {
             Load cargo with BNB, confirm in your wallet, receive C404. No seed phrase. No private key. No mystery approvals.
           </p>
           <div className="hero-buttons">
-            <button type="button" className="primary-hero" onClick={scrollToMintTerminal}>OPEN_MINT_TERMINAL</button>
-            <a className="secondary-hero" href={bscscanUrl} target="_blank" rel="noreferrer">VIEW_BSCSCAN ↗</a>
+            <button type="button" className="primary-hero" onClick={scrollToMintTerminal}>OPEN_CARGO_TERMINAL</button>
+            <a className="secondary-hero" href={bscscanUrl} target="_blank" rel="noreferrer">VIEW_CONTRACT ↗</a>
           </div>
           <div className="terminal-chips">
             <span>[ PRICE: 0.0025 BNB ]</span>
-            <span>[ PER_CARGO: 4,040 C404 ]</span>
-            <span>[ CAP: 10_CARGO_CAP ]</span>
+            <span>[ CARGO: 4,040 C404 ]</span>
+            <span>[ WALLET_CAP: 10 ]</span>
           </div>
         </div>
 
         <aside className="hero-terminal" aria-label="Cargo404 terminal preview">
           <div className="hero-terminal-head">
             <div><i className="dot-red" /><i className="dot-yellow" /><i className="dot-green" /></div>
-            <span>CONSOLE_V1.0.4 - SYSTEM:404</span>
+            <span>CARGO404_TERMINAL</span>
           </div>
           <div className="hero-terminal-body">
-            <p><b>&gt;</b> boot cargo404.exe</p>
-            <p><b>&gt;</b> route: BNB_SMART_CHAIN</p>
-            <p><b>&gt;</b> handshake: {shortContract}</p>
+            <p><b>&gt;</b> terminal online</p>
+            <p><b>&gt;</b> chain: BNB_MAINNET</p>
+            <p><b>&gt;</b> contract: {shortContract}</p>
 
             <div className="terminal-divider" />
             <div className="terminal-mark">C404</div>
-            <div className="terminal-encryption">ENCRYPTION_STANDARD_ACTIVE</div>
+            <div className="terminal-encryption">LOST_SHIPMENT_FOUND_BAGS</div>
             <div className="terminal-divider" />
 
             <div className="terminal-status-list">
-              <span>↯ [SYSTEM_STABLE]</span>
-              <span>⌂ [VERIFIED_SOURCE]</span>
-              <span>◉ [LATENCY: 12ms]</span>
+              <span>↯ [GATE_CLOSED]</span>
+              <span>⌂ [SOURCE_VERIFIED]</span>
+              <span>◉ [NO_APPROVAL_ON_CONNECT]</span>
             </div>
           </div>
           <div className="hero-terminal-foot">
-            <span>[STATUS] GATE_CLOSED</span>
-            <span>MODE: PUBLIC_MINT</span>
+            <span>[STATUS] WAITING_SIGNAL</span>
+            <span>MODE: CARGO_MINT</span>
           </div>
         </aside>
       </section>
 
       <footer className="terminal-footer compact-footer">
-        <span>CARGO404_TERMINAL_V1.0.4</span>
-        <small>©2026 ALL_RIGHTS_RESERVED</small>
+        <span>CARGO404_TERMINAL</span>
+        <small>FIXED_SUPPLY • BNB_CHAIN</small>
         <nav>
-          <a href="#docs">DOCUMENTATION</a>
-          <a href={bscscanUrl} target="_blank" rel="noreferrer">EXPLORER</a>
-          <a href="#mint">STATUS</a>
-          <a href="#security">SECURITY</a>
+          <a href="#docs">MANIFEST</a>
+          <a href={bscscanUrl} target="_blank" rel="noreferrer">CONTRACT</a>
+          <a href="#mint">GATE</a>
+          <a href="#security">SAFETY</a>
         </nav>
       </footer>
 
@@ -134,9 +129,9 @@ function App() {
 
       <section className="content-block docs-block" id="docs">
         <div className="block-heading">
-          <span>// DOCUMENTATION</span>
+          <span>// MANIFEST</span>
           <h2>Cargo manifest</h2>
-          <p>Public reference for supply, mint rules, contract proof, and launch safety.</p>
+          <p>The short version: fixed supply, fixed mint price, fixed wallet cap. The contract is verified on BscScan.</p>
         </div>
         <div className="docs-grid">
           {docs.map(([label, value]) => (
@@ -148,15 +143,15 @@ function App() {
         </div>
         <div className="doc-actions">
           <a href={bscscanUrl} target="_blank" rel="noreferrer"><FileText size={16} /> verified contract</a>
-          <a href="https://github.com/cargoterminal/cargo404" target="_blank" rel="noreferrer"><ArrowUpRight size={16} /> source repository</a>
+          <a href="https://github.com/cargoterminal/cargo404" target="_blank" rel="noreferrer"><ArrowUpRight size={16} /> github repo</a>
         </div>
       </section>
 
       <section className="content-block how-block" id="how">
         <div className="block-heading">
-          <span>// HOW_IT_WORKS</span>
-          <h2>Route protocol</h2>
-          <p>Three-step cargo route. Connect, load, receive.</p>
+          <span>// ROUTE</span>
+          <h2>How cargo moves</h2>
+          <p>Connect wallet. Load cargo. Receive C404.</p>
         </div>
         <div className="steps-grid">
           {steps.map((step) => (
@@ -172,11 +167,11 @@ function App() {
       <section className="content-block security-block" id="security">
         <ShieldCheck />
         <div>
-          <span>// SECURITY_NOTE</span>
-          <h2>No hidden approvals. No seed phrase. No private key.</h2>
+          <span>// SAFETY</span>
+          <h2>No seed phrase. No private key. No approval on connect.</h2>
           <p>
-            Cargo404 is a fixed-supply ERC20 cargo mint on BNB Smart Chain. It is not ERC404 and not an NFT mint.
-            Verify the official contract before interacting and only confirm transactions in your own wallet.
+            Cargo404 is an ERC20 cargo mint on BNB Chain. It is not ERC404 and not an NFT mint.
+            Check the contract, then only confirm transactions inside your own wallet.
           </p>
         </div>
         <a href={bscscanUrl} target="_blank" rel="noreferrer">VIEW_CONTRACT <ArrowUpRight size={15} /></a>
