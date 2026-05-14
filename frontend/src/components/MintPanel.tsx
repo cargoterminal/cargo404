@@ -17,6 +17,8 @@ function shortAddress(address?: string) {
   return `${address.slice(0, 6)}...${address.slice(-4)}`
 }
 
+const placeholderAddress = '0x0000000000000000000000000000000000000000'
+
 export function MintPanel() {
   const [units, setUnits] = useState(1)
   const { address, isConnected, chainId } = useAccount()
@@ -25,7 +27,7 @@ export function MintPanel() {
   const { switchChain } = useSwitchChain()
   const { writeContract, data: hash, isPending: isWriting, error } = useWriteContract()
 
-  const contractReady = cargo404Address !== '0x0000000000000000000000000000000000000000'
+  const contractReady = cargo404Address !== placeholderAddress
   const wrongChain = isConnected && chainId !== bsc.id
 
   const { data: mintActive } = useReadContract({
@@ -68,43 +70,72 @@ export function MintPanel() {
     })
   }
 
+  const connectWallet = () => connect({ connector: connectors[0] })
+  const displayedAddress = isConnected ? shortAddress(address) : 'not connected'
+  const statusLabel = !contractReady ? 'offline' : mintActive ? 'live' : 'closed'
+
   return (
-    <section className="terminal-card mint-card">
-      <div className="card-title">▌ MINT $C404</div>
-      <div className="status-grid">
-        <span>PRICE</span><strong>0.0025 BNB</strong>
-        <span>MAX/WALLET</span><strong>10 MINT</strong>
-        <span>YOUR CARGO</span><strong>{walletMinted}/10</strong>
-        <span>STATUS</span><strong className={mintActive ? 'green' : 'amber'}>{mintActive ? 'LOADING' : 'OFFLINE'}</strong>
+    <section className="terminal-panel mint-panel" id="mint">
+      <div className="panel-head">
+        <span>▌ MINT</span>
+        <strong>{minted}/7000</strong>
       </div>
 
-      <div className="supply-row">
-        <span>CARGO LOADED</span>
-        <span>{minted}/7000</span>
+      <div className="data-table">
+        <div><span>manifest</span><i /> <strong>{contractReady ? shortAddress(cargo404Address) : 'pending deployment'}</strong></div>
+        <div><span>token</span><i /> <strong>$C404</strong></div>
+        <div><span>route</span><i /> <strong>bnb smart chain</strong></div>
+        <div><span>mint fee</span><i /> <strong>0.0025 bnb</strong></div>
+        <div><span>reward</span><i /> <strong>100,000 C404 / cargo</strong></div>
+        <div><span>wallet cap</span><i /> <strong>10 cargo</strong></div>
+        <div><span>your cargo</span><i /> <strong>{walletMinted}/10</strong></div>
+        <div><span>status</span><i /> <strong className={mintActive ? 'hot' : 'dim'}>{statusLabel}</strong></div>
+      </div>
+
+      <div className="progress-line">
+        <span>cargo loaded</span>
+        <b>{minted}/7000</b>
       </div>
       <div className="supply-track"><div className="supply-fill" style={{ width: `${progress}%` }} /></div>
 
-      <div className="stepper">
-        <button onClick={() => setUnits(Math.max(1, units - 1))}>−</button>
-        <strong>{units}</strong>
-        <button onClick={() => setUnits(Math.min(walletRemaining || 10, units + 1))}>+</button>
+      <div className="terminal-section">
+        <div className="section-head"><span>▌ ACTIVATE CARGO LINK</span><b>{isConnected ? '○ ACTIVE' : '○ INACTIVE'}</b></div>
+        <p>
+          Connect wallet to open the Cargo404 terminal. Minting stays locked until the
+          manifest contract is deployed and the cargo gate is activated.
+        </p>
+        <div className="terminal-field">
+          <span>wallet address</span>
+          {!isConnected ? (
+            <button type="button" onClick={connectWallet} disabled={isConnecting}>connect cargo wallet →</button>
+          ) : (
+            <button type="button" onClick={() => disconnect()}>{displayedAddress} · disconnect</button>
+          )}
+        </div>
+        {!isConnected ? (
+          <button className="primary-btn" disabled={isConnecting} onClick={connectWallet}>◆ CONNECT WALLET FIRST</button>
+        ) : wrongChain ? (
+          <button className="primary-btn" onClick={() => switchChain({ chainId: bsc.id })}>◆ SWITCH TO BSC</button>
+        ) : null}
       </div>
-      <div className="cost-line">TOTAL: {formatEther(totalCost)} BNB</div>
 
-      {!isConnected ? (
-        <button className="primary-btn" disabled={isConnecting} onClick={() => connect({ connector: connectors[0] })}>
-          ◆ CONNECT WALLET
+      <div className="terminal-section nested">
+        <div className="section-head"><span>▌ LOAD CARGO</span><b>{canMint ? 'READY' : 'LOCKED'}</b></div>
+        <div className="stepper">
+          <button onClick={() => setUnits(Math.max(1, units - 1))}>−</button>
+          <strong>{units}</strong>
+          <button onClick={() => setUnits(Math.min(walletRemaining || 10, units + 1))}>+</button>
+        </div>
+        <div className="cost-line">total / {formatEther(totalCost)} bnb</div>
+        <button className="primary-btn" disabled={!canMint || isWriting || isConfirming} onClick={onMint}>
+          {isWriting || isConfirming ? '◆ LOADING CARGO...' : '◆ LOAD CARGO'}
         </button>
-      ) : wrongChain ? (
-        <button className="primary-btn amber-btn" onClick={() => switchChain({ chainId: bsc.id })}>◆ SWITCH TO BSC</button>
-      ) : (
-        <>
-          <button className="primary-btn" disabled={!canMint || isWriting || isConfirming} onClick={onMint}>
-            {isWriting || isConfirming ? '◆ LOADING CARGO...' : '◆ LOAD CARGO'}
-          </button>
-          <button className="ghost-btn" onClick={() => disconnect()}>disconnect {shortAddress(address)}</button>
-        </>
-      )}
+      </div>
+
+      <div className="bottom-actions">
+        <button type="button">◆ REFRESH</button>
+        <button type="button">◆ BACK</button>
+      </div>
 
       {!contractReady && <p className="warning">Set VITE_CARGO404_ADDRESS after deploy.</p>}
       {walletRemaining === 0 && <p className="warning">Wallet limit reached: 10/10 cargo loaded.</p>}

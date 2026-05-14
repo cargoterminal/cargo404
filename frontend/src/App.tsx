@@ -1,81 +1,83 @@
-import { Box, Route, ShieldCheck, Terminal, Truck } from 'lucide-react'
-import { MatrixRain } from './components/MatrixRain'
 import { MintPanel } from './components/MintPanel'
 import './App.css'
 
+const cargoWordmark = String.raw`
+ ▄████▄   ▄▄▄       ██▀███    ▄████  ▒█████   ▄▄▄       ██▓███   ▒█████   ▄▄▄       ██▓
+▒██▀ ▀█  ▒████▄    ▓██ ▒ ██▒ ██▒ ▀█▒▒██▒  ██▒▒████▄    ▓██░  ██▒▒██▒  ██▒▒████▄    ▓██▒
+▒▓█    ▄ ▒██  ▀█▄  ▓██ ░▄█ ▒▒██░▄▄▄░▒██░  ██▒▒██  ▀█▄  ▓██░ ██▓▒▒██░  ██▒▒██  ▀█▄  ▒██▒
+▒▓▓▄ ▄██▒░██▄▄▄▄██ ▒██▀▀█▄  ░▓█  ██▓▒██   ██░░██▄▄▄▄██ ▒██▄█▓▒ ▒▒██   ██░░██▄▄▄▄██ ░██░
+▒ ▓███▀ ░ ▓█   ▓██▒░██▓ ▒██▒░▒▓███▀▒░ ████▓▒░ ▓█   ▓██▒▒██▒ ░  ░░ ████▓▒░ ▓█   ▓██▒░██░
+░ ░▒ ▒  ░ ▒▒   ▓▒█░░ ▒▓ ░▒▓░ ░▒   ▒ ░ ▒░▒░▒░  ▒▒   ▓▒█░▒▓▒░ ░  ░░ ▒░▒░▒░  ▒▒   ▓▒█░░▓
+  ░  ▒     ▒   ▒▒ ░  ░▒ ░ ▒░  ░   ░   ░ ▒ ▒░   ▒   ▒▒ ░░▒ ░       ░ ▒ ▒░   ▒   ▒▒ ░ ▒ ░
+░          ░   ▒     ░░   ░ ░ ░   ░ ░ ░ ░ ▒    ░   ▒   ░░       ░ ░ ░ ▒    ░   ▒    ▒ ░
+░ ░            ░  ░   ░           ░     ░ ░        ░  ░             ░ ░        ░  ░ ░
+░`
+
 function App() {
   return (
-    <main className="app-shell">
-      <MatrixRain />
-      <header className="topbar">
-        <a className="brand" href="#status" aria-label="Cargo404 home">
-          <img src="/cargo404-logo.svg" alt="Cargo404" />
-          <span><strong>CARGO</strong><em>404</em></span>
-        </a>
-        <nav>
+    <main className="terminal-shell">
+      <div className="crt-noise" />
+      <section className="hero-terminal" id="status">
+        <pre className="wordmark" aria-label="Cargo404">{cargoWordmark}</pre>
+        <div className="subtitle">LOST FREIGHT NETWORK / BNB TERMINAL ACCESS</div>
+
+        <div className="lang-switch" aria-label="language selector">
+          <span>LANG ▌</span>
+          <button className="active">EN</button>
+          <i>·</i>
+          <button>ID</button>
+        </div>
+
+        <div className="status-bar">
+          <div>
+            <span>○ OFFLINE</span>
+            <i>·</i>
+            <span>chain 56</span>
+            <i>·</i>
+            <span>manifest pending</span>
+          </div>
+          <a href="#mint">connect cargo wallet →</a>
+        </div>
+
+        <nav className="tabs" aria-label="Cargo404 terminal tabs">
           <a href="#status">STATUS</a>
-          <a href="#mint">MINT</a>
-          <a href="#manifest">MANIFEST</a>
+          <a className="active" href="#mint">▌MINT</a>
+          <a href="#activity">ACTIVITY</a>
+          <a href="#stats">STATS</a>
           <a href="#faq">FAQ</a>
         </nav>
-      </header>
 
-      <section className="hero" id="status">
-        <div className="hero-copy">
-          <div className="terminal-line"><Terminal size={17} /> TERMINAL-NATIVE MEME MINT ON BNB CHAIN</div>
-          <div className="subtitle">ERROR 404: CARGO NOT FOUND</div>
-          <h1>Your package is lost. Your bags are not.</h1>
-          <p>
-            <strong>Cargo404</strong> is a pixel-terminal meme mint built around missing shipments,
-            broken tracking, and BNB Chain degens waiting at the wrong cargo terminal.
-          </p>
-          <div className="tag-row">
-            <span>BNB CHAIN</span>
-            <span>0.0025 BNB</span>
-            <span>MAX 10/WALLET</span>
-            <span>7,000 CARGO</span>
-          </div>
-        </div>
-
-        <aside className="hero-visual" aria-label="Cargo404 logo and status">
-          <div className="logo-orbit">
-            <img src="/cargo404.png" alt="Cargo404 terminal-native meme mint logo" />
-          </div>
-          <div className="scan-card">
-            <span>TRACKING STATUS</span>
-            <strong>404_DELIVERY_NOT_FOUND</strong>
-          </div>
-        </aside>
-      </section>
-
-      <section className="mint-layout" id="mint">
-        <div className="manifest-card terminal-card">
-          <div className="card-title">▌ CARGO MANIFEST</div>
-          <p className="manifest-copy">Mint cargo. Lose tracking. Find bags.</p>
-          <div className="manifest-list">
-            <span><Box size={16} /> 100,000 C404 / mint unit</span>
-            <span><Truck size={16} /> Terminal opens on BNB Mainnet</span>
-            <span><Route size={16} /> Route: 404 / Convoy: early</span>
-          </div>
-        </div>
         <MintPanel />
-      </section>
 
-      <section className="panels" id="manifest">
-        <div className="terminal-card mini"><Truck /><h3>LOAD CARGO</h3><p>100,000 C404 per mint unit. Max 10 cargo per wallet.</p></div>
-        <div className="terminal-card mini"><Route /><h3>ROUTE 404</h3><p>No GPS. No VC lane. Just BNB rails, pixel crates, and heavy bags.</p></div>
-        <div className="terminal-card mini"><ShieldCheck /><h3>FAIR LIMITS</h3><p>Fixed supply, hardcoded mint price, per-wallet mint cap.</p></div>
-      </section>
+        <section className="terminal-panel info-grid" id="activity">
+          <div className="panel-head"><span>▌ ACTIVITY</span><strong>PRE-LAUNCH</strong></div>
+          <div className="data-table">
+            <div><span>cargo status</span><i /> <strong>delivery not found</strong></div>
+            <div><span>route</span><i /> <strong>unknown terminal / bnb</strong></div>
+            <div><span>shipment</span><i /> <strong>7,000 cargo units</strong></div>
+          </div>
+        </section>
 
-      <section className="terminal-card faq" id="faq">
-        <div className="card-title">▌ FAQ</div>
-        <p><strong>What is Cargo404?</strong><br />A terminal-styled meme mint on BNB Chain inspired by lost cargo, pixel crates, and broken tracking systems.</p>
-        <p><strong>Mint price?</strong><br />0.0025 BNB per cargo.</p>
-        <p><strong>Max per wallet?</strong><br />10 mint units per wallet.</p>
-        <p><strong>Financial advice?</strong><br />No. Cargo may be missing. DYOR.</p>
-      </section>
+        <section className="terminal-panel info-grid" id="stats">
+          <div className="panel-head"><span>▌ STATS</span><strong>C404</strong></div>
+          <div className="stat-row"><b>0.0025 BNB</b><span>mint fee</span></div>
+          <div className="stat-row"><b>10</b><span>max cargo / wallet</span></div>
+          <div className="stat-row"><b>100,000</b><span>C404 / cargo</span></div>
+        </section>
 
-      <footer>&gt;_ CARGO404 :: TERMINAL v4.04 <span className="cursor" /></footer>
+        <section className="terminal-panel faq" id="faq">
+          <div className="panel-head"><span>▌ FAQ</span><strong>404</strong></div>
+          <p><b>What is Cargo404?</b><br />A lost-shipment meme mint on BNB Chain with a corrupted cargo-terminal interface.</p>
+          <p><b>Mint price?</b><br />0.0025 BNB per cargo unit.</p>
+          <p><b>Financial advice?</b><br />No. The terminal only prints errors. DYOR.</p>
+        </section>
+
+        <footer className="terminal-footer">
+          <span>C404 :: TERMINAL v4.04</span>
+          <span>CHAIN : BNB</span>
+          <span>/ LOST-CARGO</span>
+        </footer>
+      </section>
     </main>
   )
 }
