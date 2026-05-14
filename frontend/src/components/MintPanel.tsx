@@ -27,7 +27,6 @@ export function MintPanel() {
   const { disconnect } = useDisconnect()
   const { switchChain } = useSwitchChain()
   const { writeContract, data: hash, isPending: isWriting, error } = useWriteContract()
-  const [connectorMenuOpen, setConnectorMenuOpen] = useState(!isConnected)
 
   const contractReady = cargo404Address !== placeholderAddress
   const wrongChain = isConnected && chainId !== bsc.id
@@ -74,11 +73,6 @@ export function MintPanel() {
 
   const connectWallet = (connector: Connector) => {
     connect({ connector })
-    setConnectorMenuOpen(false)
-  }
-
-  const openConnectorMenu = () => {
-    setConnectorMenuOpen((open) => !open)
   }
 
   const hasInjectedWallet = typeof window !== 'undefined' && 'ethereum' in window
@@ -126,51 +120,44 @@ export function MintPanel() {
           Connect wallet to open the Cargo404 terminal. If the gate is still closed, the contract is live
           but public mint has not been enabled yet.
         </p>
-        <div className="terminal-field">
+        <div className="terminal-field wallet-address-row">
           <span>wallet address</span>
           {!isConnected ? (
-            <button type="button" onClick={openConnectorMenu} disabled={isConnecting}>
-              {isConnecting ? 'opening wallet...' : 'connect cargo wallet →'}
-            </button>
+            <strong>not connected</strong>
           ) : (
             <button type="button" onClick={() => disconnect()}>{displayedAddress} · disconnect</button>
           )}
         </div>
         {!isConnected ? (
-          <>
-            <button className="primary-btn" disabled={isConnecting} onClick={openConnectorMenu}>
-              {isConnecting ? '◆ OPENING WALLET...' : '◆ CONNECT WALLET FIRST'}
-            </button>
-            {connectorMenuOpen && (
-              <div className="connector-menu" aria-label="Wallet connectors">
-                {visibleConnectors.length > 0 ? (
-                  visibleConnectors.map((connector) => (
-                    <button
-                      key={connector.uid}
-                      type="button"
-                      disabled={isConnecting}
-                      onClick={() => connectWallet(connector)}
-                    >
-                      {connector.name}
-                    </button>
-                  ))
-                ) : (
-                  <>
-                    <a href={`https://metamask.app.link/dapp/${currentDappPath}`}>Open in MetaMask</a>
-                    <a href={`https://link.trustwallet.com/open_url?coin_id=20000714&url=${encodeURIComponent(currentUrl)}`}>
-                      Open in Trust Wallet
-                    </a>
-                  </>
-                )}
-              </div>
-            )}
+          <div className="wallet-connect-stack">
+            <div className="connector-menu always-visible" aria-label="Wallet connectors">
+              {visibleConnectors.length > 0 ? (
+                visibleConnectors.map((connector) => (
+                  <button
+                    key={connector.uid}
+                    type="button"
+                    disabled={isConnecting}
+                    onClick={() => connectWallet(connector)}
+                  >
+                    {isConnecting ? 'opening...' : `connect ${connector.name}`}
+                  </button>
+                ))
+              ) : (
+                <>
+                  <a href={`https://metamask.app.link/dapp/${currentDappPath}`}>Open in MetaMask</a>
+                  <a href={`https://link.trustwallet.com/open_url?coin_id=20000714&url=${encodeURIComponent(currentUrl)}`}>
+                    Open in Trust Wallet
+                  </a>
+                </>
+              )}
+            </div>
             {!hasInjectedWallet && (
               <p className="wallet-help">
                 No browser wallet detected. Open this page in MetaMask/Trust Wallet mobile browser,
                 or install MetaMask/Rabby on desktop, then connect again.
               </p>
             )}
-          </>
+          </div>
         ) : wrongChain ? (
           <button className="primary-btn" onClick={() => switchChain({ chainId: bsc.id })}>◆ SWITCH TO BSC</button>
         ) : null}

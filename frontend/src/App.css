@@ -375,16 +375,20 @@
   background: rgba(5,6,4,.54);
 }
 
-.terminal-field button {
+.terminal-field button,
+.terminal-field strong {
   min-height: auto;
   border: 0;
   background: transparent;
   padding: 0;
   color: var(--yellow);
-  text-decoration: underline;
-  text-underline-offset: 3px;
   letter-spacing: 0;
   text-transform: none;
+}
+
+.terminal-field button {
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 .terminal-field button:hover {
@@ -394,7 +398,7 @@
 
 .connector-menu {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
   gap: 10px;
   margin-top: 10px;
 }
@@ -405,6 +409,10 @@
   align-items: center;
   justify-content: center;
   width: 100%;
+  min-height: 50px;
+  padding: 0 14px;
+  position: relative;
+  z-index: 2;
   text-decoration: none;
 }
 
