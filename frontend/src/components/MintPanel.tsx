@@ -77,18 +77,19 @@ export function MintPanel() {
   return (
     <section className="terminal-panel mint-panel" id="mint">
       <div className="panel-head">
-        <span>▌ MINT</span>
-        <strong>{minted}/7000</strong>
+        <span>▌ MINT CARGO</span>
+        <strong>{minted}/7000 loaded</strong>
       </div>
 
-      <div className="data-table">
-        <div><span>manifest</span><i /> <strong>{contractReady ? shortAddress(cargo404Address) : 'pending deployment'}</strong></div>
-        <div><span>token</span><i /> <strong>$C404</strong></div>
-        <div><span>route</span><i /> <strong>bnb smart chain</strong></div>
-        <div><span>mint fee</span><i /> <strong>0.0025 bnb</strong></div>
-        <div><span>reward</span><i /> <strong>100,000 C404 / cargo</strong></div>
-        <div><span>wallet cap</span><i /> <strong>10 cargo</strong></div>
-        <div><span>your cargo</span><i /> <strong>{walletMinted}/10</strong></div>
+      <div className="mint-summary">
+        <div><span>mint fee</span><strong>0.0025 BNB</strong></div>
+        <div><span>you receive</span><strong>100,000 C404</strong></div>
+        <div><span>wallet cap</span><strong>{walletMinted}/10 used</strong></div>
+      </div>
+
+      <div className="data-table compact">
+        <div><span>contract</span><i /> <strong>{contractReady ? shortAddress(cargo404Address) : 'pending deployment'}</strong></div>
+        <div><span>network</span><i /> <strong>bnb smart chain</strong></div>
         <div><span>status</span><i /> <strong className={mintActive ? 'hot' : 'dim'}>{statusLabel}</strong></div>
       </div>
 
@@ -137,7 +138,7 @@ export function MintPanel() {
         <button type="button">◆ BACK</button>
       </div>
 
-      {!contractReady && <p className="warning">Set VITE_CARGO404_ADDRESS after deploy.</p>}
+      {!contractReady && <p className="warning">Contract address pending deployment. Mint unlocks after launch.</p>}
       {walletRemaining === 0 && <p className="warning">Wallet limit reached: 10/10 cargo loaded.</p>}
       {isSuccess && receipt && <p className="success">Cargo loaded. TX confirmed.</p>}
       {error && <p className="warning">{error.message.split('\n')[0]}</p>}
