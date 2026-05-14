@@ -47,11 +47,19 @@ function App() {
 
       <section className="minimal-hero" id="top">
         <p className="kicker">BNB Smart Chain · verified mint terminal</p>
-        <h1>Cargo404 mint terminal</h1>
+        <div className="hero-lockup" aria-label="Cargo404 BNB mint terminal">
+          <h1>Cargo404</h1>
+          <span>BNB mint terminal</span>
+        </div>
         <p className="hero-note">
-          A prepared public mint interface for C404 cargo units on BNB Smart Chain. Clear terms,
-          verified contract, fixed wallet cap, and a simple onchain loading flow.
+          A verified mint flow for C404 cargo units. Fixed price, clear wallet cap,
+          and direct onchain settlement on BNB Smart Chain.
         </p>
+        <div className="hero-chips" aria-label="Cargo404 mint quick facts">
+          <span>0.0025 BNB</span>
+          <span>100,000 C404 / cargo</span>
+          <span>10 cargo cap</span>
+        </div>
       </section>
 
       <section className="progress-card" aria-label="Cargo404 mint overview">

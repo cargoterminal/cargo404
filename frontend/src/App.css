@@ -47,28 +47,52 @@
 }
 
 .minimal-hero {
-  max-width: 760px;
+  max-width: 720px;
   padding: 0 0 34px;
 }
 
 .kicker {
-  margin: 0 0 16px;
+  width: max-content;
+  max-width: 100%;
+  margin: 0 0 14px;
+  padding: 6px 9px;
+  border: 1px solid rgba(143, 215, 55, .28);
+  background: rgba(143, 215, 55, .055);
   color: var(--lime);
-  font: 800 11px/1.4 'JetBrains Mono', monospace;
+  font: 800 10.5px/1.2 'JetBrains Mono', monospace;
   text-transform: uppercase;
   letter-spacing: .105em;
 }
 
+.hero-lockup {
+  display: grid;
+  gap: 8px;
+  width: fit-content;
+  max-width: 100%;
+  padding: 0 0 18px;
+  border-bottom: 1px solid rgba(143, 215, 55, .22);
+}
+
 .minimal-hero h1 {
-  max-width: 680px;
   margin: 0;
   color: var(--ink);
-  font-size: clamp(38px, 5.8vw, 62px);
-  font-weight: 850;
-  line-height: 1.02;
-  letter-spacing: -.052em;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(42px, 6.1vw, 66px);
+  font-weight: 900;
+  line-height: .98;
+  letter-spacing: -.055em;
   text-wrap: balance;
-  text-shadow: 0 0 18px rgba(143, 215, 55, .10);
+  text-transform: uppercase;
+  text-shadow: 0 0 16px rgba(143, 215, 55, .12);
+}
+
+.hero-lockup span {
+  width: max-content;
+  max-width: 100%;
+  color: var(--yellow);
+  font: 900 clamp(14px, 2vw, 19px)/1.1 'JetBrains Mono', monospace;
+  letter-spacing: .08em;
+  text-transform: uppercase;
 }
 
 .minimal-hero h1::selection,
@@ -78,11 +102,28 @@
 }
 
 .hero-note {
-  margin: 20px 0 0;
-  max-width: 650px;
+  margin: 18px 0 0;
+  max-width: 585px;
   color: var(--soft-ink);
-  font-size: clamp(15px, 1.45vw, 16.5px);
+  font-size: clamp(14.5px, 1.35vw, 16px);
   line-height: 1.72;
+}
+
+.hero-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.hero-chips span {
+  border: 1px solid rgba(143, 215, 55, .22);
+  background: rgba(5, 6, 4, .6);
+  color: var(--ink);
+  padding: 8px 10px;
+  font: 800 11px/1 'JetBrains Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: .035em;
 }
 
 .progress-card,
@@ -460,7 +501,7 @@
   .minimal-shell { width: min(100% - 24px, 100%); padding-top: 20px; }
   .minimal-nav { align-items: flex-start; padding-bottom: 42px; }
   .minimal-nav nav { flex-wrap: wrap; justify-content: flex-end; gap: 10px 14px; }
-  .minimal-hero h1 { font-size: clamp(34px, 10vw, 44px); letter-spacing: -.045em; line-height: 1.04; }
+  .minimal-hero h1 { font-size: clamp(38px, 12vw, 50px); letter-spacing: -.045em; line-height: 1; }
   .progress-topline,
   .stats-grid,
   .mint-summary,
@@ -474,6 +515,9 @@
 @media (max-width: 460px) {
   .minimal-nav { display: grid; }
   .minimal-nav nav { justify-content: flex-start; }
-  .minimal-hero h1 { font-size: 36px; }
+  .minimal-hero h1 { font-size: 40px; }
+  .kicker { width: auto; line-height: 1.35; }
+  .hero-lockup span { width: auto; font-size: 13px; line-height: 1.35; }
+  .hero-chips { display: grid; }
   .data-table div { grid-template-columns: 86px 8px 1fr; font-size: 12px; }
 }
