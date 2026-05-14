@@ -68,15 +68,20 @@ const steps = [
 function CargoCoreVisual() {
   return (
     <div className="cargo-core" aria-label="Animated 3D Cargo404 cargo terminal visual">
+      <div className="terminal-depth-grid" />
+      <div className="route-beam beam-a" />
+      <div className="route-beam beam-b" />
+      <div className="route-beam beam-c" />
       <div className="orbit orbit-one" />
       <div className="orbit orbit-two" />
       <div className="orbit orbit-three" />
       <div className="particle-field" aria-hidden="true">
-        {Array.from({ length: 18 }).map((_, index) => (
+        {Array.from({ length: 26 }).map((_, index) => (
           <i key={index} style={{ '--i': index } as React.CSSProperties} />
         ))}
       </div>
       <div className="cargo-cube-wrap">
+        <div className="cargo-shadow" />
         <div className="cargo-cube">
           <div className="cube-face cube-front">
             <span>C404</span>
@@ -89,6 +94,8 @@ function CargoCoreVisual() {
           <div className="cube-face cube-bottom" />
         </div>
       </div>
+      <div className="container-stack stack-left"><i /><i /><i /></div>
+      <div className="container-stack stack-right"><i /><i /></div>
       <div className="scan-card scan-card-a">
         <span>BNB ROUTE</span>
         <b>CHAIN 56</b>
@@ -100,6 +107,11 @@ function CargoCoreVisual() {
       <div className="scan-card scan-card-c">
         <span>STATUS</span>
         <b>404 / RE-ROUTING</b>
+      </div>
+      <div className="hero-console">
+        <span>MANIFEST ID</span>
+        <b>CRG-404-BNB-0007</b>
+        <em>route corrupted / decentralized reroute active</em>
       </div>
     </div>
   )
@@ -171,12 +183,12 @@ function App() {
         <div className="hero-copy">
           <div className="eyebrow"><span /> BNB Smart Chain cargo terminal</div>
           <h1>
-            Lost cargo.<br />
-            Decentralized routing.
+            The cargo went<br />
+            missing onchain.
           </h1>
           <p className="hero-lede">
-            Cargo404 is a premium Web3 mint experience built like a futuristic onchain cargo terminal —
-            scanning lost shipment packets, validating hashes, and re-routing corrupted manifests through BNB.
+            A cinematic BNB cyber-logistics mint terminal for corrupted shipment manifests,
+            floating cargo packets, decentralized routing, and the one error every degen wants to find: C404.
           </p>
           <div className="hero-actions">
             <a className="primary-link" href="#mint">Open mint terminal</a>
