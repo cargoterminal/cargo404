@@ -1,5 +1,4 @@
 import { useMemo, useState } from 'react'
-import { useAppKit } from '@reown/appkit/react'
 import { parseEther, formatEther } from 'viem'
 import { bsc } from 'wagmi/chains'
 import {
@@ -22,9 +21,8 @@ const placeholderAddress = '0x0000000000000000000000000000000000000000'
 
 export function MintPanel() {
   const [units, setUnits] = useState(1)
-  const { open } = useAppKit()
   const { address, isConnected, chainId } = useAccount()
-  const { connectors, connect, isPending: isConnecting } = useConnect()
+  const { connectors, connect, isPending: isConnecting, error: connectError } = useConnect()
   const { disconnect } = useDisconnect()
   const { switchChain } = useSwitchChain()
   const { writeContract, data: hash, isPending: isWriting, error } = useWriteContract()
@@ -72,20 +70,17 @@ export function MintPanel() {
     })
   }
 
-  const injectedConnector = connectors.find((connector) =>
-    ['injected', 'io.metamask', 'com.brave.wallet', 'com.rabby'].some((id) => connector.id.toLowerCase().includes(id)),
-  ) || connectors.find((connector) => connector.type === 'injected')
-  const displayedAddress = isConnected ? shortAddress(address) : 'not connected'
+  const injectedConnector = connectors.find((connector) => connector.type === 'injected')
+  const hasInjectedWallet = typeof window !== 'undefined' && Boolean(window.ethereum)
+  const detectedWallet = hasInjectedWallet ? injectedConnector?.name || 'browser wallet' : 'no injected wallet detected'
+  const displayedAddress = isConnected ? shortAddress(address) : detectedWallet
   const statusLabel = !contractReady ? 'offline' : mintActive ? 'live' : 'gate closed'
   const copyContract = () => {
     if (contractReady && navigator.clipboard) navigator.clipboard.writeText(cargo404Address)
   }
   const connectMainWallet = () => {
-    if (injectedConnector) {
-      connect({ connector: injectedConnector, chainId: bsc.id })
-      return
-    }
-    open({ view: 'Connect' })
+    if (!injectedConnector) return
+    connect({ connector: injectedConnector, chainId: bsc.id })
   }
 
   return (
@@ -120,21 +115,32 @@ export function MintPanel() {
       <div className="terminal-section">
         <div className="section-head"><span>▌ ACTIVATE CARGO LINK</span><b>{isConnected ? '○ ACTIVE' : '○ INACTIVE'}</b></div>
         <p>
-          Connect wallet to open the Cargo404 terminal. If the gate is still closed, the contract is live
-          but public mint has not been enabled yet.
+          Connect the injected wallet already installed in your browser. Cargo404 auto-detects MetaMask,
+          Rabby, Brave Wallet, OKX, Trust, and other EVM browser wallets — no wallet picker popup.
         </p>
         <div className="terminal-field wallet-address-row">
           <span>wallet address</span>
           {!isConnected ? (
-            <strong>not connected</strong>
+            <strong>{displayedAddress}</strong>
           ) : (
             <button type="button" onClick={() => disconnect()}>{displayedAddress} · disconnect</button>
           )}
         </div>
         {!isConnected ? (
-          <button type="button" className="primary-btn wallet-select-btn" onClick={connectMainWallet} disabled={isConnecting}>
-            {isConnecting ? '◆ CONNECTING...' : '◆ CONNECT WALLET'}
-          </button>
+          <>
+            <button
+              type="button"
+              className="primary-btn wallet-select-btn"
+              onClick={connectMainWallet}
+              disabled={isConnecting || !injectedConnector}
+            >
+              {isConnecting ? '◆ CONNECTING...' : hasInjectedWallet ? '◆ CONNECT BROWSER WALLET' : '◆ INSTALL BROWSER WALLET'}
+            </button>
+            {!hasInjectedWallet && (
+              <p className="wallet-help">No injected EVM wallet found. Install/open MetaMask, Rabby, Brave Wallet, OKX, or Trust Wallet browser extension.</p>
+            )}
+            {connectError && <p className="warning">{connectError.message.split('\n')[0]}</p>}
+          </>
         ) : wrongChain ? (
           <button className="primary-btn" onClick={() => switchChain({ chainId: bsc.id })}>◆ SWITCH TO BSC</button>
         ) : null}

@@ -15,7 +15,7 @@ const steps = [
   {
     icon: <TerminalSquare />,
     title: 'connect wallet',
-    copy: 'Open the BNB Smart Chain cargo link via Reown AppKit. No seed phrase. No stealth approval.',
+    copy: 'Click once to connect the injected browser wallet already installed: MetaMask, Rabby, Brave, OKX, Trust, or any EIP-1193 wallet.',
   },
   {
     icon: <PackageSearch />,
@@ -117,7 +117,7 @@ function App() {
         <div className="section-heading">
           <p>LIVE MODULE</p>
           <h2>Mint terminal</h2>
-          <span>React + Vite + Wagmi + Viem + Reown AppKit wallet flow.</span>
+          <span>React + Vite + Wagmi + Viem injected browser-wallet flow.</span>
         </div>
         <MintPanel />
       </section>
