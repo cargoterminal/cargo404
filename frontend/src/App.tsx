@@ -11,9 +11,12 @@ function App() {
             <img src="/cargo404.png" alt="Cargo404 logo" />
           </div>
           <div className="hero-copy">
-            <div className="eyebrow">LOST FREIGHT NETWORK / BNB CARGO TERMINAL</div>
-            <h1>Cargo404</h1>
-            <p><span>Your package is lost.</span><span>Your bags are not.</span></p>
+            <div className="eyebrow"><span>LOST FREIGHT NETWORK</span><b>BNB CARGO TERMINAL</b></div>
+            <h1><span>CARGO</span><em>404</em></h1>
+            <div className="tagline-card">
+              <p>Your package is lost.</p>
+              <strong>Your bags are not.</strong>
+            </div>
           </div>
         </header>
 
