@@ -69,6 +69,7 @@ function App() {
       {activePage === 'mint' && <MintPage />}
       {activePage === 'docs' && <DocsPage />}
       {activePage === 'how' && <HowPage />}
+      {activePage !== 'terminal' && <SiteFooter />}
     </main>
   )
 }
@@ -143,34 +144,36 @@ function TerminalPage() {
         </aside>
       </section>
 
-      <PageFooter />
+      <SiteFooter compact />
     </>
   )
 }
 
 function MintPage() {
   return (
-    <section className="content-block mint-block route-page" id="mint">
-      <div className="block-heading route-heading">
-        <span>// CARGO_GATE</span>
-        <h2>Public cargo terminal</h2>
-        <p>Mint gate is closed for now. When it opens, load cargo with BNB and receive C404 straight from the verified contract.</p>
-      </div>
-      <MintPanel />
-    </section>
+    <div className="route-shell mint-shell">
+      <section className="route-card route-card-wide" id="mint">
+        <div className="block-heading route-heading">
+          <span>// CARGO_GATE</span>
+          <h2>Public cargo terminal</h2>
+          <p>Mint gate is closed for now. When it opens, load cargo with BNB and receive C404 straight from the verified contract.</p>
+        </div>
+        <MintPanel />
+      </section>
+    </div>
   )
 }
 
 function DocsPage() {
   return (
-    <>
-      <section className="content-block docs-block route-page" id="docs">
+    <div className="route-shell docs-shell">
+      <section className="route-card route-card-wide" id="docs">
         <div className="block-heading route-heading">
           <span>// MANIFEST</span>
           <h2>Cargo manifest</h2>
           <p>The short version: fixed supply, fixed mint price, fixed wallet cap. The contract is verified on BscScan.</p>
         </div>
-        <div className="docs-grid">
+        <div className="docs-grid manifest-grid">
           {docs.map(([label, value]) => (
             <div key={label}>
               <span>{label}</span>
@@ -184,7 +187,7 @@ function DocsPage() {
         </div>
       </section>
 
-      <section className="content-block security-block route-section" id="security">
+      <section className="route-card security-block route-security" id="security">
         <ShieldCheck />
         <div>
           <span>// SAFETY</span>
@@ -196,38 +199,40 @@ function DocsPage() {
         </div>
         <a href={bscscanUrl} target="_blank" rel="noreferrer">VIEW_CONTRACT <ArrowUpRight size={15} /></a>
       </section>
-    </>
+    </div>
   )
 }
 
 function HowPage() {
   return (
-    <section className="content-block how-block route-page" id="how">
-      <div className="block-heading route-heading">
-        <span>// ROUTE</span>
-        <h2>How cargo moves</h2>
-        <p>Connect wallet. Load cargo. Receive C404.</p>
-      </div>
-      <div className="steps-grid">
-        {steps.map((step) => (
-          <article key={step.title}>
-            {step.icon}
-            <h3>{step.title}</h3>
-            <p>{step.copy}</p>
-          </article>
-        ))}
-      </div>
-      <div className="route-actions">
-        <a className="primary-hero" href={routes.mint}>OPEN_CARGO_TERMINAL</a>
-        <a className="secondary-hero" href={routes.docs}>READ_MANIFEST</a>
-      </div>
-    </section>
+    <div className="route-shell how-shell">
+      <section className="route-card route-card-wide" id="how">
+        <div className="block-heading route-heading">
+          <span>// ROUTE</span>
+          <h2>How cargo moves</h2>
+          <p>Connect wallet. Load cargo. Receive C404. Nothing moves until you confirm inside your wallet.</p>
+        </div>
+        <div className="steps-grid route-steps">
+          {steps.map((step) => (
+            <article key={step.title}>
+              {step.icon}
+              <h3>{step.title}</h3>
+              <p>{step.copy}</p>
+            </article>
+          ))}
+        </div>
+        <div className="route-actions">
+          <a className="primary-hero" href={routes.mint}>OPEN_CARGO_TERMINAL</a>
+          <a className="secondary-hero" href={routes.docs}>READ_MANIFEST</a>
+        </div>
+      </section>
+    </div>
   )
 }
 
-function PageFooter() {
+function SiteFooter({ compact = false }: { compact?: boolean }) {
   return (
-    <footer className="terminal-footer compact-footer">
+    <footer className={`terminal-footer ${compact ? 'compact-footer' : 'site-footer'}`}>
       <span>CARGO404_TERMINAL</span>
       <small>FIXED_SUPPLY • BNB_CHAIN</small>
       <nav>
