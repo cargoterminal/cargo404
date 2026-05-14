@@ -6,14 +6,14 @@ function App() {
     <main className="terminal-shell">
       <div className="crt-noise" />
       <section className="hero-terminal" id="status">
-        <header className="brand-hero">
-          <div className="logo-card">
+        <header className="brand-hero glitch-hero">
+          <div className="glitch-logo" aria-label="Cargo404 logo">
             <img src="/cargo404.png" alt="Cargo404 logo" />
           </div>
           <div className="hero-copy">
-            <div className="eyebrow"><span>LOST FREIGHT NETWORK</span><b>BNB CARGO TERMINAL</b></div>
-            <h1><span>CARGO</span><em>404</em></h1>
-            <div className="tagline-card">
+            <h1 className="glitch-title" data-text="CARGO404">CARGO404</h1>
+            <div className="terminal-subtitle">LOST FREIGHT NETWORK / BNB CARGO TERMINAL ACCESS</div>
+            <div className="tagline-card compact">
               <p>Your package is lost.</p>
               <strong>Your bags are not.</strong>
             </div>
