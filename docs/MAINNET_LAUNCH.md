@@ -20,9 +20,10 @@ Use this checklist before turning on BNB Smart Chain Mainnet mint for Cargo404.
 - [ ] `.env` exists locally and is not committed.
 - [ ] `frontend/.env` points to the mainnet contract.
 - [x] Contract source is verified on BscScan.
-- [ ] Website links to the correct BscScan contract page.
-- [ ] Website copy explains Cargo404 as a BNB Chain ERC20 cargo mint, not ERC404/NFT.
-- [ ] Website still uses the black/neon Cargo404 terminal UI; no white/default wallet modal unless AppKit fallback is opened manually.
+- [x] Website links to the correct BscScan contract page.
+- [x] Website copy explains Cargo404 as a BNB Chain ERC20 cargo mint, not ERC404/NFT.
+- [x] Website still uses the black/neon Cargo404 terminal UI; no white/default wallet modal unless AppKit fallback is opened manually.
+- [x] Wallet connect smoke-tested with the safe Cargo404 modal.
 - [ ] Team has the official website + verified contract address ready to post.
 
 Run local checks:

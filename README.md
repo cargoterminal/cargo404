@@ -153,7 +153,7 @@ Required public frontend variables:
 ```env
 VITE_CARGO404_ADDRESS=0x586A95703e0AeEE7fE801efB8B66243884Fde811
 VITE_BSC_RPC_URL=https://bsc-dataseed.binance.org
-VITE_REOWN_PROJECT_ID=your_reown_project_id
+VITE_REOWN_PROJECT_ID=your_reown_project_id # optional, enables WalletConnect/mobile fallback
 ```
 
 ## Roadmap
