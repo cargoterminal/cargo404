@@ -1,8 +1,9 @@
 {
   "name": "cargo404",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Cargo404 ($C404) fixed-supply BNB Chain mint contract and Wagmi/Vite mint terminal.",
+  "private": true,
+  "license": "MIT",
   "scripts": {
     "test": "hardhat test",
     "compile": "hardhat compile",
@@ -10,15 +11,23 @@
     "deploy:bsc": "hardhat run scripts/deploy.js --network bsc",
     "frontend:dev": "npm --prefix frontend run dev",
     "frontend:build": "npm --prefix frontend run build",
+    "frontend:lint": "npm --prefix frontend run lint",
     "build": "npm run compile && npm run frontend:build",
+    "check": "npm test && npm run compile && npm run frontend:lint && npm run frontend:build",
     "enable-mint:bsc": "hardhat run scripts/enable-mint.js --network bsc",
     "enable-mint:bscTestnet": "hardhat run scripts/enable-mint.js --network bscTestnet",
     "distribute:bsc": "hardhat run scripts/distribute.js --network bsc",
     "distribute:bscTestnet": "hardhat run scripts/distribute.js --network bscTestnet"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "bnb-chain",
+    "erc20",
+    "hardhat",
+    "wagmi",
+    "vite",
+    "web3"
+  ],
+  "author": "Cargo404",
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^6.1.2",
     "dotenv": "^17.4.2",

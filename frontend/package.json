@@ -1,8 +1,9 @@
 {
-  "name": "frontend",
+  "name": "cargo404-frontend",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
+  "description": "Cargo404 mint terminal built with Vite, React, Wagmi, and Viem.",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
