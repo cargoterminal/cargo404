@@ -134,7 +134,7 @@ export function MintPanel() {
               onClick={connectMainWallet}
               disabled={isConnecting || !injectedConnector}
             >
-              {isConnecting ? '◆ CONNECTING...' : hasInjectedWallet ? '◆ CONNECT BROWSER WALLET' : '◆ INSTALL BROWSER WALLET'}
+              {isConnecting ? '◆ CONNECTING...' : hasInjectedWallet ? '◆ CONNECT WALLET' : '◆ INSTALL WALLET'}
             </button>
             {!hasInjectedWallet && (
               <p className="wallet-help">No injected EVM wallet found. Install/open MetaMask, Rabby, Brave Wallet, OKX, or Trust Wallet browser extension.</p>
