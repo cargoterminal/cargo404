@@ -12,6 +12,7 @@ import {
   useWriteContract,
 } from 'wagmi'
 import { cargo404Abi, cargo404Address } from '../contract'
+import { hasConfiguredReownProjectId } from '../wagmiConfig'
 
 function shortAddress(address?: string) {
   if (!address) return ''
@@ -22,6 +23,7 @@ const placeholderAddress = '0x0000000000000000000000000000000000000000'
 
 export function MintPanel() {
   const [units, setUnits] = useState(1)
+  const [copyLabel, setCopyLabel] = useState('copy verified contract address')
   const { address, isConnected, chainId } = useAccount()
   const { connectors, connect, isPending: isConnecting, error: connectError } = useConnect()
   const { open } = useAppKit()
@@ -78,7 +80,10 @@ export function MintPanel() {
   const displayedAddress = isConnected ? shortAddress(address) : detectedWallet
   const statusLabel = !contractReady ? 'offline' : mintActive ? 'live' : 'gate closed'
   const copyContract = () => {
-    if (contractReady && navigator.clipboard) navigator.clipboard.writeText(cargo404Address)
+    if (!contractReady || !navigator.clipboard) return
+    navigator.clipboard.writeText(cargo404Address)
+    setCopyLabel('verified contract copied')
+    window.setTimeout(() => setCopyLabel('copy verified contract address'), 1600)
   }
   const connectMainWallet = () => {
     if (injectedConnector && hasInjectedWallet) {
@@ -86,7 +91,7 @@ export function MintPanel() {
       return
     }
 
-    open({ view: 'Connect' })
+    if (hasConfiguredReownProjectId) open({ view: 'Connect' })
   }
 
   return (
@@ -109,7 +114,7 @@ export function MintPanel() {
       </div>
 
       <button type="button" className="copy-contract" onClick={copyContract} disabled={!contractReady}>
-        copy verified contract address
+        {copyLabel}
       </button>
 
       <div className="progress-line">
@@ -138,12 +143,21 @@ export function MintPanel() {
               type="button"
               className="primary-btn wallet-select-btn"
               onClick={connectMainWallet}
-              disabled={isConnecting}
+              disabled={isConnecting || (!hasInjectedWallet && !hasConfiguredReownProjectId)}
             >
-              {isConnecting ? '◆ CONNECTING...' : hasInjectedWallet ? '◆ CONNECT WALLET' : '◆ CONNECT VIA APPKIT'}
+              {isConnecting
+                ? '◆ CONNECTING...'
+                : hasInjectedWallet
+                  ? '◆ CONNECT WALLET'
+                  : hasConfiguredReownProjectId
+                    ? '◆ CONNECT VIA APPKIT'
+                    : '◆ WALLETCONNECT CONFIG NEEDED'}
             </button>
-            {!hasInjectedWallet && (
+            {!hasInjectedWallet && hasConfiguredReownProjectId && (
               <p className="wallet-help">No injected EVM wallet found. AppKit opens as a dark Cargo404 fallback for WalletConnect/mobile wallets.</p>
+            )}
+            {!hasInjectedWallet && !hasConfiguredReownProjectId && (
+              <p className="warning">WalletConnect fallback is disabled until VITE_REOWN_PROJECT_ID is configured in the frontend deploy environment.</p>
             )}
             {connectError && <p className="warning">{connectError.message.split('\n')[0]}</p>}
           </>

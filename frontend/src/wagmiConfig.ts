@@ -5,7 +5,11 @@ import { http } from 'wagmi'
 import { injected } from 'wagmi/connectors'
 
 const bscRpcUrl = import.meta.env.VITE_BSC_RPC_URL || 'https://bsc-dataseed.binance.org'
-const reownProjectId = import.meta.env.VITE_REOWN_PROJECT_ID || 'cargo404-local-dev'
+const configuredReownProjectId = import.meta.env.VITE_REOWN_PROJECT_ID?.trim() || ''
+export const hasConfiguredReownProjectId = Boolean(
+  configuredReownProjectId && configuredReownProjectId !== 'your_reown_project_id',
+)
+const reownProjectId = hasConfiguredReownProjectId ? configuredReownProjectId : 'cargo404-local-dev'
 
 const wagmiAdapter = new WagmiAdapter({
   networks: [bsc],

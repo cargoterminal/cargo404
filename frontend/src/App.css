@@ -573,5 +573,11 @@
   .kicker { width: auto; line-height: 1.35; }
   .hero-lockup span { width: auto; font-size: 13px; line-height: 1.35; }
   .hero-chips { display: grid; }
+  .mint-summary { gap: 10px; }
+  .terminal-panel { padding: 16px; }
+  .stepper { grid-template-columns: 46px 1fr 46px; }
+  .copy-contract,
+  .primary-btn,
+  .bottom-actions button { font-size: 11px; letter-spacing: .025em; }
   .data-table div { grid-template-columns: 86px 8px 1fr; font-size: 12px; }
 }
