@@ -24,6 +24,7 @@ const placeholderAddress = '0x0000000000000000000000000000000000000000'
 export function MintPanel() {
   const [units, setUnits] = useState(1)
   const [copyLabel, setCopyLabel] = useState('copy verified contract address')
+  const [walletModalOpen, setWalletModalOpen] = useState(false)
   const { address, isConnected, chainId } = useAccount()
   const { connectors, connect, isPending: isConnecting, error: connectError } = useConnect()
   const { open } = useAppKit()
@@ -87,13 +88,20 @@ export function MintPanel() {
     setCopyLabel('verified contract copied')
     window.setTimeout(() => setCopyLabel('copy verified contract address'), 1600)
   }
-  const connectMainWallet = () => {
-    if (browserWalletConnector && hasInjectedWallet) {
-      connect({ connector: browserWalletConnector })
-      return
-    }
+  const connectWithConnector = (connector: typeof connectors[number]) => {
+    connect({ connector }, { onSuccess: () => setWalletModalOpen(false) })
+  }
 
-    if (hasConfiguredReownProjectId) open({ view: 'Connect' })
+  const connectMainWallet = () => {
+    if (hasInjectedWallet || hasConfiguredReownProjectId) {
+      setWalletModalOpen(true)
+    }
+  }
+
+  const openAppKitFallback = () => {
+    if (!hasConfiguredReownProjectId) return
+    setWalletModalOpen(false)
+    open({ view: 'Connect' })
   }
 
   return (
@@ -155,18 +163,66 @@ export function MintPanel() {
                     ? '◆ CONNECT VIA APPKIT'
                     : '◆ WALLETCONNECT CONFIG NEEDED'}
             </button>
-            {hasInjectedWallet && injectedConnectors.length > 1 && (
-              <div className="connector-menu compact-wallets" aria-label="Detected wallet connectors">
-                {injectedConnectors.slice(0, 4).map((connector) => (
-                  <button
-                    key={connector.uid}
-                    type="button"
-                    disabled={isConnecting}
-                    onClick={() => connect({ connector })}
-                  >
-                    connect {connector.name}
-                  </button>
-                ))}
+            {walletModalOpen && (
+              <div className="wallet-modal-backdrop" role="presentation" onClick={() => setWalletModalOpen(false)}>
+                <div
+                  className="wallet-modal"
+                  role="dialog"
+                  aria-modal="true"
+                  aria-labelledby="wallet-modal-title"
+                  onClick={(event) => event.stopPropagation()}
+                >
+                  <div className="wallet-modal-head">
+                    <div>
+                      <span>secure connection</span>
+                      <h3 id="wallet-modal-title">Connect wallet</h3>
+                    </div>
+                    <button type="button" onClick={() => setWalletModalOpen(false)} aria-label="Close wallet connector">×</button>
+                  </div>
+
+                  <div className="wallet-safety-strip">
+                    <strong>Safety check</strong>
+                    <span>No seed phrase. No private key. No token approval on connect.</span>
+                  </div>
+
+                  <div className="wallet-option-list">
+                    {hasInjectedWallet && browserWalletConnector && (
+                      <button type="button" disabled={isConnecting} onClick={() => connectWithConnector(browserWalletConnector)}>
+                        <span className="wallet-icon">◆</span>
+                        <span><b>Browser wallet</b><small>{browserWalletConnector.name}</small></span>
+                        <i>recommended</i>
+                      </button>
+                    )}
+
+                    {injectedConnectors
+                      .filter((connector) => connector.uid !== browserWalletConnector?.uid)
+                      .slice(0, 4)
+                      .map((connector) => (
+                        <button key={connector.uid} type="button" disabled={isConnecting} onClick={() => connectWithConnector(connector)}>
+                          <span className="wallet-icon">◇</span>
+                          <span><b>{connector.name}</b><small>detected wallet</small></span>
+                          <i>available</i>
+                        </button>
+                      ))}
+
+                    {hasConfiguredReownProjectId && (
+                      <button type="button" disabled={isConnecting} onClick={openAppKitFallback}>
+                        <span className="wallet-icon">◎</span>
+                        <span><b>WalletConnect / Mobile</b><small>open Reown AppKit</small></span>
+                        <i>fallback</i>
+                      </button>
+                    )}
+                  </div>
+
+                  {!hasInjectedWallet && !hasConfiguredReownProjectId && (
+                    <p className="warning">Install MetaMask/Rabby/OKX Wallet or configure Reown Project ID for mobile WalletConnect.</p>
+                  )}
+                  {connectError && <p className="warning">{connectError.message.split('\n')[0]}</p>}
+
+                  <p className="wallet-modal-foot">
+                    After connection, Cargo404 may ask you to switch to BNB Smart Chain. Mint stays locked until the owner opens the gate.
+                  </p>
+                </div>
               </div>
             )}
             {!hasInjectedWallet && hasConfiguredReownProjectId && (
