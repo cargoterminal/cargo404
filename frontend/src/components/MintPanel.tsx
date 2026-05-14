@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useAppKit } from '@reown/appkit/react'
 import { parseEther, formatEther } from 'viem'
 import { bsc } from 'wagmi/chains'
@@ -25,6 +25,7 @@ export function MintPanel() {
   const [units, setUnits] = useState(1)
   const [copyLabel, setCopyLabel] = useState('copy verified contract address')
   const [walletModalOpen, setWalletModalOpen] = useState(false)
+  const [isBrowserWalletReady, setIsBrowserWalletReady] = useState(false)
   const { address, isConnected, chainId } = useAccount()
   const { connectors, connect, isPending: isConnecting, error: connectError } = useConnect()
   const { open } = useAppKit()
@@ -78,7 +79,22 @@ export function MintPanel() {
   const injectedConnectors = connectors.filter((connector) => connector.type === 'injected')
   const injectedConnector = injectedConnectors[0]
   const browserWalletConnector = injectedConnectors.find((connector) => connector.id === 'injected') || injectedConnector
-  const hasInjectedWallet = typeof window !== 'undefined' && Boolean(window.ethereum)
+  useEffect(() => {
+    const detectBrowserWallet = () => {
+      setIsBrowserWalletReady(typeof window !== 'undefined' && Boolean(window.ethereum))
+    }
+
+    detectBrowserWallet()
+    const timer = window.setTimeout(detectBrowserWallet, 700)
+    window.addEventListener('eip6963:announceProvider', detectBrowserWallet)
+    window.dispatchEvent(new Event('eip6963:requestProvider'))
+
+    return () => {
+      window.clearTimeout(timer)
+      window.removeEventListener('eip6963:announceProvider', detectBrowserWallet)
+    }
+  }, [])
+  const hasInjectedWallet = isBrowserWalletReady || Boolean(browserWalletConnector)
   const detectedWallet = hasInjectedWallet ? browserWalletConnector?.name || 'browser wallet' : 'no injected wallet detected'
   const displayedAddress = isConnected ? shortAddress(address) : detectedWallet
   const statusLabel = !contractReady ? 'offline' : mintActive ? 'live' : 'gate closed'
@@ -93,9 +109,8 @@ export function MintPanel() {
   }
 
   const connectMainWallet = () => {
-    if (hasInjectedWallet || hasConfiguredReownProjectId) {
-      setWalletModalOpen(true)
-    }
+    if (isConnected) return
+    setWalletModalOpen(true)
   }
 
   const openAppKitFallback = () => {
@@ -133,7 +148,7 @@ export function MintPanel() {
       </div>
       <div className="supply-track"><div className="supply-fill" style={{ width: `${progress}%` }} /></div>
 
-      <div className="terminal-section">
+      <div className="terminal-section" id="cargo-wallet-connect">
         <div className="section-head"><span>▌ ACTIVATE CARGO LINK</span><b>{isConnected ? '○ ACTIVE' : '○ INACTIVE'}</b></div>
         <div className="terminal-field wallet-address-row">
           <span>wallet address</span>
@@ -149,7 +164,7 @@ export function MintPanel() {
               type="button"
               className="primary-btn wallet-select-btn"
               onClick={connectMainWallet}
-              disabled={isConnecting || (!hasInjectedWallet && !hasConfiguredReownProjectId)}
+              disabled={isConnecting}
             >
               {isConnecting
                 ? '◆ CONNECTING...'
@@ -157,7 +172,7 @@ export function MintPanel() {
                   ? '◆ CONNECT WALLET'
                   : hasConfiguredReownProjectId
                     ? '◆ CONNECT VIA APPKIT'
-                    : '◆ WALLETCONNECT CONFIG NEEDED'}
+                    : '◆ CONNECT WALLET'}
             </button>
             {walletModalOpen && (
               <div className="wallet-modal-backdrop" role="presentation" onClick={() => setWalletModalOpen(false)}>

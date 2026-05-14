@@ -35,6 +35,11 @@ const steps = [
   },
 ]
 
+function scrollToMintTerminal() {
+  const mintTerminal = document.getElementById('cargo-wallet-connect') || document.getElementById('mint')
+  mintTerminal?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+}
+
 function App() {
   return (
     <main className="cargo-page" id="terminal">
@@ -49,7 +54,7 @@ function App() {
           <a href="#docs">DOCS</a>
           <a href="#how">HOW IT WORKS</a>
         </nav>
-        <a className="wallet-top" href="#mint">[ CONNECT_WALLET ]</a>
+        <button type="button" className="wallet-top" onClick={scrollToMintTerminal}>[ CONNECT_WALLET ]</button>
       </header>
 
       <section className="reference-hero">
@@ -64,7 +69,7 @@ function App() {
             Clean wallet flow, no hidden approvals, and contract-first launch proof. Tactical asset distribution protocol initiated.
           </p>
           <div className="hero-buttons">
-            <a className="primary-hero" href="#mint">OPEN_MINT_TERMINAL</a>
+            <button type="button" className="primary-hero" onClick={scrollToMintTerminal}>OPEN_MINT_TERMINAL</button>
             <a className="secondary-hero" href={bscscanUrl} target="_blank" rel="noreferrer">VIEW_BSCSCAN ↗</a>
           </div>
           <div className="terminal-chips">
