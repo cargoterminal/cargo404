@@ -130,27 +130,30 @@ export function MintPanel() {
         </div>
         {!isConnected ? (
           <div className="wallet-connect-stack">
-            <div className="connector-menu always-visible" aria-label="Wallet connectors">
-              {visibleConnectors.length > 0 ? (
-                visibleConnectors.map((connector) => (
-                  <button
-                    key={connector.uid}
-                    type="button"
-                    disabled={isConnecting}
-                    onClick={() => connectWallet(connector)}
-                  >
-                    {isConnecting ? 'opening...' : `connect ${connector.name}`}
-                  </button>
-                ))
-              ) : (
-                <>
-                  <a href={`https://metamask.app.link/dapp/${currentDappPath}`}>Open in MetaMask</a>
-                  <a href={`https://link.trustwallet.com/open_url?coin_id=20000714&url=${encodeURIComponent(currentUrl)}`}>
-                    Open in Trust Wallet
-                  </a>
-                </>
-              )}
-            </div>
+            <details className="wallet-selector">
+              <summary className="primary-btn wallet-select-btn">◆ CONNECT WALLET</summary>
+              <div id="wallet-connectors" className="connector-menu" aria-label="Wallet connectors">
+                {visibleConnectors.length > 0 ? (
+                  visibleConnectors.map((connector) => (
+                    <button
+                      key={connector.uid}
+                      type="button"
+                      disabled={isConnecting}
+                      onClick={() => connectWallet(connector)}
+                    >
+                      {isConnecting ? 'opening...' : connector.name}
+                    </button>
+                  ))
+                ) : (
+                  <>
+                    <a href={`https://metamask.app.link/dapp/${currentDappPath}`}>Open in MetaMask</a>
+                    <a href={`https://link.trustwallet.com/open_url?coin_id=20000714&url=${encodeURIComponent(currentUrl)}`}>
+                      Open in Trust Wallet
+                    </a>
+                  </>
+                )}
+              </div>
+            </details>
             {!hasInjectedWallet && (
               <p className="wallet-help">
                 No browser wallet detected. Open this page in MetaMask/Trust Wallet mobile browser,
