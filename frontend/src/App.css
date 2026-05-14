@@ -47,26 +47,28 @@
 }
 
 .minimal-hero {
+  max-width: 760px;
   padding: 0 0 34px;
 }
 
 .kicker {
-  margin: 0 0 14px;
+  margin: 0 0 16px;
   color: var(--lime);
-  font: 800 12px/1.4 'JetBrains Mono', monospace;
+  font: 800 11px/1.4 'JetBrains Mono', monospace;
   text-transform: uppercase;
-  letter-spacing: .08em;
+  letter-spacing: .105em;
 }
 
 .minimal-hero h1 {
-  max-width: 820px;
+  max-width: 680px;
   margin: 0;
   color: var(--ink);
-  font-size: clamp(44px, 7.8vw, 82px);
-  line-height: .94;
-  letter-spacing: -.065em;
+  font-size: clamp(38px, 5.8vw, 62px);
+  font-weight: 850;
+  line-height: 1.02;
+  letter-spacing: -.052em;
   text-wrap: balance;
-  text-shadow: 0 0 28px rgba(143, 215, 55, .12);
+  text-shadow: 0 0 18px rgba(143, 215, 55, .10);
 }
 
 .minimal-hero h1::selection,
@@ -76,11 +78,11 @@
 }
 
 .hero-note {
-  margin: 22px 0 0;
-  max-width: 700px;
+  margin: 20px 0 0;
+  max-width: 650px;
   color: var(--soft-ink);
-  font-size: clamp(16px, 1.8vw, 18px);
-  line-height: 1.68;
+  font-size: clamp(15px, 1.45vw, 16.5px);
+  line-height: 1.72;
 }
 
 .progress-card,
@@ -458,7 +460,7 @@
   .minimal-shell { width: min(100% - 24px, 100%); padding-top: 20px; }
   .minimal-nav { align-items: flex-start; padding-bottom: 42px; }
   .minimal-nav nav { flex-wrap: wrap; justify-content: flex-end; gap: 10px 14px; }
-  .minimal-hero h1 { font-size: 46px; letter-spacing: -.055em; }
+  .minimal-hero h1 { font-size: clamp(34px, 10vw, 44px); letter-spacing: -.045em; line-height: 1.04; }
   .progress-topline,
   .stats-grid,
   .mint-summary,
@@ -472,6 +474,6 @@
 @media (max-width: 460px) {
   .minimal-nav { display: grid; }
   .minimal-nav nav { justify-content: flex-start; }
-  .minimal-hero h1 { font-size: 40px; }
+  .minimal-hero h1 { font-size: 36px; }
   .data-table div { grid-template-columns: 86px 8px 1fr; font-size: 12px; }
 }
