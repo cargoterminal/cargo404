@@ -86,7 +86,6 @@ function Header({ activePage }: { activePage: PageKey }) {
           <a key={page} className={activePage === page ? 'active' : undefined} href={routes[page]}>{label}</a>
         ))}
       </nav>
-      <a className="wallet-top" href={`${routes.mint}#cargo-wallet-connect`}>[ CONNECT_WALLET ]</a>
     </header>
   )
 }
