@@ -27,7 +27,7 @@ Cargo404 is being built as a fixed-supply BNB Chain mint terminal with a transpa
 
 ## Phase 1 — Mint Terminal Launch
 
-**Status:** Completed / Final QA
+**Status:** Completed
 
 - Build Cargo404 web mint terminal.
 - Connect wallet through React + Vite + Wagmi + Viem.
@@ -39,33 +39,10 @@ Cargo404 is being built as a fixed-supply BNB Chain mint terminal with a transpa
 - Deploy frontend to the live Cargo404 domain.
 - Connect GitHub auto-deployment pipeline.
 - Preserve the black/neon terminal UI identity.
+- Publish official website, verified contract address, and BscScan link.
+- Keep public mint activation behind the owner-controlled contract switch.
 
-**Current focus:**
-
-- Final browser QA.
-- Confirm wallet connect flow from MetaMask/Rabby/Trust/WalletConnect.
-- Confirm live site always points to the correct BSC contract.
-
-## Phase 2 — Public Mint Activation
-
-**Status:** Pending
-
-- Announce official website and contract address.
-- Publish BscScan verified contract link.
-- Enable public mint only after final frontend and contract verification.
-- Run first live smoke test with a non-owner wallet:
-  - Connect wallet.
-  - Mint `1` cargo unit.
-  - Confirm C404 arrives in wallet.
-  - Confirm progress updates on frontend.
-  - Confirm transaction appears on BscScan.
-- Monitor public mint activity:
-  - total mint units,
-  - remaining cargo,
-  - wallet cap usage,
-  - failed transaction reasons.
-
-## Phase 3 — Liquidity & Proof of Operations
+## Phase 2 — Liquidity & Proof of Operations
 
 **Status:** Planned
 
@@ -82,7 +59,7 @@ After the mint phase or when the team decides to start market operations:
   - buyback wallet transaction.
 - Add liquidity/proof links to the website and README.
 
-## Phase 4 — Community & Transparency Layer
+## Phase 3 — Community & Transparency Layer
 
 **Status:** Planned
 
@@ -105,7 +82,7 @@ After the mint phase or when the team decides to start market operations:
   - safety warnings.
 - Create pinned launch thread with verified links only.
 
-## Phase 5 — Post-Mint Utility Experiments
+## Phase 4 — Post-Mint Utility Experiments
 
 **Status:** Research
 
@@ -121,7 +98,7 @@ Potential directions:
 - Meme/terminal-themed NFT receipt or badge.
 - Token-gated community experiments.
 
-## Phase 6 — Long-Term Maintenance
+## Phase 5 — Long-Term Maintenance
 
 **Status:** Ongoing
 

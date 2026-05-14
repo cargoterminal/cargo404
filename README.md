@@ -186,7 +186,7 @@ Minimum launch flow:
 
 ## Roadmap
 
-See [`docs/ROADMAP.md`](docs/ROADMAP.md) for the public Cargo404 roadmap covering contract foundation, mint launch, liquidity proof, transparency, and post-mint experiments.
+See [`docs/ROADMAP.md`](docs/ROADMAP.md) for the public Cargo404 roadmap covering contract foundation, terminal launch, liquidity proof, transparency, and post-mint experiments.
 
 ## Security notes
 
