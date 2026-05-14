@@ -1,7 +1,11 @@
 const { JsonRpcProvider, Contract, formatEther, isAddress } = require('ethers')
 
-const address = process.env.CONTRACT_ADDRESS || '0x586A95703e0AeEE7fE801efB8B66243884Fde811'
+const address = process.env.CONTRACT_ADDRESS || ''
 const rpcUrl = process.env.BSC_RPC_URL || 'https://bsc-dataseed.binance.org'
+
+if (!address) {
+  throw new Error('Set CONTRACT_ADDRESS=0x... before running this script')
+}
 
 const abi = [
   'function name() view returns (string)',

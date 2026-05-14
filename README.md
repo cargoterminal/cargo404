@@ -14,7 +14,7 @@ Route missing. Cargo loaded. Convoy deployed.
 - **Live app:** https://www.cargo404.app/
 - **Repository:** https://github.com/cargoterminal/cargo404
 - **Network:** BNB Smart Chain Mainnet
-- **Verified contract:** [`0x586A95703e0AeEE7fE801efB8B66243884Fde811`](https://bscscan.com/address/0x586A95703e0AeEE7fE801efB8B66243884Fde811#code)
+- **Contract:** pending redeploy for 40.4M supply Option A
 - **Token:** Cargo404 (`C404`)
 
 > Cargo404 is experimental meme-token software. It is not financial advice. Always verify the official contract address and confirm every wallet transaction manually.
@@ -27,22 +27,22 @@ Cargo404 is a fixed-supply ERC20 token contract. The `404` identity is terminal/
 
 ## Project status
 
-Cargo404 is already deployed and prepared for public mint operations. The remaining steps are operational, not core development:
+Cargo404 is being updated to the 40.4M fixed-supply Option A tokenomics before public mint. The previous 1B-supply contract should not be used for launch:
 
-- Contract deployed on BNB Smart Chain Mainnet.
-- Contract source verified on BscScan.
-- Web mint terminal is live.
+- New 40.4M contract redeploy is pending.
+- New BscScan source verification is pending after redeploy.
+- Web mint terminal is live and must be pointed at the new contract address after redeploy.
 - Public repo is cleaned and documented.
 - Mint is controlled by an owner switch and should only be enabled when the launch post, wallet QA, contract transparency checks, and liquidity plan are ready.
 - Liquidity creation and LP lock/burn proof happen after the mint phase.
 
 ## Mint details
 
-- **Total supply:** `1,000,000,000 C404`
-- **Public mint allocation:** `700,000,000 C404`
-- **Reserve allocation:** `300,000,000 C404`
+- **Total supply:** `40,400,000 C404`
+- **Public mint allocation:** `28,280,000 C404`
+- **Reserve allocation:** `12,120,000 C404`
 - **Mint price:** `0.0025 BNB`
-- **Tokens per cargo unit:** `100,000 C404`
+- **Tokens per cargo unit:** `4,040 C404`
 - **Max cargo units:** `7,000`
 - **Max per wallet:** `10 cargo units`
 
@@ -151,7 +151,7 @@ Node version: 20.x
 Required public frontend variables:
 
 ```env
-VITE_CARGO404_ADDRESS=0x586A95703e0AeEE7fE801efB8B66243884Fde811
+VITE_CARGO404_ADDRESS=<NEW_CARGO404_ADDRESS>
 VITE_BSC_RPC_URL=https://bsc-dataseed.binance.org
 VITE_REOWN_PROJECT_ID=your_reown_project_id # optional, enables WalletConnect/mobile fallback
 ```

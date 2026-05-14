@@ -9,12 +9,12 @@ import {ReentrancyGuard} from "@openzeppelin/contracts/utils/ReentrancyGuard.sol
 /// @title Cargo404 ($C404)
 /// @notice Fixed-supply BNB Chain mint token with hardcoded fair-launch limits.
 contract Cargo404 is ERC20, Ownable, Pausable, ReentrancyGuard {
-    uint256 public constant TOTAL_SUPPLY = 1_000_000_000 ether;
-    uint256 public constant MINT_ALLOCATION = 700_000_000 ether;
-    uint256 public constant RESERVE_ALLOCATION = 300_000_000 ether;
+    uint256 public constant TOTAL_SUPPLY = 40_400_000 ether;
+    uint256 public constant MINT_ALLOCATION = 28_280_000 ether;
+    uint256 public constant RESERVE_ALLOCATION = 12_120_000 ether;
 
     uint256 public constant MINT_PRICE = 0.0025 ether;
-    uint256 public constant TOKENS_PER_MINT = 100_000 ether;
+    uint256 public constant TOKENS_PER_MINT = 4_040 ether;
     uint256 public constant MAX_MINTS = 7_000;
     uint256 public constant MAX_PER_WALLET = 10;
 

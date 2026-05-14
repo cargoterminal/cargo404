@@ -1,13 +1,13 @@
 import { ArrowUpRight, Boxes, PackageSearch, ShieldCheck, TerminalSquare } from 'lucide-react'
 import { MintPanel } from './components/MintPanel'
-import { cargo404Address } from './contract'
+import { cargo404Address, hasCargo404Address } from './contract'
 import './App.css'
 
-const bscscanUrl = `https://bscscan.com/address/${cargo404Address}#code`
+const bscscanUrl = hasCargo404Address ? `https://bscscan.com/address/${cargo404Address}#code` : '#'
 
 const stats = [
   ['mint price', '0.0025 BNB'],
-  ['per cargo', '100,000 C404'],
+  ['per cargo', '4,040 C404'],
   ['wallet cap', '10 cargo'],
 ]
 
@@ -20,7 +20,7 @@ const steps = [
   {
     icon: <PackageSearch />,
     title: 'step 2 — load cargo',
-    copy: 'Choose how many cargo units to load. Each cargo costs 0.0025 BNB and delivers 100,000 C404.',
+    copy: 'Choose how many cargo units to load. Each cargo costs 0.0025 BNB and delivers 4,040 C404.',
   },
   {
     icon: <Boxes />,
@@ -41,7 +41,11 @@ function App() {
           <a href="#top">home</a>
           <a href="#mint">mint</a>
           <a href="#how">how</a>
-          <a href={bscscanUrl} target="_blank" rel="noreferrer">contract ↗</a>
+          {hasCargo404Address ? (
+            <a href={bscscanUrl} target="_blank" rel="noreferrer">contract ↗</a>
+          ) : (
+            <span>contract pending</span>
+          )}
         </nav>
       </header>
 
@@ -57,7 +61,7 @@ function App() {
         </p>
         <div className="hero-chips" aria-label="Cargo404 mint quick facts">
           <span>0.0025 BNB</span>
-          <span>100,000 C404 / cargo</span>
+          <span>4,040 C404 / cargo</span>
           <span>10 cargo cap</span>
         </div>
       </section>
@@ -73,17 +77,21 @@ function App() {
         <div className="stats-grid">
           <div>
             <span>public allocation</span>
-            <b>700,000,000 C404</b>
+            <b>28,280,000 C404</b>
           </div>
           <div>
             <span>reserve allocation</span>
-            <b>300,000,000 C404</b>
+            <b>12,120,000 C404</b>
           </div>
           <div>
             <span>contract</span>
-            <a href={bscscanUrl} target="_blank" rel="noreferrer">
-              {cargo404Address.slice(0, 6)}...{cargo404Address.slice(-4)} ↗
-            </a>
+            {hasCargo404Address ? (
+              <a href={bscscanUrl} target="_blank" rel="noreferrer">
+                {cargo404Address.slice(0, 6)}...{cargo404Address.slice(-4)} ↗
+              </a>
+            ) : (
+              <b>pending redeploy</b>
+            )}
           </div>
         </div>
       </section>
@@ -131,13 +139,17 @@ function App() {
             Fixed-supply ERC20 cargo mint. Not ERC404, not NFT, and not auto-liquidity. Always verify the official contract and only mint what you can afford to lose.
           </p>
         </div>
-        <a href={bscscanUrl} target="_blank" rel="noreferrer">view contract <ArrowUpRight size={15} /></a>
+        {hasCargo404Address ? (
+          <a href={bscscanUrl} target="_blank" rel="noreferrer">view contract <ArrowUpRight size={15} /></a>
+        ) : (
+          <span>contract pending redeploy</span>
+        )}
       </section>
 
       <footer className="minimal-footer">
         <span>cargo404 · c404 · bnb smart chain</span>
         <div>
-          <a href={bscscanUrl} target="_blank" rel="noreferrer">source</a>
+          {hasCargo404Address && <a href={bscscanUrl} target="_blank" rel="noreferrer">source</a>}
           <a href="#mint">mint</a>
           <a href="#top">top</a>
         </div>

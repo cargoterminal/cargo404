@@ -14,9 +14,9 @@ describe("Cargo404", function () {
     const { token, owner } = await deployFixture();
     expect(await token.name()).to.equal("Cargo404");
     expect(await token.symbol()).to.equal("C404");
-    expect(await token.totalSupply()).to.equal(ethers.parseEther("1000000000"));
-    expect(await token.balanceOf(await token.getAddress())).to.equal(ethers.parseEther("700000000"));
-    expect(await token.balanceOf(owner.address)).to.equal(ethers.parseEther("300000000"));
+    expect(await token.totalSupply()).to.equal(ethers.parseEther("40400000"));
+    expect(await token.balanceOf(await token.getAddress())).to.equal(ethers.parseEther("28280000"));
+    expect(await token.balanceOf(owner.address)).to.equal(ethers.parseEther("12120000"));
   });
 
   it("blocks mint when inactive", async function () {
@@ -34,7 +34,7 @@ describe("Cargo404", function () {
       token.connect(alice).mintCargo(2, { value: ethers.parseEther("0.005") })
     ).to.emit(token, "CargoLoaded");
 
-    expect(await token.balanceOf(alice.address)).to.equal(ethers.parseEther("200000"));
+    expect(await token.balanceOf(alice.address)).to.equal(ethers.parseEther("8080"));
     expect(await token.mintedUnitsByWallet(alice.address)).to.equal(2);
     expect(await token.totalMintUnits()).to.equal(2);
   });

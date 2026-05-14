@@ -6,16 +6,16 @@ The project should stay honest about what is already live: Cargo404 is not an ER
 
 ## Phase 0 — Foundation & Contract Deployment
 
-**Status:** Completed
+**Status:** Pending redeploy
 
-- Deploy fixed-supply `C404` ERC-20 contract on BNB Smart Chain.
-- Set total supply: `1,000,000,000 C404`.
+- Deploy fixed-supply `C404` ERC-20 contract on BNB Smart Chain. *(pending new 40.4M redeploy)*
+- Set total supply: `40,400,000 C404`.
 - Allocate:
-  - `700,000,000 C404` for public mint.
-  - `300,000,000 C404` for reserve/liquidity operations.
+  - `28,280,000 C404` for public mint.
+  - `12,120,000 C404` for reserve/liquidity operations.
 - Implement public mint rules:
   - Mint price: `0.0025 BNB`.
-  - Tokens per cargo unit: `100,000 C404`.
+  - Tokens per cargo unit: `4,040 C404`.
   - Max public mint units: `7,000`.
   - Max per wallet: `10 cargo units`.
 - Add owner-controlled mint activation.
@@ -24,7 +24,7 @@ The project should stay honest about what is already live: Cargo404 is not an ER
   - `70%` liquidity bucket.
   - `20%` treasury.
   - `10%` buyback wallet.
-- Publish verified contract address and BscScan source link.
+- Publish verified contract address and BscScan source link after redeploy.
 - Prepare contract tests and owner launch scripts.
 
 ## Phase 1 — Narrative & Mint Terminal Launch
@@ -37,7 +37,7 @@ The project should stay honest about what is already live: Cargo404 is not an ER
 - Provide a safe wallet connect modal with browser-wallet-first UX and optional WalletConnect/mobile fallback.
 - Let users connect a wallet, choose cargo units, and mint directly from the site when the owner opens the gate.
 - Deploy the site to the official Cargo404 domain.
-- Publish official website, verified contract address, and BscScan link.
+- Publish official website, verified contract address, and BscScan link after the new contract is live.
 - Keep public mint activation behind the owner-controlled contract switch.
 
 ## Phase 2 — Liquidity & Proof of Operations

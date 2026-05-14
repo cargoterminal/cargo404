@@ -2,10 +2,10 @@
 
 Use this checklist before turning on BNB Smart Chain Mainnet mint for Cargo404.
 
-## Current mainnet deployment
+## Target mainnet deployment
 
-- Verified contract: `0x586A95703e0AeEE7fE801efB8B66243884Fde811`
-- BscScan: https://bscscan.com/address/0x586A95703e0AeEE7fE801efB8B66243884Fde811#code
+- Contract: `pending redeploy for 40.4M Option A`
+- BscScan: `pending new contract verification`
 - Frontend: https://www.cargo404.app
 - Roadmap: [`docs/ROADMAP.md`](ROADMAP.md)
 - Mint price: `0.0025 BNB`
@@ -19,18 +19,30 @@ Use this checklist before turning on BNB Smart Chain Mainnet mint for Cargo404.
 - [ ] Buyback wallet is correct.
 - [ ] `.env` exists locally and is not committed.
 - [ ] `frontend/.env` points to the mainnet contract.
-- [x] Contract source is verified on BscScan.
-- [x] Website links to the correct BscScan contract page.
+- [ ] New 40.4M contract source is verified on BscScan.
+- [ ] Website links to the correct new BscScan contract page.
 - [x] Website copy explains Cargo404 as a BNB Chain ERC20 cargo mint, not ERC404/NFT.
 - [x] Website still uses the black/neon Cargo404 terminal UI; no white/default wallet modal unless AppKit fallback is opened manually.
 - [x] Wallet connect smoke-tested with the safe Cargo404 modal.
 - [ ] Team has the official website + verified contract address ready to post.
 
-Run local checks:
+Run local checks before deploying:
 
 ```bash
 npm run check
-npm run check:contract-state
+git diff --check
+```
+
+Deploy and verify the new 40.4M contract:
+
+```bash
+TREASURY_ADDRESS=0x8fDe5EaD3fb051D254885bc5b47012bCDdA341b9 \
+BUYBACK_WALLET=0x8F513F52f89d25B2F919427cb23E3C1aaf9d4B2e \
+npm run deploy:bsc
+
+npm run verify:bsc -- <NEW_CARGO404_ADDRESS> \
+  0x8fDe5EaD3fb051D254885bc5b47012bCDdA341b9 \
+  0x8F513F52f89d25B2F919427cb23E3C1aaf9d4B2e
 ```
 
 ## 2. Optional on-chain status check
@@ -38,7 +50,7 @@ npm run check:contract-state
 ```bash
 node - <<'NODE'
 const { JsonRpcProvider, Contract, formatEther } = require('ethers')
-const address = '0x586A95703e0AeEE7fE801efB8B66243884Fde811'
+const address = process.env.CONTRACT_ADDRESS || '<NEW_CARGO404_ADDRESS>'
 const abi = [
   'function mintActive() view returns (bool)',
   'function MINT_PRICE() view returns (uint256)',
@@ -80,13 +92,13 @@ Cargo404's public page should stay black/neon and terminal-native:
 Mint is disabled by default. Turn it on only after the frontend, contract, and launch post are ready.
 
 ```bash
-CONTRACT_ADDRESS=0x586A95703e0AeEE7fE801efB8B66243884Fde811 npm run enable-mint:bsc
+CONTRACT_ADDRESS=<NEW_CARGO404_ADDRESS> npm run enable-mint:bsc
 ```
 
 To pause public mint again:
 
 ```bash
-CONTRACT_ADDRESS=0x586A95703e0AeEE7fE801efB8B66243884Fde811 MINT_ACTIVE=false npm run enable-mint:bsc
+CONTRACT_ADDRESS=<NEW_CARGO404_ADDRESS> MINT_ACTIVE=false npm run enable-mint:bsc
 ```
 
 ## 4. Smoke test
@@ -115,7 +127,7 @@ Post these together to reduce fake-link risk:
 Distribute raised BNB once:
 
 ```bash
-CONTRACT_ADDRESS=0x586A95703e0AeEE7fE801efB8B66243884Fde811 npm run distribute:bsc
+CONTRACT_ADDRESS=<NEW_CARGO404_ADDRESS> npm run distribute:bsc
 ```
 
 Then manually:

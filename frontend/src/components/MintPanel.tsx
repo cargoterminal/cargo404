@@ -113,7 +113,7 @@ export function MintPanel() {
 
       <div className="mint-summary">
         <div><span>mint fee</span><strong>0.0025 BNB</strong></div>
-        <div><span>you receive</span><strong>100,000 C404</strong></div>
+        <div><span>you receive</span><strong>4,040 C404</strong></div>
         <div><span>wallet cap</span><strong>{walletMinted}/10 used</strong></div>
       </div>
 

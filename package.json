@@ -12,6 +12,8 @@
     "compile": "hardhat compile",
     "deploy:bscTestnet": "hardhat run scripts/deploy.js --network bscTestnet",
     "deploy:bsc": "hardhat run scripts/deploy.js --network bsc",
+    "verify:bscTestnet": "hardhat verify --network bscTestnet",
+    "verify:bsc": "hardhat verify --network bsc",
     "frontend:dev": "npm --prefix frontend run dev",
     "frontend:build": "npm --prefix frontend run build",
     "frontend:lint": "npm --prefix frontend run lint",

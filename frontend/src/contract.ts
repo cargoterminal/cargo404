@@ -1,4 +1,8 @@
-export const cargo404Address = (import.meta.env.VITE_CARGO404_ADDRESS || '0x586A95703e0AeEE7fE801efB8B66243884Fde811') as `0x${string}`
+const placeholderAddress = '0x0000000000000000000000000000000000000000'
+const configuredCargo404Address = import.meta.env.VITE_CARGO404_ADDRESS as `0x${string}` | undefined
+
+export const cargo404Address = (configuredCargo404Address || placeholderAddress) as `0x${string}`
+export const hasCargo404Address = cargo404Address !== placeholderAddress
 
 export const cargo404Abi = [
   {

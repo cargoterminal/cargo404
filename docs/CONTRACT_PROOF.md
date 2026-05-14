@@ -1,18 +1,18 @@
 # Cargo404 Contract Proof & Safety Notes
 
-Last RPC check: `2026-05-14T10:37:02.021Z`
+Last repo tokenomics update: pending redeploy for 40.4M Option A
 
 ## Official contract
 
 - Network: BNB Smart Chain Mainnet
 - Chain ID: `56`
-- Verified contract: `0x586A95703e0AeEE7fE801efB8B66243884Fde811`
-- BscScan: https://bscscan.com/address/0x586A95703e0AeEE7fE801efB8B66243884Fde811#code
-- BscScan source status: verified
+- Verified contract: `pending redeploy`
+- BscScan: `pending new contract verification`
+- BscScan source status: pending redeploy/verification
 
 ## RPC verification result
 
-The contract address was checked against BNB Smart Chain RPC.
+The previous 1B-supply contract is obsolete for launch. This proof file now tracks the target 40.4M Option A redeploy until a new BNB Chain address is deployed and verified.
 
 ```json
 {
@@ -37,7 +37,7 @@ Interpretation:
   "name": "Cargo404",
   "symbol": "C404",
   "decimals": 18,
-  "totalSupply": "1000000000.0"
+  "totalSupply": "40400000.0"
 }
 ```
 
@@ -45,7 +45,7 @@ Public explanation:
 
 - Token name: `Cargo404`
 - Token symbol: `C404`
-- Total supply: `1,000,000,000 C404`
+- Total supply: `40,400,000 C404`
 - Token type: fixed-supply ERC20
 
 ## Wallets
@@ -89,7 +89,7 @@ Interpretation:
 ```json
 {
   "mintPriceBNB": "0.0025",
-  "tokensPerCargo": "100000.0",
+  "tokensPerCargo": "4040.0",
   "maxMints": "7000",
   "maxPerWallet": "10"
 }
@@ -98,7 +98,7 @@ Interpretation:
 Public explanation:
 
 - Each cargo costs `0.0025 BNB`.
-- Each cargo sends `100,000 C404` to the minter.
+- Each cargo sends `4,040 C404` to the minter.
 - Public mint has a global cap of `7,000` cargo.
 - Each wallet can mint up to `10` cargo.
 
@@ -106,15 +106,15 @@ Public explanation:
 
 ```json
 {
-  "contractPublicMintBalance": "700000000.0",
-  "ownerReserveBalance": "300000000.0"
+  "contractPublicMintBalance": "28280000.0",
+  "ownerReserveBalance": "12120000.0"
 }
 ```
 
 Interpretation:
 
-- The contract currently holds `700,000,000 C404` for public mint.
-- The owner currently holds `300,000,000 C404` reserve allocation.
+- The contract will hold `28,280,000 C404` for public mint after redeploy.
+- The owner will hold `12,120,000 C404` reserve allocation after redeploy.
 
 Public explanation must clearly say the reserve allocation exists and may be used for liquidity/project operations.
 
@@ -188,7 +188,7 @@ Do not call `setMintActive(true)` until all are true:
 Run from repo root:
 
 ```bash
-CONTRACT_ADDRESS=0x586A95703e0AeEE7fE801efB8B66243884Fde811 node scripts/check-contract-state.js
+CONTRACT_ADDRESS=<NEW_CARGO404_ADDRESS> node scripts/check-contract-state.js
 ```
 
 If that helper script does not exist, use the RPC snippet in `docs/MAINNET_LAUNCH.md`.
