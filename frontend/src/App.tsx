@@ -1,6 +1,6 @@
 import { ArrowUpRight, Boxes, FileText, PackageSearch, ShieldCheck, TerminalSquare } from 'lucide-react'
 import { MintPanel } from './components/MintPanel'
-import { cargo404Address } from './contract'
+import { cargo404Address, officialCargo404Address } from './contract'
 import './App.css'
 
 const bscscanUrl = `https://bscscan.com/address/${cargo404Address}#code`
@@ -59,6 +59,11 @@ function App() {
 
       <section className="reference-hero">
         <div className="hero-left">
+          {cargo404Address.toLowerCase() !== officialCargo404Address.toLowerCase() && (
+            <div className="contract-warning">
+              ENV_CONTRACT_MISMATCH · official contract is {officialCargo404Address.slice(0, 6)}...{officialCargo404Address.slice(-4)}
+            </div>
+          )}
           <div className="status-pill"><i /> BNB_MAINNET • VERIFIED_LINK</div>
           <h1>
             <span>ERROR 404:</span>

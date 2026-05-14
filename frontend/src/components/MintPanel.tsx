@@ -12,6 +12,8 @@ import {
   useWriteContract,
 } from 'wagmi'
 import { cargo404Abi, cargo404Address } from '../contract'
+
+const activeCargo404Address = cargo404Address as `0x${string}`
 import { hasConfiguredReownProjectId } from '../wagmiConfig'
 
 function shortAddress(address?: string) {
@@ -19,7 +21,6 @@ function shortAddress(address?: string) {
   return `${address.slice(0, 6)}...${address.slice(-4)}`
 }
 
-const placeholderAddress = '0x0000000000000000000000000000000000000000'
 
 export function MintPanel() {
   const [units, setUnits] = useState(1)
@@ -33,23 +34,23 @@ export function MintPanel() {
   const { switchChain } = useSwitchChain()
   const { writeContract, data: hash, isPending: isWriting, error } = useWriteContract()
 
-  const contractReady = cargo404Address !== placeholderAddress
+  const contractReady = Boolean(activeCargo404Address)
   const wrongChain = isConnected && chainId !== bsc.id
 
   const { data: mintActive } = useReadContract({
-    address: cargo404Address,
+    address: activeCargo404Address,
     abi: cargo404Abi,
     functionName: 'mintActive',
     query: { enabled: contractReady },
   })
   const { data: totalMintUnits } = useReadContract({
-    address: cargo404Address,
+    address: activeCargo404Address,
     abi: cargo404Abi,
     functionName: 'totalMintUnits',
     query: { enabled: contractReady },
   })
   const { data: mintedByWallet } = useReadContract({
-    address: cargo404Address,
+    address: activeCargo404Address,
     abi: cargo404Abi,
     functionName: 'mintedUnitsByWallet',
     args: address ? [address] : undefined,
@@ -68,7 +69,7 @@ export function MintPanel() {
   const onMint = () => {
     if (!canMint) return
     writeContract({
-      address: cargo404Address,
+      address: activeCargo404Address,
       abi: cargo404Abi,
       functionName: 'mintCargo',
       args: [BigInt(units)],

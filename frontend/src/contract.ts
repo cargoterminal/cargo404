@@ -1,6 +1,5 @@
-const configuredCargo404Address = import.meta.env.VITE_CARGO404_ADDRESS as `0x${string}` | undefined
-
-export const cargo404Address = configuredCargo404Address || '0xEe563fe51d8903F7Bfc38489C60e4e797365b7FF'
+export const officialCargo404Address = '0xEe563fe51d8903F7Bfc38489C60e4e797365b7FF'
+export const cargo404Address = officialCargo404Address
 
 export const cargo404Abi = [
   {

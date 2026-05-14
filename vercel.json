@@ -1,6 +1,14 @@
 {
+  "buildCommand": "npm run frontend:build",
+  "outputDirectory": "frontend/dist",
+  "installCommand": "npm install && npm --prefix frontend install",
   "framework": "vite",
-  "installCommand": "npm ci --legacy-peer-deps && npm --prefix frontend ci --legacy-peer-deps",
-  "buildCommand": "npm --prefix frontend run build",
-  "outputDirectory": "frontend/dist"
+  "env": {
+    "VITE_BSC_RPC_URL": "https://bsc-dataseed.binance.org"
+  },
+  "build": {
+    "env": {
+      "VITE_BSC_RPC_URL": "https://bsc-dataseed.binance.org"
+    }
+  }
 }
