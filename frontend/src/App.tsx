@@ -1,104 +1,162 @@
+import { ArrowUpRight, Boxes, CheckCircle2, CircleDollarSign, LockKeyhole, PackageSearch, ShieldCheck, Sparkles, TerminalSquare, Truck } from 'lucide-react'
 import { MintPanel } from './components/MintPanel'
+import { cargo404Address } from './contract'
 import './App.css'
+
+const bscscanUrl = `https://bscscan.com/address/${cargo404Address}#code`
 
 function App() {
   return (
-    <main className="terminal-shell">
-      <div className="terminal-room" aria-hidden="true">
-        <div className="floor-grid" />
-        <div className="terminal-window terminal-window-a">
-          <b>CARGO_TRACE.EXE</b>
-          <span>route: bnb/mainnet</span>
-          <span>tracking: 404_missing</span>
-          <i />
-        </div>
-        <div className="terminal-window terminal-window-b">
-          <b>MANIFEST.LOG</b>
-          <span>mint: locked</span>
-          <span>cargo: 0/7000</span>
-          <i />
-        </div>
-        <div className="terminal-window terminal-window-c">
-          <b>SCAN_NODE</b>
-          <span>signal: online</span>
-          <span>bags: pending</span>
-          <i />
-        </div>
-      </div>
-      <div className="crt-noise" />
-      <section className="hero-terminal" id="status">
-        <header className="brand-hero glitch-hero">
-          <div className="glitch-logo" aria-label="Cargo404 logo">
-            <img src="/cargo404.png" alt="Cargo404 logo" />
-          </div>
-          <div className="hero-copy">
-            <h1 className="glitch-title" data-text="CARGO404">CARGO404</h1>
-            <div className="terminal-subtitle">LOST FREIGHT NETWORK / BNB CARGO TERMINAL ACCESS</div>
-            <div className="tagline-card compact">
-              <p>Your package is lost.</p>
-              <strong>Your bags are not.</strong>
-            </div>
-          </div>
-        </header>
+    <main className="site-shell">
+      <div className="ambient-orb orb-a" aria-hidden="true" />
+      <div className="ambient-orb orb-b" aria-hidden="true" />
+      <div className="cargo-grid" aria-hidden="true" />
 
-        <div className="quick-stats" aria-label="Cargo404 launch stats">
-          <div><span>mint price</span><strong>0.0025 BNB</strong></div>
-          <div><span>max wallet</span><strong>10 cargo</strong></div>
-          <div><span>per cargo</span><strong>100K C404</strong></div>
-        </div>
-
-        <div className="status-bar">
-          <div>
-            <span>○ PRE-LAUNCH</span>
-            <i>·</i>
-            <span>chain 56</span>
-            <i>·</i>
-            <span>manifest pending</span>
-          </div>
-          <a href="#mint">connect cargo wallet →</a>
-        </div>
-
-        <nav className="tabs" aria-label="Cargo404 terminal tabs">
-          <a href="#status">STATUS</a>
-          <a className="active" href="#mint">▌MINT</a>
-          <a href="#manifest">MANIFEST</a>
-          <a href="#stats">STATS</a>
+      <header className="nav-bar">
+        <a className="brand-mark" href="#top" aria-label="Cargo404 home">
+          <img src="/cargo404.png" alt="Cargo404" />
+          <span>
+            <b>Cargo404</b>
+            <small>BNB mainnet mint</small>
+          </span>
+        </a>
+        <nav className="nav-links" aria-label="Primary navigation">
+          <a href="#mint">Mint</a>
+          <a href="#mechanism">Mechanism</a>
+          <a href="#manifest">Manifest</a>
           <a href="#faq">FAQ</a>
         </nav>
+        <a className="nav-cta" href={bscscanUrl} target="_blank" rel="noreferrer">
+          Verified contract <ArrowUpRight size={15} />
+        </a>
+      </header>
 
-        <MintPanel />
-
-        <section className="terminal-panel manifest-panel" id="manifest">
-          <div className="panel-head"><span>▌ MANIFEST</span><strong>LOST CARGO</strong></div>
-          <p className="section-copy">A cleaner mint terminal for degens who found the wrong warehouse but the right ticker.</p>
-          <div className="manifest-grid">
-            <div><b>01</b><strong>Connect wallet</strong><span>Open the cargo terminal on BNB Chain.</span></div>
-            <div><b>02</b><strong>Load cargo</strong><span>Pick 1–10 cargo units per wallet.</span></div>
-            <div><b>03</b><strong>Find bags</strong><span>Receive C404 after the shipment confirms.</span></div>
+      <section className="hero-section" id="top">
+        <div className="hero-copy">
+          <div className="eyebrow"><span /> verified on BNB Smart Chain</div>
+          <h1>
+            Lost cargo.<br />
+            Found alpha.
+          </h1>
+          <p className="hero-lede">
+            Cargo404 is a polished meme-token mint terminal for degens who found the wrong warehouse,
+            but the right ticker. Public mint, hard wallet cap, verified contract, clean launch flow.
+          </p>
+          <div className="hero-actions">
+            <a className="primary-link" href="#mint">Open mint terminal</a>
+            <a className="secondary-link" href={bscscanUrl} target="_blank" rel="noreferrer">
+              View BscScan <ArrowUpRight size={16} />
+            </a>
           </div>
-        </section>
+          <div className="trust-row" aria-label="Launch trust signals">
+            <span><CheckCircle2 size={16} /> Contract verified</span>
+            <span><ShieldCheck size={16} /> 10 max / wallet</span>
+            <span><LockKeyhole size={16} /> Mint gate controlled</span>
+          </div>
+        </div>
 
-        <section className="terminal-panel info-grid" id="stats">
-          <div className="panel-head"><span>▌ STATS</span><strong>C404</strong></div>
-          <div className="stat-row"><b>7000</b><span>total public cargo units</span></div>
-          <div className="stat-row"><b>700M</b><span>public mint allocation</span></div>
-          <div className="stat-row"><b>300M</b><span>reserve allocation</span></div>
-        </section>
-
-        <section className="terminal-panel faq" id="faq">
-          <div className="panel-head"><span>▌ FAQ</span><strong>404</strong></div>
-          <p><b>What is Cargo404?</b><br />A lost-shipment meme mint on BNB Chain with a modern cargo-terminal interface.</p>
-          <p><b>Mint price?</b><br />0.0025 BNB per cargo unit. Each cargo unit mints 100,000 C404.</p>
-          <p><b>Why pre-launch?</b><br />The site can go live first. Mint unlocks after the contract address is deployed and the gate is enabled.</p>
-          <p><b>Financial advice?</b><br />No. The terminal only prints errors. DYOR.</p>
-        </section>
-
-        <footer className="terminal-footer">
-          <span>C404 :: TERMINAL v4.04</span>
-          <span>CHAIN : BNB</span>
-          <span>/ LOST-CARGO</span>
-        </footer>
+        <aside className="hero-visual" aria-label="Cargo404 launch card">
+          <div className="shipment-card">
+            <div className="shipment-topline">
+              <span>C404 / MANIFEST</span>
+              <b>CHAIN 56</b>
+            </div>
+            <div className="crate-stage">
+              <div className="crate-glow" />
+              <img src="/cargo404.png" alt="Cargo404 cargo badge" />
+            </div>
+            <div className="scan-line">
+              <span>route</span>
+              <strong>BNB MAINNET → LOST TERMINAL</strong>
+            </div>
+            <div className="shipment-stats">
+              <div><small>Mint price</small><b>0.0025 BNB</b></div>
+              <div><small>Per cargo</small><b>100K C404</b></div>
+              <div><small>Supply</small><b>1B C404</b></div>
+            </div>
+          </div>
+        </aside>
       </section>
+
+      <section className="ticker-strip" aria-label="Cargo404 highlights">
+        <span>PUBLIC MINT: 7,000 CARGO UNITS</span>
+        <span>•</span>
+        <span>700M C404 PUBLIC ALLOCATION</span>
+        <span>•</span>
+        <span>300M C404 RESERVE</span>
+        <span>•</span>
+        <span>MAX 10 CARGO / WALLET</span>
+      </section>
+
+      <section className="mint-layout" id="mint">
+        <div className="section-intro">
+          <div className="eyebrow"><span /> live mint interface</div>
+          <h2>Professional mint flow, not a random terminal toy.</h2>
+          <p>
+            The UI is built to feel like a premium crypto launch page: strong hero, clear tokenomics,
+            visible trust signals, and the mint panel always focused on the action.
+          </p>
+        </div>
+        <MintPanel />
+      </section>
+
+      <section className="feature-grid" id="mechanism">
+        <article>
+          <CircleDollarSign />
+          <h3>Fair public mint</h3>
+          <p>Each cargo unit costs 0.0025 BNB and prints 100,000 C404. Simple numbers, easy to verify.</p>
+        </article>
+        <article>
+          <ShieldCheck />
+          <h3>Wallet cap</h3>
+          <p>Hard cap of 10 cargo units per wallet keeps early distribution cleaner and reduces whale pressure.</p>
+        </article>
+        <article>
+          <Boxes />
+          <h3>Fixed allocation</h3>
+          <p>700M C404 for public mint and 300M C404 reserve allocation for launch operations/liquidity.</p>
+        </article>
+      </section>
+
+      <section className="manifest-section" id="manifest">
+        <div className="section-intro centered">
+          <div className="eyebrow"><span /> launch manifest</div>
+          <h2>Three-step cargo loading.</h2>
+        </div>
+        <div className="timeline">
+          <div><b>01</b><Truck /><h3>Connect wallet</h3><p>Use a BNB Smart Chain wallet and open the verified mint panel.</p></div>
+          <div><b>02</b><TerminalSquare /><h3>Load cargo</h3><p>Choose 1–10 cargo units. The UI calculates BNB cost before you sign.</p></div>
+          <div><b>03</b><PackageSearch /><h3>Claim signal</h3><p>After confirmation, C404 lands in your wallet and progress updates on-chain.</p></div>
+        </div>
+      </section>
+
+      <section className="faq-section" id="faq">
+        <div className="faq-card">
+          <Sparkles />
+          <h2>What is Cargo404?</h2>
+          <p>A BNB Chain meme mint with cargo-terminal lore, cleaner launch UX, verified source code, and public mint mechanics.</p>
+        </div>
+        <div className="faq-list">
+          <details open>
+            <summary>Is the contract verified?</summary>
+            <p>Yes. The Cargo404 contract is verified on BscScan at {cargo404Address}.</p>
+          </details>
+          <details>
+            <summary>How much can one wallet mint?</summary>
+            <p>Maximum 10 cargo units per wallet. Each cargo unit receives 100,000 C404.</p>
+          </details>
+          <details>
+            <summary>Is this financial advice?</summary>
+            <p>No. Cargo404 is a meme-token experiment. DYOR, manage risk, and only mint what you can afford to lose.</p>
+          </details>
+        </div>
+      </section>
+
+      <footer className="site-footer">
+        <span>CARGO404 / C404</span>
+        <span>BNB SMART CHAIN</span>
+        <a href={bscscanUrl} target="_blank" rel="noreferrer">BscScan</a>
+      </footer>
     </main>
   )
 }

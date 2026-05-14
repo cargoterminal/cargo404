@@ -72,7 +72,10 @@ export function MintPanel() {
 
   const connectWallet = () => connect({ connector: connectors[0] })
   const displayedAddress = isConnected ? shortAddress(address) : 'not connected'
-  const statusLabel = !contractReady ? 'offline' : mintActive ? 'live' : 'closed'
+  const statusLabel = !contractReady ? 'offline' : mintActive ? 'live' : 'gate closed'
+  const copyContract = () => {
+    if (contractReady && navigator.clipboard) navigator.clipboard.writeText(cargo404Address)
+  }
 
   return (
     <section className="terminal-panel mint-panel" id="mint">
@@ -93,6 +96,10 @@ export function MintPanel() {
         <div><span>status</span><i /> <strong className={mintActive ? 'hot' : 'dim'}>{statusLabel}</strong></div>
       </div>
 
+      <button type="button" className="copy-contract" onClick={copyContract} disabled={!contractReady}>
+        copy verified contract address
+      </button>
+
       <div className="progress-line">
         <span>cargo loaded</span>
         <b>{minted}/7000</b>
@@ -102,8 +109,8 @@ export function MintPanel() {
       <div className="terminal-section">
         <div className="section-head"><span>▌ ACTIVATE CARGO LINK</span><b>{isConnected ? '○ ACTIVE' : '○ INACTIVE'}</b></div>
         <p>
-          Connect wallet to open the Cargo404 terminal. Minting stays locked until the
-          manifest contract is deployed and the cargo gate is activated.
+          Connect wallet to open the Cargo404 terminal. If the gate is still closed, the contract is live
+          but public mint has not been enabled yet.
         </p>
         <div className="terminal-field">
           <span>wallet address</span>
@@ -134,8 +141,8 @@ export function MintPanel() {
       </div>
 
       <div className="bottom-actions">
-        <button type="button">◆ REFRESH</button>
-        <button type="button">◆ BACK</button>
+        <button type="button" onClick={() => window.location.reload()}>◆ REFRESH DATA</button>
+        <button type="button" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>◆ OVERVIEW</button>
       </div>
 
       {!contractReady && <p className="warning">Contract address pending deployment. Mint unlocks after launch.</p>}
