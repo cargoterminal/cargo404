@@ -14,7 +14,7 @@ Route missing. Cargo loaded. Convoy deployed.
 - **Live app:** https://www.cargo404.app/
 - **Repository:** https://github.com/cargoterminal/cargo404
 - **Network:** BNB Smart Chain Mainnet
-- **Contract:** [`0x586A95703e0AeEE7fE801efB8B66243884Fde811`](https://bscscan.com/address/0x586A95703e0AeEE7fE801efB8B66243884Fde811#code)
+- **Verified contract:** [`0x586A95703e0AeEE7fE801efB8B66243884Fde811`](https://bscscan.com/address/0x586A95703e0AeEE7fE801efB8B66243884Fde811#code)
 - **Token:** Cargo404 (`C404`)
 
 > Cargo404 is experimental meme-token software. It is not financial advice. Always verify the official contract address and confirm every wallet transaction manually.
@@ -30,6 +30,7 @@ Cargo404 is a fixed-supply ERC20 token contract. The `404` identity is terminal/
 Cargo404 is already deployed and prepared for public mint operations. The remaining steps are operational, not core development:
 
 - Contract deployed on BNB Smart Chain Mainnet.
+- Contract source verified on BscScan.
 - Web mint terminal is live.
 - Public repo is cleaned and documented.
 - Mint is controlled by an owner switch and should only be enabled when the launch post, wallet QA, contract transparency checks, and liquidity plan are ready.

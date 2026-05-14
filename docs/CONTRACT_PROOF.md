@@ -6,8 +6,9 @@ Last RPC check: `2026-05-14T10:37:02.021Z`
 
 - Network: BNB Smart Chain Mainnet
 - Chain ID: `56`
-- Contract: `0x586A95703e0AeEE7fE801efB8B66243884Fde811`
+- Verified contract: `0x586A95703e0AeEE7fE801efB8B66243884Fde811`
 - BscScan: https://bscscan.com/address/0x586A95703e0AeEE7fE801efB8B66243884Fde811#code
+- BscScan source status: verified
 
 ## RPC verification result
 
@@ -150,7 +151,7 @@ Use:
 The contract is deployed on BNB Chain and public mint is currently closed until final launch checks are complete.
 ```
 
-Use only after BscScan verification is manually confirmed:
+Confirmed safe wording:
 
 ```text
 The contract source is verified on BscScan.
@@ -176,7 +177,7 @@ Do not call `setMintActive(true)` until all are true:
 - [ ] Website shows official contract address.
 - [ ] Website wallet connect and BSC switch are smoke-tested.
 - [ ] Public copy says ERC20 cargo mint, not ERC404/NFT.
-- [ ] BscScan source verification is complete or the launch copy clearly says verification is pending.
+- [x] BscScan source verification is complete.
 - [ ] X profile, pinned post/thread, and official links are ready.
 - [ ] Owner wallet has enough BNB for the enable-mint transaction.
 - [ ] Treasury and buyback wallet addresses are confirmed.

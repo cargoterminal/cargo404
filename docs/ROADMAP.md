@@ -24,7 +24,7 @@ The project should stay honest about what is already live: Cargo404 is not an ER
   - `70%` liquidity bucket.
   - `20%` treasury.
   - `10%` buyback wallet.
-- Publish contract address and BscScan link.
+- Publish verified contract address and BscScan source link.
 - Prepare contract tests and owner launch scripts.
 
 ## Phase 1 — Narrative & Mint Terminal Launch
@@ -36,7 +36,7 @@ The project should stay honest about what is already live: Cargo404 is not an ER
 - Show official contract, mint status, wallet limit, and public progress clearly.
 - Let users connect a wallet, choose cargo units, and mint directly from the site.
 - Deploy the site to the official Cargo404 domain.
-- Publish official website, contract address, and BscScan link.
+- Publish official website, verified contract address, and BscScan link.
 - Keep public mint activation behind the owner-controlled contract switch.
 - Prepare official X bio, pinned post, and launch thread before enabling mint.
 
