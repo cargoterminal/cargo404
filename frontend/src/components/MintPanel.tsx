@@ -135,10 +135,6 @@ export function MintPanel() {
 
       <div className="terminal-section">
         <div className="section-head"><span>▌ ACTIVATE CARGO LINK</span><b>{isConnected ? '○ ACTIVE' : '○ INACTIVE'}</b></div>
-        <p>
-          Connect with the wallet already installed in your browser first. Cargo404 will ask you to switch to BNB
-          Smart Chain after the wallet stays connected. Mobile users can use the Reown AppKit fallback when configured.
-        </p>
         <div className="terminal-field wallet-address-row">
           <span>wallet address</span>
           {!isConnected ? (
