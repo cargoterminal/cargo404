@@ -1,5 +1,6 @@
 import { ArrowUpRight, Boxes, FileText, Flag, PackageSearch, ShieldCheck, TerminalSquare } from 'lucide-react'
 import { useMemo } from 'react'
+import { Analytics } from '@vercel/analytics/react'
 import { MintPanel } from './components/MintPanel'
 import { cargo404Address } from './contract'
 import './App.css'
@@ -129,6 +130,7 @@ function App() {
       {activePage === 'docs' && <DocsPage />}
       {activePage === 'how' && <HowPage />}
       {activePage !== 'terminal' && <SiteFooter />}
+      <Analytics />
     </main>
   )
 }
