@@ -953,7 +953,10 @@
 .security-block,
 .compiler-note,
 .roadmap-card,
-.principle-grid article {
+.principle-grid article,
+.tokenomics-grid article,
+.route-flow-grid article,
+.sellout-card {
   border: 1px solid var(--line);
   background: #070c05;
 }
@@ -1057,12 +1060,16 @@
 }
 
 .roadmap-block,
-.docs-principles {
+.docs-principles,
+.tokenomics-block,
+.route-flow-block {
   margin-top: 20px;
 }
 
 .roadmap-grid,
-.principle-grid {
+.principle-grid,
+.tokenomics-grid,
+.route-flow-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 12px;
@@ -1070,6 +1077,178 @@
 
 .principle-grid {
   grid-template-columns: repeat(3, 1fr);
+}
+
+.split-grid {
+  grid-template-columns: repeat(2, 1fr);
+  margin-top: 12px;
+}
+
+.cargo-math-grid {
+  margin-top: 12px;
+}
+
+.route-flow-grid {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.supply-terminal {
+  display: grid;
+  grid-template-columns: minmax(260px, .48fr) minmax(0, 1fr);
+  gap: 14px;
+  align-items: stretch;
+  margin-bottom: 14px;
+  border: 1px solid rgba(182, 255, 53, .2);
+  background: #050905;
+}
+
+.supply-terminal-main {
+  padding: 20px;
+  border-right: 1px solid rgba(182, 255, 53, .16);
+}
+
+.supply-terminal-main span,
+.tokenomics-grid span,
+.route-flow-grid span,
+.sellout-card span {
+  display: block;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .13em;
+}
+
+.supply-terminal-main strong {
+  display: block;
+  margin-top: 10px;
+  color: var(--lime);
+  font-size: clamp(28px, 4vw, 46px);
+  line-height: .95;
+  letter-spacing: -.055em;
+  text-transform: uppercase;
+}
+
+.supply-terminal-main p,
+.tokenomics-grid p,
+.route-flow-grid p,
+.sellout-card p {
+  margin: 10px 0 0;
+  color: var(--body-text);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.supply-bars {
+  display: grid;
+  grid-template-columns: 7fr 3fr;
+  min-height: 168px;
+  gap: 1px;
+  background: rgba(182, 255, 53, .14);
+}
+
+.supply-bar {
+  position: relative;
+  display: flex;
+  align-items: end;
+  padding: 14px;
+  overflow: hidden;
+  background: #070c05;
+}
+
+.supply-bar::before {
+  content: '';
+  position: absolute;
+  inset: auto 0 0;
+  height: 72%;
+  background: linear-gradient(180deg, rgba(182, 255, 53, .18), rgba(182, 255, 53, .06));
+  box-shadow: 0 0 34px rgba(182, 255, 53, .14) inset;
+}
+
+.supply-bar.reserve::before {
+  height: 38%;
+  background: linear-gradient(180deg, rgba(239, 197, 42, .18), rgba(239, 197, 42, .06));
+}
+
+.supply-bar span {
+  position: relative;
+  z-index: 1;
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+}
+
+.tokenomics-grid article,
+.route-flow-grid article {
+  padding: 18px;
+}
+
+.tokenomics-grid strong {
+  display: block;
+  margin-top: 10px;
+  color: var(--text);
+  font-size: 19px;
+  line-height: 1.15;
+  text-transform: uppercase;
+}
+
+.route-flow-grid strong {
+  display: block;
+  color: var(--lime);
+  font-size: clamp(34px, 5vw, 56px);
+  line-height: .9;
+  letter-spacing: -.08em;
+}
+
+.route-flow-grid span {
+  margin-top: 12px;
+  color: var(--text);
+}
+
+.sellout-card {
+  display: grid;
+  grid-template-columns: 42px 1fr;
+  gap: 16px;
+  align-items: center;
+  margin-top: 12px;
+  padding: 18px;
+  border-color: rgba(239, 197, 42, .3);
+  background: rgba(239, 197, 42, .045);
+}
+
+.sellout-card svg {
+  color: var(--yellow);
+}
+
+.sellout-card strong {
+  display: block;
+  margin-top: 8px;
+  color: var(--text);
+  font-size: 18px;
+  line-height: 1.25;
+  text-transform: uppercase;
+}
+
+.flow-terminal {
+  display: grid;
+  gap: 8px;
+  margin-top: 14px;
+  padding: 18px;
+  border: 1px solid rgba(182, 255, 53, .18);
+  background: #020602;
+}
+
+.flow-terminal code {
+  color: var(--lime);
+  font-size: 13px;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+
+.flow-terminal code:first-child {
+  color: var(--text);
 }
 
 .roadmap-card,
@@ -1232,7 +1411,10 @@
   .faq-grid,
   .security-block,
   .roadmap-grid,
-  .principle-grid {
+  .principle-grid,
+  .tokenomics-grid,
+  .route-flow-grid,
+  .supply-terminal {
     grid-template-columns: 1fr;
   }
 

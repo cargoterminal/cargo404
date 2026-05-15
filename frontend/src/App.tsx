@@ -1,4 +1,4 @@
-import { ArrowUpRight, Boxes, FileText, Flag, PackageSearch, ShieldCheck, TerminalSquare } from 'lucide-react'
+import { ArrowUpRight, Boxes, FileText, Flag, PackageSearch, PieChart, ShieldCheck, TerminalSquare } from 'lucide-react'
 import { useMemo } from 'react'
 import { MintPanel } from './components/MintPanel'
 import { cargo404Address } from './contract'
@@ -37,6 +37,24 @@ const docs = [
   ['wallet cap', '10 cargo'],
 ]
 
+const tokenomicsSplit = [
+  ['Public mint', '28,280,000 C404', '70% of supply held by the contract for the public cargo mint.'],
+  ['Reserve', '12,120,000 C404', '30% held by the owner wallet for liquidity and project operations.'],
+]
+
+const cargoMath = [
+  ['1 cargo', '0.0025 BNB', 'Mint fee per cargo unit. Gas is separate.'],
+  ['Cargo output', '4,040 C404', 'Amount delivered to the minter for each cargo.'],
+  ['Total route', '7,000 cargo', 'Maximum public cargo units available.'],
+  ['Wallet cap', '10 cargo', 'Per-wallet cap enforced by the contract.'],
+]
+
+const raisedRoute = [
+  ['70%', 'Liquidity bucket', 'Sent to the owner/deployer by the contract distribution flow for post-mint liquidity operations.'],
+  ['20%', 'Treasury', 'Sent to the treasury wallet after distribution.'],
+  ['10%', 'Buyback / burn bucket', 'Sent to the buyback wallet after distribution for later public operations.'],
+]
+
 const safetyChecklist = [
   'Use only cargo404.app and the official @Cargo404BNB links.',
   'Verify the BNB Chain contract before sending BNB.',
@@ -46,6 +64,8 @@ const safetyChecklist = [
 
 const faqItems = [
   ['What is one cargo?', 'One cargo is one mint unit: 0.0025 BNB plus gas for 4,040 C404.'],
+  ['How is supply split?', 'Total supply is 40,400,000 C404: 70% public mint and 30% reserve.'],
+  ['Where does raised BNB go?', 'After mint, the contract can split raised BNB by fixed route: 70% liquidity bucket, 20% treasury, 10% buyback/burn bucket.'],
   ['Which chain?', 'BNB Smart Chain mainnet. Use BNB for the mint fee and network gas.'],
   ['Is this ERC404 or an NFT mint?', 'No. Cargo404 is an ERC20 cargo mint, not ERC404 and not an NFT mint.'],
   ['Can the gate be closed?', 'Yes. The contract gate stays closed until the official launch signal.'],
@@ -172,6 +192,7 @@ function TerminalPage() {
           <div className="terminal-chips">
             <span>[ PRICE: 0.0025 BNB ]</span>
             <span>[ CARGO: 4,040 C404 ]</span>
+            <span>[ SUPPLY: 40.4M C404 ]</span>
             <span>[ WALLET_CAP: 10 ]</span>
           </div>
         </div>
@@ -253,6 +274,90 @@ function DocsPage() {
           <span>official sources</span>
           <code>{cargo404Address}</code>
           <a href={officialXUrl} target="_blank" rel="noreferrer">{officialXHandle}</a>
+        </div>
+      </section>
+
+      <section className="route-card route-card-wide tokenomics-block" id="tokenomics">
+        <div className="block-heading route-heading">
+          <div>
+            <span>// TOKENOMICS</span>
+            <h2>C404 cargo economy</h2>
+          </div>
+          <p>
+            Fixed 40.4M supply, fixed cargo price, fixed wallet cap, and a hardcoded raised-BNB route.
+            No extra token minting is exposed by the contract.
+          </p>
+        </div>
+
+        <div className="supply-terminal">
+          <div className="supply-terminal-main">
+            <span>Total supply</span>
+            <strong>40,400,000 C404</strong>
+            <p>Fixed-supply ERC20 on BNB Smart Chain.</p>
+          </div>
+          <div className="supply-bars" aria-label="Cargo404 supply split">
+            <div className="supply-bar public"><span>70% public mint</span></div>
+            <div className="supply-bar reserve"><span>30% reserve</span></div>
+          </div>
+        </div>
+
+        <div className="tokenomics-grid split-grid">
+          {tokenomicsSplit.map(([label, value, copy]) => (
+            <article key={label}>
+              <span>{label}</span>
+              <strong>{value}</strong>
+              <p>{copy}</p>
+            </article>
+          ))}
+        </div>
+
+        <div className="tokenomics-grid cargo-math-grid">
+          {cargoMath.map(([label, value, copy]) => (
+            <article key={label}>
+              <span>{label}</span>
+              <strong>{value}</strong>
+              <p>{copy}</p>
+            </article>
+          ))}
+        </div>
+
+        <div className="sellout-card">
+          <PieChart />
+          <div>
+            <span>if public mint sells out</span>
+            <strong>7,000 cargo × 0.0025 BNB = 17.5 BNB raised</strong>
+            <p>Raised BNB stays in the contract until the owner calls the one-time distribution function.</p>
+          </div>
+        </div>
+      </section>
+
+      <section className="route-card route-card-wide route-flow-block" id="raised-route">
+        <div className="block-heading route-heading">
+          <div>
+            <span>// RAISED_BNB_ROUTE</span>
+            <h2>Post-mint routing</h2>
+          </div>
+          <p>
+            The contract route only splits raised BNB by fixed percentages. Liquidity creation, LP lock/burn,
+            and buyback/burn actions are manual post-mint operations that need public proof after completion.
+          </p>
+        </div>
+
+        <div className="route-flow-grid">
+          {raisedRoute.map(([percent, label, copy]) => (
+            <article key={label}>
+              <strong>{percent}</strong>
+              <span>{label}</span>
+              <p>{copy}</p>
+            </article>
+          ))}
+        </div>
+
+        <div className="flow-terminal" aria-label="Raised BNB flow">
+          <code>User mint → BNB enters contract → owner calls distributeRaisedBnb()</code>
+          <code>├─ 70% → liquidity bucket</code>
+          <code>├─ 20% → treasury</code>
+          <code>└─ 10% → buyback / burn bucket</code>
         </div>
       </section>
 
@@ -410,6 +515,8 @@ function SiteFooter({ compact = false }: { compact?: boolean }) {
         <a href={routes.docs}>MANIFEST</a>
         <a href={bscscanUrl} target="_blank" rel="noreferrer">CONTRACT</a>
         <a href={routes.mint}>GATE</a>
+        <a href={`${routes.docs}#tokenomics`}>TOKENOMICS</a>
+        <a href={`${routes.docs}#raised-route`}>ROUTE</a>
         <a href={`${routes.docs}#security`}>SAFETY</a>
         <a href={`${routes.docs}#roadmap`}>ROADMAP</a>
         <a href={officialXUrl} target="_blank" rel="noreferrer">X</a>
