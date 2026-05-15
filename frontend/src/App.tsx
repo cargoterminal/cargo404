@@ -45,27 +45,27 @@ const safetyChecklist = [
 ]
 
 const faqItems = [
-  ['What is one cargo?', 'One cargo is one mint unit. Each cargo costs 0.0025 BNB and sends 4,040 C404 to the connected wallet.'],
-  ['Which chain?', 'Cargo404 runs on BNB Smart Chain mainnet. You need BNB for the mint price and network gas.'],
-  ['Is this ERC404 or an NFT mint?', 'No. Cargo404 is a fixed-supply ERC20 cargo mint. It is not ERC404 and not an NFT mint.'],
-  ['Can the gate be closed?', 'Yes. Minting only works when the verified contract gate is active. The site shows gate closed until launch.'],
+  ['What is one cargo?', 'One cargo is one mint unit: 0.0025 BNB plus gas for 4,040 C404.'],
+  ['Which chain?', 'BNB Smart Chain mainnet. Use BNB for the mint fee and network gas.'],
+  ['Is this ERC404 or an NFT mint?', 'No. Cargo404 is an ERC20 cargo mint, not ERC404 and not an NFT mint.'],
+  ['Can the gate be closed?', 'Yes. The contract gate stays closed until the official launch signal.'],
 ]
 
 const steps = [
   {
     icon: <TerminalSquare />,
     title: '01 / connect_wallet',
-    copy: 'Connect your EVM wallet. Cargo404 will never ask for your seed phrase or private key.',
+    copy: 'Connect an EVM wallet. The site never asks for seed phrases, private keys, or wallet validation.',
   },
   {
     icon: <PackageSearch />,
     title: '02 / load_cargo',
-    copy: 'When the gate opens, choose how many cargo units to load. Each cargo costs 0.0025 BNB.',
+    copy: 'When the gate opens, choose a cargo amount. Each cargo costs 0.0025 BNB plus gas.',
   },
   {
     icon: <Boxes />,
     title: '03 / receive_c404',
-    copy: 'Confirm the transaction in your wallet. The verified contract sends C404 to the same address.',
+    copy: 'Confirm in your wallet. The verified contract sends C404 to the same address.',
   },
 ]
 
@@ -74,40 +74,40 @@ const roadmapItems = [
     phase: 'Phase 01',
     title: 'Terminal online',
     status: 'live',
-    copy: 'Website, verified BNB Chain contract, official X, public manifest, and cargo mint terminal are live for community review.',
+    copy: 'Website, verified contract, official X, docs, and mint terminal are live for review.',
   },
   {
     phase: 'Phase 02',
-    title: 'Public cargo signal',
+    title: 'Launch signal',
     status: 'next',
-    copy: 'Open the mint gate from the official contract, run a first public mint check, and post the exact launch signal through official channels.',
+    copy: 'Open the contract gate, run the first public mint check, then post the official launch signal.',
   },
   {
     phase: 'Phase 03',
     title: 'Post-mint routing',
     status: 'planned',
-    copy: 'Route raised BNB according to the contract flow, prepare liquidity only if the launch plan proceeds, then publish proof links before making claims.',
+    copy: 'Route raised BNB through the contract flow and publish proof links before making any claims.',
   },
   {
     phase: 'Phase 04',
-    title: 'Community cargo ops',
+    title: 'Community ops',
     status: 'planned',
-    copy: 'Ship holder-facing updates: proof archive, clearer dashboards, listing pages, and community quests that point back to the verified sources.',
+    copy: 'Add public proof links, clearer holder pages, and community updates after launch.',
   },
 ]
 
 const docsSections = [
   {
-    title: 'Contract-first launch',
-    copy: 'Every important action points back to the verified BNB Chain contract. The website explains what the contract does, then the wallet asks you to confirm.',
+    title: 'Verified source',
+    copy: 'Use the contract, cargo404.app, and @Cargo404BNB as the reference points before interacting.',
   },
   {
     title: 'Simple cargo math',
-    copy: '1 cargo = 4,040 C404. Public mint allocation is 7,000 cargo units. Wallet cap is 10 cargo. Mint price is 0.0025 BNB plus gas.',
+    copy: '1 cargo = 4,040 C404. Public allocation is 7,000 cargo units. Wallet cap is 10 cargo.',
   },
   {
     title: 'Proof before claims',
-    copy: 'No audit, LP lock, burn, CEX listing, or liquidity claim is made until a public proof link exists. If it is not proven yet, it stays marked as planned.',
+    copy: 'No audit, LP lock, burn, listing, or liquidity claim is shown as complete without public proof.',
   },
 ]
 
@@ -161,8 +161,8 @@ function TerminalPage() {
             <em>CARGO FOUND.</em>
           </h1>
           <p>
-            Lost shipment. Found bags. Cargo404 is a fixed-supply C404 cargo mint on BNB Chain.
-            Load cargo with BNB, confirm in your wallet, receive C404. No seed phrase. No private key. No mystery approvals.
+            Cargo404 is a fixed-supply C404 cargo mint on BNB Chain. Connect a wallet, load cargo with BNB,
+            and receive C404 from the verified contract. No seed phrase, no private key, no approval just to connect.
           </p>
           <div className="hero-buttons">
             <a className="primary-hero" href={routes.mint}>OPEN_CARGO_TERMINAL</a>
@@ -216,7 +216,7 @@ function MintPage() {
         <div className="block-heading route-heading">
           <span>// CARGO_GATE</span>
           <h2>Public cargo terminal</h2>
-          <p>Mint gate is closed for now. When it opens, load cargo with BNB and receive C404 straight from the verified contract.</p>
+          <p>The mint gate is currently closed. When the official launch signal is posted, each cargo costs 0.0025 BNB plus gas and sends 4,040 C404 to your wallet.</p>
         </div>
         <MintPanel />
       </section>
@@ -232,8 +232,8 @@ function DocsPage() {
           <span>// MANIFEST</span>
           <h2>Cargo manifest</h2>
           <p>
-            The short version: fixed supply, fixed mint price, fixed wallet cap, no hidden wallet approvals.
-            One cargo costs 0.0025 BNB plus gas and sends 4,040 C404 to the connected wallet.
+            Fixed supply, fixed mint price, fixed wallet cap. One cargo costs 0.0025 BNB plus gas
+            and sends 4,040 C404 to the connected wallet through the verified BNB Chain contract.
           </p>
         </div>
         <div className="docs-grid manifest-grid">
@@ -282,7 +282,7 @@ function DocsPage() {
         </p>
         <ul>
           <li>Verified fixed-supply ERC20 cargo mint.</li>
-          <li>No upgradeability, no NFT/ERC404 mechanics, no auto-LP claim.</li>
+          <li>No upgradeability, no NFT/ERC404 mechanics, no automatic liquidity claim.</li>
           <li>Liquidity is handled manually after mint; LP lock/burn proof will be posted only if completed.</li>
         </ul>
       </section>
@@ -291,10 +291,10 @@ function DocsPage() {
         <div className="block-heading route-heading">
           <div>
             <span>// ROADMAP</span>
-            <h2>Clear route, no fake promises</h2>
+            <h2>Route map</h2>
           </div>
           <p>
-            Cargo404 roadmap is written around verifiable milestones. Anything that needs proof stays planned until the transaction, page, or public record exists.
+            Cargo404 milestones stay tied to proof. Anything not public on-chain or posted through official channels stays planned.
           </p>
         </div>
         <div className="roadmap-grid">
@@ -314,8 +314,8 @@ function DocsPage() {
       <section className="route-card route-card-wide docs-principles" id="principles">
         <div className="block-heading">
           <span>// PROJECT_DOCS</span>
-          <h2>Why the terminal is built this way</h2>
-          <p>Short docs for people checking if Cargo404 is real, simple, and worth following before the public cargo signal.</p>
+          <h2>Source notes</h2>
+          <p>Quick reference for checking the contract, mint math, and official links before the public launch signal.</p>
         </div>
         <div className="principle-grid">
           {docsSections.map((section) => (
@@ -338,13 +338,13 @@ function HowPage() {
         <div className="block-heading route-heading">
           <span>// ROUTE</span>
           <h2>How cargo moves</h2>
-          <p>Connect wallet. Load cargo. Receive C404. Nothing moves until you confirm inside your wallet.</p>
+          <p>Connect wallet. Choose cargo. Confirm the transaction. Nothing moves until you approve it inside your own wallet.</p>
         </div>
         <div className="how-intro-card">
           <span>what is cargo404?</span>
           <p>
-            Cargo404 is a fixed-supply C404 ERC20 cargo mint on BNB Chain. One cargo is one mint unit:
-            pay 0.0025 BNB plus gas through the verified contract and receive 4,040 C404 to the same wallet.
+            Cargo404 is a fixed-supply ERC20 cargo mint on BNB Chain. One cargo is one mint unit:
+            pay 0.0025 BNB plus gas and receive 4,040 C404 to the same wallet.
           </p>
         </div>
         <div className="steps-grid route-steps">
@@ -366,7 +366,7 @@ function HowPage() {
         <div className="block-heading">
           <span>// FAQ</span>
           <h2>Before loading cargo</h2>
-          <p>Quick checks for chain, wallet, cargo units, and safety before you interact with the mint terminal.</p>
+          <p>Check the chain, contract, cargo amount, and wallet prompt before confirming any transaction.</p>
         </div>
         <div className="faq-grid">
           {faqItems.map(([question, answer]) => (
@@ -382,7 +382,7 @@ function HowPage() {
         <div className="block-heading">
           <span>// NEXT_STOPS</span>
           <h2>Roadmap</h2>
-          <p>Simple milestone map for the community: review the sources, wait for the official cargo signal, then track proof links after launch.</p>
+          <p>Review the sources, wait for the official launch signal, then track proof links after launch.</p>
         </div>
         <div className="roadmap-grid">
           {roadmapItems.map((item) => (
