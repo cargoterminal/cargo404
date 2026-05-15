@@ -136,6 +136,23 @@ BPS interpretation:
 
 Important: the contract only splits raised BNB. It does not automatically create PancakeSwap liquidity, lock LP, burn LP, or execute a buyback. Those are manual operational steps that need public proof after they happen.
 
+## Compiler warning clarification
+
+BscScan may display compiler-version warnings because the verified source was compiled with Solidity `0.8.28`.
+
+These warnings are not considered applicable to Cargo404's implementation because:
+
+- Cargo404 does not use transient storage.
+- Cargo404 does not rely on Cancun-specific EVM behavior.
+- Cargo404 does not use storage arrays, array deletion, array push/pop, or storage array copying patterns tied to the listed compiler bugs.
+- Cargo404 uses a simple fixed-supply ERC20 cargo mint model with hardcoded limits and no upgradeability.
+
+Public wording if asked:
+
+```text
+BscScan shows a compiler-version warning for Solidity 0.8.28. The listed compiler issues require patterns Cargo404 does not use, such as transient storage/Cancun-specific behavior or storage array clearing/copying edge cases. Cargo404 is a verified fixed-supply ERC20 cargo mint with hardcoded price, wallet cap, total cap, pause safety, and one-time BNB distribution logic.
+```
+
 ## Safe public wording
 
 Use:

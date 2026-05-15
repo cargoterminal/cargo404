@@ -198,6 +198,20 @@ function DocsPage() {
         </div>
         <a href={bscscanUrl} target="_blank" rel="noreferrer">VIEW_CONTRACT <ArrowUpRight size={15} /></a>
       </section>
+
+      <section className="route-card compiler-note" id="compiler-note">
+        <span>// COMPILER_NOTE</span>
+        <h2>BscScan compiler warning clarification</h2>
+        <p>
+          BscScan may display Solidity 0.8.28 compiler-version warnings. They are not specific to Cargo404 logic.
+          Cargo404 does not use transient storage, Cancun-specific behavior, or storage array clearing/copying patterns tied to the listed compiler bugs.
+        </p>
+        <ul>
+          <li>Verified fixed-supply ERC20 cargo mint.</li>
+          <li>No upgradeability, no NFT/ERC404 mechanics, no auto-LP claim.</li>
+          <li>Liquidity is handled manually after mint; LP lock/burn proof will be posted only if completed.</li>
+        </ul>
+      </section>
     </div>
   )
 }
