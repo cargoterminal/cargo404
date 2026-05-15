@@ -96,9 +96,23 @@ export function MintPanel() {
     }
   }, [])
   const hasInjectedWallet = isBrowserWalletReady || Boolean(browserWalletConnector)
-  const detectedWallet = hasInjectedWallet ? browserWalletConnector?.name || 'browser wallet ready' : 'no browser wallet found'
-  const displayedAddress = isConnected ? shortAddress(address) : detectedWallet
+  const walletStatus = isConnected
+    ? shortAddress(address)
+    : hasInjectedWallet
+      ? 'Browser wallet detected'
+      : hasConfiguredReownProjectId
+        ? 'Mobile wallet available'
+        : 'Not connected'
   const statusLabel = !contractReady ? 'offline' : mintActive ? 'live' : 'gate closed'
+  const lockReason = !mintActive
+    ? 'Gate closed — minting unlocks only after the official launch signal.'
+    : !isConnected
+      ? 'Connect wallet to load cargo.'
+      : wrongChain
+        ? 'Switch wallet to BNB Smart Chain.'
+        : walletRemaining === 0
+          ? 'Wallet limit reached.'
+          : ''
   const copyContract = () => {
     if (!contractReady || !navigator.clipboard) return
     navigator.clipboard.writeText(cargo404Address)
@@ -129,8 +143,8 @@ export function MintPanel() {
 
       <div className="mint-summary">
         <div><span>mint fee</span><strong>0.0025 BNB</strong></div>
-        <div><span>you receive</span><strong>4,040 C404</strong></div>
-        <div><span>wallet cap</span><strong>{walletMinted}/10 used</strong></div>
+        <div><span>per cargo</span><strong>4,040 C404</strong></div>
+        <div><span>wallet cap</span><strong>{walletMinted}/10 cargo used</strong></div>
       </div>
 
       <div className="data-table compact">
@@ -139,9 +153,18 @@ export function MintPanel() {
         <div><span>status</span><i /> <strong className={mintActive ? 'hot' : 'dim'}>{statusLabel}</strong></div>
       </div>
 
+      <div className="contract-verify-row">
+        <code>{cargo404Address}</code>
+        <a href={`https://bscscan.com/address/${cargo404Address}#code`} target="_blank" rel="noreferrer">BscScan ↗</a>
+      </div>
+
       <button type="button" className="copy-contract" onClick={copyContract} disabled={!contractReady}>
         {copyLabel}
       </button>
+
+      <div className="mint-hint">
+        One cargo costs 0.0025 BNB and sends 4,040 C404 to your connected wallet. Gas fee is separate.
+      </div>
 
       <div className="progress-line">
         <span>cargo loaded</span>
@@ -152,11 +175,11 @@ export function MintPanel() {
       <div className="terminal-section" id="cargo-wallet-connect">
         <div className="section-head"><span>▌ ACTIVATE CARGO LINK</span><b>{isConnected ? '○ ACTIVE' : '○ INACTIVE'}</b></div>
         <div className="terminal-field wallet-address-row">
-          <span>wallet address</span>
+          <span>wallet status</span>
           {!isConnected ? (
-            <strong>{displayedAddress}</strong>
+            <strong>{walletStatus}</strong>
           ) : (
-            <button type="button" onClick={() => disconnect()}>{displayedAddress} · disconnect</button>
+            <button type="button" onClick={() => disconnect()}>{walletStatus} · disconnect</button>
           )}
         </div>
         {!isConnected ? (
@@ -252,12 +275,13 @@ export function MintPanel() {
 
       <div className="terminal-section nested">
         <div className="section-head"><span>▌ LOAD CARGO</span><b>{canMint ? 'READY' : 'LOCKED'}</b></div>
+        {lockReason && <p className="lock-reason">{lockReason}</p>}
         <div className="stepper">
-          <button onClick={() => setUnits(Math.max(1, units - 1))}>−</button>
+          <button disabled={!canMint} onClick={() => setUnits(Math.max(1, units - 1))}>−</button>
           <strong>{units}</strong>
-          <button onClick={() => setUnits(Math.min(walletRemaining || 10, units + 1))}>+</button>
+          <button disabled={!canMint} onClick={() => setUnits(Math.min(walletRemaining || 10, units + 1))}>+</button>
         </div>
-        <div className="cost-line">total / {formatEther(totalCost)} bnb</div>
+        <div className="cost-line">total / {formatEther(totalCost)} bnb + gas</div>
         <button className="primary-btn" disabled={!canMint || isWriting || isConfirming} onClick={onMint}>
           {isWriting || isConfirming ? '◆ LOADING CARGO...' : '◆ LOAD CARGO'}
         </button>
@@ -265,7 +289,7 @@ export function MintPanel() {
 
       <div className="bottom-actions">
         <button type="button" onClick={() => window.location.reload()}>◆ REFRESH DATA</button>
-        <button type="button" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>◆ OVERVIEW</button>
+        <button type="button" onClick={() => { window.location.href = '/docs' }}>◆ REVIEW MANIFEST</button>
       </div>
 
       {!contractReady && <p className="warning">Contract not ready yet.</p>}

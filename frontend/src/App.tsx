@@ -29,9 +29,23 @@ const docs = [
   ['type', 'ERC20 cargo mint'],
   ['total supply', '40,400,000 C404'],
   ['public cargo', '7,000 units'],
-  ['mint price', '0.0025 BNB'],
+  ['mint price', '0.0025 BNB + gas'],
   ['per cargo', '4,040 C404'],
   ['wallet cap', '10 cargo'],
+]
+
+const safetyChecklist = [
+  'Use only cargo404.app and the official @Cargo404BNB links.',
+  'Verify the BNB Chain contract before sending BNB.',
+  'Never enter a seed phrase, private key, or "wallet validation" request.',
+  'Transactions are final once confirmed on-chain.',
+]
+
+const faqItems = [
+  ['What is one cargo?', 'One cargo is one mint unit. Each cargo costs 0.0025 BNB and sends 4,040 C404 to the connected wallet.'],
+  ['Which chain?', 'Cargo404 runs on BNB Smart Chain mainnet. You need BNB for the mint price and network gas.'],
+  ['Is this ERC404 or an NFT mint?', 'No. Cargo404 is a fixed-supply ERC20 cargo mint. It is not ERC404 and not an NFT mint.'],
+  ['Can the gate be closed?', 'Yes. Minting only works when the verified contract gate is active. The site shows gate closed until launch.'],
 ]
 
 const steps = [
@@ -170,7 +184,10 @@ function DocsPage() {
         <div className="block-heading route-heading">
           <span>// MANIFEST</span>
           <h2>Cargo manifest</h2>
-          <p>The short version: fixed supply, fixed mint price, fixed wallet cap. The contract is verified on BscScan.</p>
+          <p>
+            The short version: fixed supply, fixed mint price, fixed wallet cap, no hidden wallet approvals.
+            One cargo costs 0.0025 BNB plus gas and sends 4,040 C404 to the connected wallet.
+          </p>
         </div>
         <div className="docs-grid manifest-grid">
           {docs.map(([label, value]) => (
@@ -184,6 +201,10 @@ function DocsPage() {
           <a href={bscscanUrl} target="_blank" rel="noreferrer"><FileText size={16} /> verified contract</a>
           <a href="https://github.com/cargoterminal/cargo404" target="_blank" rel="noreferrer"><ArrowUpRight size={16} /> github repo</a>
         </div>
+        <div className="full-contract-card">
+          <span>official contract</span>
+          <code>{cargo404Address}</code>
+        </div>
       </section>
 
       <section className="route-card security-block route-security" id="security">
@@ -193,8 +214,11 @@ function DocsPage() {
           <h2>No seed phrase. No private key. No approval on connect.</h2>
           <p>
             Cargo404 is an ERC20 cargo mint on BNB Chain. It is not ERC404 and not an NFT mint.
-            Check the contract, then only confirm transactions inside your own wallet.
+            Check the contract, then only confirm transactions inside your own wallet. Blockchain transactions are final.
           </p>
+          <ul className="safety-list">
+            {safetyChecklist.map((item) => <li key={item}>{item}</li>)}
+          </ul>
         </div>
         <a href={bscscanUrl} target="_blank" rel="noreferrer">VIEW_CONTRACT <ArrowUpRight size={15} /></a>
       </section>
@@ -225,6 +249,13 @@ function HowPage() {
           <h2>How cargo moves</h2>
           <p>Connect wallet. Load cargo. Receive C404. Nothing moves until you confirm inside your wallet.</p>
         </div>
+        <div className="how-intro-card">
+          <span>what is cargo404?</span>
+          <p>
+            Cargo404 is a fixed-supply C404 ERC20 cargo mint on BNB Chain. One cargo is one mint unit:
+            pay 0.0025 BNB plus gas through the verified contract and receive 4,040 C404 to the same wallet.
+          </p>
+        </div>
         <div className="steps-grid route-steps">
           {steps.map((step) => (
             <article key={step.title}>
@@ -237,6 +268,22 @@ function HowPage() {
         <div className="route-actions">
           <a className="primary-hero" href={routes.mint}>OPEN_CARGO_TERMINAL</a>
           <a className="secondary-hero" href={routes.docs}>READ_MANIFEST</a>
+        </div>
+      </section>
+
+      <section className="route-card route-card-wide faq-block">
+        <div className="block-heading">
+          <span>// FAQ</span>
+          <h2>Before loading cargo</h2>
+          <p>Quick checks for chain, wallet, cargo units, and safety before you interact with the mint terminal.</p>
+        </div>
+        <div className="faq-grid">
+          {faqItems.map(([question, answer]) => (
+            <article key={question}>
+              <h3>{question}</h3>
+              <p>{answer}</p>
+            </article>
+          ))}
         </div>
       </section>
     </div>
