@@ -14,6 +14,9 @@ import {
 import { cargo404Abi, cargo404Address } from '../contract'
 import { hasConfiguredReownProjectId } from '../wagmiConfig'
 
+const officialXUrl = 'https://x.com/Cargo404BNB'
+const officialXHandle = '@Cargo404BNB'
+
 const activeCargo404Address = cargo404Address as `0x${string}`
 
 function shortAddress(address?: string) {
@@ -164,6 +167,7 @@ export function MintPanel() {
 
       <div className="mint-hint">
         One cargo costs 0.0025 BNB and sends 4,040 C404 to your connected wallet. Gas fee is separate.
+        Official updates: <a href={officialXUrl} target="_blank" rel="noreferrer">{officialXHandle}</a>.
       </div>
 
       <div className="progress-line">

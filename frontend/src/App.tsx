@@ -4,6 +4,9 @@ import { MintPanel } from './components/MintPanel'
 import { cargo404Address } from './contract'
 import './App.css'
 
+export const officialXUrl = 'https://x.com/Cargo404BNB'
+export const officialXHandle = '@Cargo404BNB'
+
 const bscscanUrl = `https://bscscan.com/address/${cargo404Address}#code`
 const shortContract = `${cargo404Address.slice(0, 6)}...${cargo404Address.slice(-4)}`
 
@@ -99,6 +102,7 @@ function Header({ activePage }: { activePage: PageKey }) {
         {navItems.map(([page, label]) => (
           <a key={page} className={activePage === page ? 'active' : undefined} href={routes[page]}>{label}</a>
         ))}
+        <a href={officialXUrl} target="_blank" rel="noreferrer">X</a>
       </nav>
     </header>
   )
@@ -121,6 +125,7 @@ function TerminalPage() {
           <div className="hero-buttons">
             <a className="primary-hero" href={routes.mint}>OPEN_CARGO_TERMINAL</a>
             <a className="secondary-hero" href={bscscanUrl} target="_blank" rel="noreferrer">VIEW_CONTRACT ↗</a>
+            <a className="secondary-hero social-hero" href={officialXUrl} target="_blank" rel="noreferrer">OFFICIAL_X ↗</a>
           </div>
           <div className="terminal-chips">
             <span>[ PRICE: 0.0025 BNB ]</span>
@@ -199,11 +204,13 @@ function DocsPage() {
         </div>
         <div className="doc-actions">
           <a href={bscscanUrl} target="_blank" rel="noreferrer"><FileText size={16} /> verified contract</a>
+          <a href={officialXUrl} target="_blank" rel="noreferrer"><ArrowUpRight size={16} /> official x</a>
           <a href="https://github.com/cargoterminal/cargo404" target="_blank" rel="noreferrer"><ArrowUpRight size={16} /> github repo</a>
         </div>
         <div className="full-contract-card">
-          <span>official contract</span>
+          <span>official sources</span>
           <code>{cargo404Address}</code>
+          <a href={officialXUrl} target="_blank" rel="noreferrer">{officialXHandle}</a>
         </div>
       </section>
 
@@ -221,6 +228,7 @@ function DocsPage() {
           </ul>
         </div>
         <a href={bscscanUrl} target="_blank" rel="noreferrer">VIEW_CONTRACT <ArrowUpRight size={15} /></a>
+        <a href={officialXUrl} target="_blank" rel="noreferrer">OFFICIAL_X <ArrowUpRight size={15} /></a>
       </section>
 
       <section className="route-card compiler-note" id="compiler-note">
@@ -300,6 +308,7 @@ function SiteFooter({ compact = false }: { compact?: boolean }) {
         <a href={bscscanUrl} target="_blank" rel="noreferrer">CONTRACT</a>
         <a href={routes.mint}>GATE</a>
         <a href={`${routes.docs}#security`}>SAFETY</a>
+        <a href={officialXUrl} target="_blank" rel="noreferrer">X</a>
       </nav>
     </footer>
   )
