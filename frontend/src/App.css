@@ -951,7 +951,9 @@
 
 .steps-grid article,
 .security-block,
-.compiler-note {
+.compiler-note,
+.roadmap-card,
+.principle-grid article {
   border: 1px solid var(--line);
   background: #070c05;
 }
@@ -961,13 +963,15 @@
 }
 
 .steps-grid svg,
-.security-block svg {
+.security-block svg,
+.principle-grid svg {
   color: var(--lime);
   width: 22px;
   height: 22px;
 }
 
-.steps-grid h3 {
+.steps-grid h3,
+.principle-grid h3 {
   margin: 16px 0 0;
   color: var(--text);
   font-size: 14px;
@@ -981,7 +985,9 @@
   background: #050905;
 }
 
-.how-intro-card p {
+.how-intro-card p,
+.roadmap-card p,
+.principle-grid p {
   margin: 10px 0 0;
   color: var(--body-text);
   font-size: 14px;
@@ -1048,6 +1054,70 @@
 
 .compiler-note {
   padding: 24px;
+}
+
+.roadmap-block,
+.docs-principles {
+  margin-top: 20px;
+}
+
+.roadmap-grid,
+.principle-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.principle-grid {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.roadmap-card,
+.principle-grid article {
+  padding: 18px;
+}
+
+.roadmap-card div {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+}
+
+.roadmap-card span,
+.roadmap-card b {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.roadmap-card span {
+  color: var(--muted);
+}
+
+.roadmap-card b {
+  color: var(--lime);
+}
+
+.roadmap-next b {
+  color: var(--yellow);
+}
+
+.roadmap-planned b {
+  color: var(--muted);
+}
+
+.roadmap-card h3 {
+  margin: 18px 0 0;
+  color: var(--text);
+  font-size: 18px;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.docs-principles .block-heading {
+  margin-bottom: 20px;
 }
 
 .compiler-note h2 {
@@ -1160,7 +1230,9 @@
   .docs-grid,
   .steps-grid,
   .faq-grid,
-  .security-block {
+  .security-block,
+  .roadmap-grid,
+  .principle-grid {
     grid-template-columns: 1fr;
   }
 

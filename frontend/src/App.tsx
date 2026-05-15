@@ -1,4 +1,4 @@
-import { ArrowUpRight, Boxes, FileText, PackageSearch, ShieldCheck, TerminalSquare } from 'lucide-react'
+import { ArrowUpRight, Boxes, FileText, Flag, PackageSearch, ShieldCheck, TerminalSquare } from 'lucide-react'
 import { useMemo } from 'react'
 import { MintPanel } from './components/MintPanel'
 import { cargo404Address } from './contract'
@@ -66,6 +66,48 @@ const steps = [
     icon: <Boxes />,
     title: '03 / receive_c404',
     copy: 'Confirm the transaction in your wallet. The verified contract sends C404 to the same address.',
+  },
+]
+
+const roadmapItems = [
+  {
+    phase: 'Phase 01',
+    title: 'Terminal online',
+    status: 'live',
+    copy: 'Website, verified BNB Chain contract, official X, public manifest, and cargo mint terminal are live for community review.',
+  },
+  {
+    phase: 'Phase 02',
+    title: 'Public cargo signal',
+    status: 'next',
+    copy: 'Open the mint gate from the official contract, run a first public mint check, and post the exact launch signal through official channels.',
+  },
+  {
+    phase: 'Phase 03',
+    title: 'Post-mint routing',
+    status: 'planned',
+    copy: 'Route raised BNB according to the contract flow, prepare liquidity only if the launch plan proceeds, then publish proof links before making claims.',
+  },
+  {
+    phase: 'Phase 04',
+    title: 'Community cargo ops',
+    status: 'planned',
+    copy: 'Ship holder-facing updates: proof archive, clearer dashboards, listing pages, and community quests that point back to the verified sources.',
+  },
+]
+
+const docsSections = [
+  {
+    title: 'Contract-first launch',
+    copy: 'Every important action points back to the verified BNB Chain contract. The website explains what the contract does, then the wallet asks you to confirm.',
+  },
+  {
+    title: 'Simple cargo math',
+    copy: '1 cargo = 4,040 C404. Public mint allocation is 7,000 cargo units. Wallet cap is 10 cargo. Mint price is 0.0025 BNB plus gas.',
+  },
+  {
+    title: 'Proof before claims',
+    copy: 'No audit, LP lock, burn, CEX listing, or liquidity claim is made until a public proof link exists. If it is not proven yet, it stays marked as planned.',
   },
 ]
 
@@ -244,6 +286,47 @@ function DocsPage() {
           <li>Liquidity is handled manually after mint; LP lock/burn proof will be posted only if completed.</li>
         </ul>
       </section>
+
+      <section className="route-card route-card-wide roadmap-block" id="roadmap">
+        <div className="block-heading route-heading">
+          <div>
+            <span>// ROADMAP</span>
+            <h2>Clear route, no fake promises</h2>
+          </div>
+          <p>
+            Cargo404 roadmap is written around verifiable milestones. Anything that needs proof stays planned until the transaction, page, or public record exists.
+          </p>
+        </div>
+        <div className="roadmap-grid">
+          {roadmapItems.map((item) => (
+            <article key={item.phase} className={`roadmap-card roadmap-${item.status}`}>
+              <div>
+                <span>{item.phase}</span>
+                <b>{item.status}</b>
+              </div>
+              <h3>{item.title}</h3>
+              <p>{item.copy}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="route-card route-card-wide docs-principles" id="principles">
+        <div className="block-heading">
+          <span>// PROJECT_DOCS</span>
+          <h2>Why the terminal is built this way</h2>
+          <p>Short docs for people checking if Cargo404 is real, simple, and worth following before the public cargo signal.</p>
+        </div>
+        <div className="principle-grid">
+          {docsSections.map((section) => (
+            <article key={section.title}>
+              <Flag />
+              <h3>{section.title}</h3>
+              <p>{section.copy}</p>
+            </article>
+          ))}
+        </div>
+      </section>
     </div>
   )
 }
@@ -294,6 +377,26 @@ function HowPage() {
           ))}
         </div>
       </section>
+
+      <section className="route-card route-card-wide roadmap-block compact-roadmap" id="roadmap">
+        <div className="block-heading">
+          <span>// NEXT_STOPS</span>
+          <h2>Roadmap</h2>
+          <p>Simple milestone map for the community: review the sources, wait for the official cargo signal, then track proof links after launch.</p>
+        </div>
+        <div className="roadmap-grid">
+          {roadmapItems.map((item) => (
+            <article key={item.phase} className={`roadmap-card roadmap-${item.status}`}>
+              <div>
+                <span>{item.phase}</span>
+                <b>{item.status}</b>
+              </div>
+              <h3>{item.title}</h3>
+              <p>{item.copy}</p>
+            </article>
+          ))}
+        </div>
+      </section>
     </div>
   )
 }
@@ -308,6 +411,7 @@ function SiteFooter({ compact = false }: { compact?: boolean }) {
         <a href={bscscanUrl} target="_blank" rel="noreferrer">CONTRACT</a>
         <a href={routes.mint}>GATE</a>
         <a href={`${routes.docs}#security`}>SAFETY</a>
+        <a href={`${routes.docs}#roadmap`}>ROADMAP</a>
         <a href={officialXUrl} target="_blank" rel="noreferrer">X</a>
       </nav>
     </footer>
